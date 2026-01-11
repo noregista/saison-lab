@@ -49,8 +49,8 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   /* 日本語の改行設定 */
-  word-break: normal;
-  overflow-wrap: anywhere;
+  word-break: keep-all;
+  overflow-wrap: break-word;
   line-break: strict;
 }
 
