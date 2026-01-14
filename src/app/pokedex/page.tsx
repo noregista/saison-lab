@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { Search, X, ChevronLeft, ChevronRight, Home } from 'lucide-react';
+import Head from 'next/head';
 import { creatures, typeColors, Creature } from './data/creatures';
 
 // Type translations
