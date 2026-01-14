@@ -5,26 +5,19 @@ import { Search, X, ChevronLeft, ChevronRight, Home } from 'lucide-react';
 import Head from 'next/head';
 import { creatures, typeColors, Creature } from './data/creatures';
 
+// basePath for GitHub Pages - always use the configured basePath
+const basePath = '/saison-lab';
+
+// Temporary: Only first 5 creatures have images
+const hasImage = (id: number) => id <= 5;
+
 // Type translations
 const typeTranslations: Record<string, string> = {
     grass: '草',
     fire: '炎',
     water: '水',
     electric: '電気',
-    normal: 'ノーマル',
-    psychic: 'エスパー',
-    flying: 'ひこう',
-    bug: '虫',
-    poison: '毒',
-    ground: '地面',
-    rock: '岩',
-    ghost: 'ゴースト',
-    ice: '氷',
-    dragon: 'ドラゴン',
-    fairy: 'フェアリー',
 };
-
-const basePath = '/saison-lab';
 
 type Lang = 'en' | 'jp';
 
@@ -181,12 +174,20 @@ function CreatureCard({ creature, lang, onClick }: { creature: Creature; lang: L
         >
             {/* Creature Image Placeholder */}
             <div
-                className="aspect-square rounded-lg mb-2 flex items-center justify-center text-4xl"
+                className="aspect-square rounded-lg mb-2 flex items-center justify-center text-4xl overflow-hidden relative"
                 style={{ backgroundColor: creature.color + '22' }}
             >
-                <span className="opacity-50 group-hover:opacity-100 transition-opacity text-5xl">
-                    {getCreatureEmoji(creature.types[0])}
-                </span>
+                {hasImage(creature.id) ? (
+                    <img
+                        src={`${basePath}/creatures/${String(creature.id).padStart(3, '0')}.png`}
+                        alt={creature.name.en}
+                        className="w-full h-full object-contain p-2 hover:scale-110 transition-transform duration-300"
+                    />
+                ) : (
+                    <span className="opacity-50 group-hover:opacity-100 transition-opacity text-5xl">
+                        {getCreatureEmoji(creature.types[0])}
+                    </span>
+                )}
             </div>
 
             {/* Info */}
@@ -258,10 +259,18 @@ function CreatureDetail({
                     {/* Left: Image */}
                     <div className="flex flex-col items-center">
                         <div
-                            className="w-full aspect-square max-w-[300px] rounded-2xl flex items-center justify-center text-8xl"
+                            className="w-full aspect-square max-w-[300px] rounded-2xl flex items-center justify-center text-8xl overflow-hidden relative"
                             style={{ backgroundColor: creature.color + '22' }}
                         >
-                            {getCreatureEmoji(creature.types[0])}
+                            {hasImage(creature.id) ? (
+                                <img
+                                    src={`${basePath}/creatures/${String(creature.id).padStart(3, '0')}.png`}
+                                    alt={creature.name.en}
+                                    className="w-full h-full object-contain p-4 animate-in fade-in zoom-in duration-500"
+                                />
+                            ) : (
+                                getCreatureEmoji(creature.types[0])
+                            )}
                         </div>
                         <h2 className="text-2xl font-bold mt-4">
                             {lang === 'en' ? creature.name.en : creature.name.jp}
