@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { Search, Globe, X, Menu } from 'lucide-react';
+import { Search, Globe, X, Menu, Home } from 'lucide-react';
 import { countries, Country } from './data/countries';
 
 // basePath
@@ -11,7 +11,7 @@ type Lang = 'en' | 'jp';
 
 const translations = {
     en: {
-        title: 'Unmapped Memories',
+        title: 'Forgotten Lands',
         search: 'Search countries...',
         population: 'Population',
         area: 'Area',
@@ -24,7 +24,7 @@ const translations = {
         countries: 'Territories',
     },
     jp: {
-        title: '地図にない記憶',
+        title: '忘却の国々',
         search: '国を検索...',
         population: '人口',
         area: '面積',
@@ -87,6 +87,13 @@ export default function UnmappedPage() {
             <header className="fixed top-0 left-0 right-0 z-40 bg-[#1a1a1f]/95 backdrop-blur border-b border-[#3a3a45]">
                 <div className="flex items-center justify-between px-4 py-4 max-w-7xl mx-auto">
                     <div className="flex items-center gap-4">
+                        <a
+                            href={`${basePath}/`}
+                            className="p-2 bg-[#252530] hover:bg-[#3a3a45] border border-[#3a3a45] rounded transition-colors"
+                            title="Home"
+                        >
+                            <Home size={18} />
+                        </a>
                         <button
                             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                             className="lg:hidden p-2 hover:bg-[#252530] rounded transition-colors"
@@ -185,16 +192,25 @@ export default function UnmappedPage() {
                             </div>
                         </div>
                     ) : (
-                        <div className="flex flex-col items-center justify-center h-full p-4 md:p-8">
-                            <p className="text-sm text-[#6a6a75] mb-4 uppercase tracking-widest">{t.selectCountry}</p>
-                            {/* Interactive World Map */}
-                            <WorldMap
-                                countries={countries}
-                                onSelectCountry={selectCountry}
-                                hoveredRegion={hoveredCountry}
-                                onHoverRegion={setHoveredCountry}
-                                lang={lang}
-                            />
+                        <div className="flex flex-col h-full p-4 md:p-8">
+                            <p className="text-sm text-[#6a6a75] mb-6 uppercase tracking-widest text-center">{t.selectCountry}</p>
+                            {/* Country Grid instead of World Map */}
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 overflow-y-auto">
+                                {countries.map((country) => (
+                                    <button
+                                        key={country.id}
+                                        onClick={() => selectCountry(country)}
+                                        onMouseEnter={() => setHoveredCountry(country.id)}
+                                        onMouseLeave={() => setHoveredCountry(null)}
+                                        className={`p-3 bg-[#252530] border border-[#3a3a45] rounded-lg text-left transition-all hover:border-[#8b5a5a] hover:scale-105 ${hoveredCountry === country.id ? 'animate-shake' : ''}`}
+                                    >
+                                        <div className="text-xs text-[#8b5a5a] mb-1">{country.region.toUpperCase()}</div>
+                                        <div className="text-sm font-medium truncate">
+                                            {lang === 'en' ? country.name.en : country.name.jp}
+                                        </div>
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     )}
                 </main>

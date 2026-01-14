@@ -18,10 +18,13 @@ const translations = {
         'apps-title': 'アプリ一覧',
         'app-tcg-desc': 'オリジナルのTCGカードを簡単に作成できるジェネレーター。画像をアップロードして、テキストを入力するだけ。',
         'app-splitter-desc': '画像を4分割してSNS投稿に最適化。2×2グリッドと1×4縦分割に対応。',
+        'app-pokedex-desc': '151匹の架空の幻獣を収録した図鑑。日英対応、インタラクティブなデータを収録。',
+        'app-unmapped-desc': 'どの地図にも存在しない200の忘れられた領土を探索。不思議で不安なデータが待っている。',
         'no-results': '該当するアプリが見つかりません',
         'update-title': '更新履歴',
         'update-1': 'サイトを公開しました。TCG Card Generatorを追加。',
         'update-2': 'Splitterを追加しました。',
+        'update-3': '幻獣図鑑と忘却の国々を追加しました。',
         'footer-privacy': 'プライバシーポリシー',
         'footer-contact': 'お問い合わせ',
         'footer-disclaimer': '免責事項',
@@ -60,10 +63,13 @@ const translations = {
         'apps-title': 'Apps',
         'app-tcg-desc': 'A generator that makes it easy to create original TCG cards. Just upload an image and enter text.',
         'app-splitter-desc': 'Split images into 4 parts for optimal SNS posting. Supports 2×2 grid and 1×4 vertical split modes.',
+        'app-pokedex-desc': 'An encyclopedia of 151 fictional fantastic creatures. Includes bilingual support and interactive data.',
+        'app-unmapped-desc': 'Explore 200 forgotten territories that exist nowhere on any map. Contains mysterious and unsettling data.',
         'no-results': 'No matching apps found',
         'update-title': 'Updates',
         'update-1': 'Site launched. Added TCG Card Generator.',
         'update-2': 'Added Splitter.',
+        'update-3': 'Added Phantom Bestiary and Forgotten Lands.',
         'footer-privacy': 'Privacy Policy',
         'footer-contact': 'Contact',
         'footer-disclaimer': 'Disclaimer',
@@ -98,21 +104,36 @@ const translations = {
 const apps = [
     {
         id: 'tcg',
-        name: 'TCG Card Generator',
+        name: { jp: 'TCG Card Generator', en: 'TCG Card Generator' },
         href: '/tcg',
         icon: '🃏',
         descKey: 'app-tcg-desc' as const,
     },
     {
         id: 'splitter',
-        name: 'Splitter',
+        name: { jp: 'Splitter', en: 'Splitter' },
         href: '/splitter',
         icon: '✂️',
         descKey: 'app-splitter-desc' as const,
     },
+    {
+        id: 'pokedex',
+        name: { jp: '幻獣図鑑', en: 'Phantom Bestiary' },
+        href: '/pokedex',
+        icon: '📖',
+        descKey: 'app-pokedex-desc' as const,
+    },
+    {
+        id: 'unmapped',
+        name: { jp: '忘却の国々', en: 'Forgotten Lands' },
+        href: '/unmapped',
+        icon: '🌍',
+        descKey: 'app-unmapped-desc' as const,
+    },
 ];
 
 const updates = [
+    { date: '2026.01.15', key: 'update-3' as const },
     { date: '2026.01.11', key: 'update-2' as const },
     { date: '2026.01.11', key: 'update-1' as const },
 ];
@@ -128,10 +149,10 @@ export default function HomePage() {
         if (!searchQuery.trim()) return apps;
         const query = searchQuery.toLowerCase();
         return apps.filter(app =>
-            app.name.toLowerCase().includes(query) ||
+            app.name[lang].toLowerCase().includes(query) ||
             t[app.descKey].toLowerCase().includes(query)
         );
-    }, [searchQuery, t]);
+    }, [searchQuery, t, lang]);
 
     const openModal = (type: 'privacy' | 'contact' | 'disclaimer') => setActiveModal(type);
     const closeModal = () => setActiveModal(null);
@@ -221,7 +242,7 @@ export default function HomePage() {
                                 <div className="w-14 h-14 bg-gradient-to-br from-emerald to-emerald-dark rounded-xl flex items-center justify-center text-2xl mb-4">
                                     {app.icon}
                                 </div>
-                                <h3 className="text-xl font-semibold text-white mb-2">{app.name}</h3>
+                                <h3 className="text-xl font-semibold text-white mb-2">{app.name[lang]}</h3>
                                 <p className="text-sm text-[#8b949e] leading-relaxed">{t[app.descKey]}</p>
                             </Link>
                         ))}

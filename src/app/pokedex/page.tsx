@@ -1,8 +1,27 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Search, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, X, ChevronLeft, ChevronRight, Home } from 'lucide-react';
 import { creatures, typeColors, Creature } from './data/creatures';
+
+// Type translations
+const typeTranslations: Record<string, string> = {
+    grass: '草',
+    fire: '炎',
+    water: '水',
+    electric: '電気',
+    normal: 'ノーマル',
+    psychic: 'エスパー',
+    flying: 'ひこう',
+    bug: '虫',
+    poison: '毒',
+    ground: '地面',
+    rock: '岩',
+    ghost: 'ゴースト',
+    ice: '氷',
+    dragon: 'ドラゴン',
+    fairy: 'フェアリー',
+};
 
 const basePath = '/saison-lab';
 
@@ -10,7 +29,7 @@ type Lang = 'en' | 'jp';
 
 const translations = {
     en: {
-        title: 'Unmapped Pokédex',
+        title: 'Phantom Bestiary',
         subtitle: '151 Fictional Creatures',
         search: 'Search by name or type...',
         category: 'Category',
@@ -29,7 +48,7 @@ const translations = {
         noResults: 'No creatures found',
     },
     jp: {
-        title: 'Unmapped 図鑑',
+        title: '幻獣図鑑',
         subtitle: '151匹の架空生物',
         search: '名前またはタイプで検索...',
         category: '分類',
@@ -82,9 +101,18 @@ export default function PokedexPage() {
             {/* Header */}
             <header className="sticky top-0 z-40 bg-gradient-to-r from-red-600 to-red-500 shadow-lg">
                 <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-                    <div>
-                        <h1 className="text-xl md:text-2xl font-bold tracking-wide">{t.title}</h1>
-                        <p className="text-xs text-red-100 opacity-80">{t.subtitle}</p>
+                    <div className="flex items-center gap-4">
+                        <a
+                            href={`${basePath}/`}
+                            className="p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
+                            title="Home"
+                        >
+                            <Home size={20} />
+                        </a>
+                        <div>
+                            <h1 className="text-xl md:text-2xl font-bold tracking-wide">{t.title}</h1>
+                            <p className="text-xs text-red-100 opacity-80">{t.subtitle}</p>
+                        </div>
                     </div>
                     <button
                         onClick={() => setLang(lang === 'en' ? 'jp' : 'en')}
@@ -173,7 +201,7 @@ function CreatureCard({ creature, lang, onClick }: { creature: Creature; lang: L
                             className="text-xs px-2 py-0.5 rounded-full"
                             style={{ backgroundColor: typeColors[type], color: '#fff' }}
                         >
-                            {type}
+                            {lang === 'jp' ? typeTranslations[type] : type}
                         </span>
                     ))}
                 </div>
@@ -244,7 +272,7 @@ function CreatureDetail({
                                     className="px-3 py-1 rounded-full text-sm font-medium"
                                     style={{ backgroundColor: typeColors[type], color: '#fff' }}
                                 >
-                                    {type}
+                                    {lang === 'jp' ? typeTranslations[type] : type}
                                 </span>
                             ))}
                         </div>
