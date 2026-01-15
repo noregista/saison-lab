@@ -35,7 +35,7 @@ const translations = {
         energy: 'Energy',
         stability: 'Stability',
         agility: 'Agility',
-        description: 'Pokédex Entry',
+        description: 'Info',
         noResults: 'No creatures found',
     },
     jp: {
@@ -59,7 +59,7 @@ const translations = {
     },
 };
 
-export default function PokedexPage() {
+export default function CreatureDexPage() {
     const [lang, setLang] = useState<Lang>('jp');
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCreature, setSelectedCreature] = useState<Creature | null>(null);
@@ -93,7 +93,7 @@ export default function PokedexPage() {
             <header className="sticky top-0 z-40 bg-gradient-to-r from-red-600 to-red-500 shadow-lg">
                 <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        {/* Home link - Pokedex themed */}
+                        {/* Home link - Creature themed */}
                         <a
                             href="https://saison-lab.com"
                             target="_blank"

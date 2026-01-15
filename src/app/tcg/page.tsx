@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 
 
-type CardStyle = 'pokemon' | 'yugioh' | 'mtg';
+type CardStyle = 'pocket' | 'duel' | 'mana';
 type Language = 'ja' | 'en';
 
 interface TypeInfo {
@@ -25,7 +25,7 @@ const cardStyles: Record<CardStyle, {
     showAttack2: boolean;
     showDamage: boolean;
 }> = {
-    pokemon: {
+    pocket: {
         name: 'Pocket Monster',
         types: [
             { id: 'fire', icon: '🔥', nameJa: '炎', nameEn: 'Fire', gradient: ['#FF6B6B', '#FF8E53'] },
@@ -40,7 +40,7 @@ const cardStyles: Record<CardStyle, {
         ],
         showHP: true, showATK: false, showDEF: false, showMana: false, showPower: false, showAttack2: true, showDamage: true,
     },
-    yugioh: {
+    duel: {
         name: 'Duel Monsters',
         types: [
             { id: 'dark', icon: '🌑', nameJa: '闇', nameEn: 'DARK', gradient: ['#2C2C2C', '#1a1a2e'] },
@@ -53,7 +53,7 @@ const cardStyles: Record<CardStyle, {
         ],
         showHP: false, showATK: true, showDEF: true, showMana: false, showPower: false, showAttack2: false, showDamage: false,
     },
-    mtg: {
+    mana: {
         name: 'Mana Wars',
         types: [
             { id: 'white', icon: '☀️', nameJa: '白', nameEn: 'White', gradient: ['#FFFAF0', '#FDF5E6'] },
@@ -68,26 +68,26 @@ const cardStyles: Record<CardStyle, {
 };
 
 const styleDefaults: Record<CardStyle, Record<Language, { cardName: string; attack1Name: string; attack1Desc: string; attack2Name: string; attack2Desc: string; flavorText: string }>> = {
-    pokemon: {
+    pocket: {
         en: { cardName: 'Sparky', attack1Name: 'Thunder Shock', attack1Desc: 'Flip a coin. If heads, the opponent is now Paralyzed.', attack2Name: 'Thunderbolt', attack2Desc: 'Discard all Energy from this creature.', flavorText: 'It stores electricity in the electric sacs on its cheeks.' },
         ja: { cardName: 'スパーキー', attack1Name: '電撃ショック', attack1Desc: 'コインを1回投げオモテなら、相手のモンスターをマヒにする。', attack2Name: '10万ボルト', attack2Desc: 'このカードについているエネルギーを、すべてトラッシュする。', flavorText: 'ほっぺたの 赤い 袋に 電気を ためる。' },
     },
-    yugioh: {
-        en: { cardName: 'Dark Magician', attack1Name: 'Dark Magic Attack', attack1Desc: 'The ultimate wizard in terms of attack and defense.', attack2Name: '', attack2Desc: '', flavorText: 'A master of the dark arts.' },
+    duel: {
+        en: { cardName: 'Dark Sorcerer', attack1Name: 'Dark Magic Attack', attack1Desc: 'The ultimate wizard in terms of attack and defense.', attack2Name: '', attack2Desc: '', flavorText: 'A master of the dark arts.' },
         ja: { cardName: '黒魔導士', attack1Name: 'ブラック・マジック', attack1Desc: '攻撃力と守備力を兼ね備えた究極の魔法使い。', attack2Name: '', attack2Desc: '', flavorText: '闇の魔術の達人。' },
     },
-    mtg: {
-        en: { cardName: 'Serra Angel', attack1Name: 'Flying, Vigilance', attack1Desc: 'This creature can attack without being tapped.', attack2Name: '', attack2Desc: '', flavorText: 'Born with wings of light.' },
-        ja: { cardName: 'セラの天使', attack1Name: '飛行、警戒', attack1Desc: 'このクリーチャーはタップせずに攻撃できる。', attack2Name: '', attack2Desc: '', flavorText: '光の翼を持って生まれる。' },
+    mana: {
+        en: { cardName: 'Serra Messenger', attack1Name: 'Flying, Vigilance', attack1Desc: 'This creature can attack without being tapped.', attack2Name: '', attack2Desc: '', flavorText: 'Born with wings of light.' },
+        ja: { cardName: 'セラの使者', attack1Name: '飛行、警戒', attack1Desc: 'このクリーチャーはタップせずに攻撃できる。', attack2Name: '', attack2Desc: '', flavorText: '光の翼を持って生まれる。' },
     },
 };
 
 const translations = {
     ja: {
         title: 'カードジェネレーター',
-        'style.pokemon': 'ポケット風',
-        'style.yugioh': 'デュエル風',
-        'style.mtg': 'マナ風',
+        'style.pocket': 'ポケット風',
+        'style.duel': 'デュエル風',
+        'style.mana': 'マナ風',
         'input.title': 'カード情報入力',
         'input.upload': '画像をドラッグ＆ドロップ\nまたはクリックして選択',
         'input.name': 'カード名',
@@ -112,9 +112,9 @@ const translations = {
     },
     en: {
         title: 'Card Generator',
-        'style.pokemon': 'Pocket Monster',
-        'style.yugioh': 'Duel Monsters',
-        'style.mtg': 'Mana Wars',
+        'style.pocket': 'Pocket Style',
+        'style.duel': 'Duel Style',
+        'style.mana': 'Mana Style',
         'input.title': 'Card Information',
         'input.upload': 'Drag & Drop Image\nor Click to Select',
         'input.name': 'Card Name',
@@ -142,7 +142,7 @@ const translations = {
 export default function TCGPage() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [lang, setLang] = useState<Language>('ja');
-    const [style, setStyle] = useState<CardStyle>('pokemon');
+    const [style, setStyle] = useState<CardStyle>('pocket');
     const [currentType, setCurrentType] = useState<string>('grass');
     const [uploadedImage, setUploadedImage] = useState<HTMLImageElement | null>(null);
     const [imageOffset, setImageOffset] = useState({ x: 0, y: 0 });
@@ -242,7 +242,7 @@ export default function TCGPage() {
             ctx.fillText(line, x, currentY);
         };
 
-        if (style === 'pokemon') {
+        if (style === 'pocket') {
             // Pokemon card
             const gradient = ctx.createLinearGradient(0, 0, width, height);
             gradient.addColorStop(0, typeInfo.gradient[0]);
@@ -351,7 +351,7 @@ export default function TCGPage() {
             ctx.font = '16px Roboto, sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText('Pocket Monster Style Card 2026', width / 2, height - 60);
-        } else if (style === 'yugioh') {
+        } else if (style === 'duel') {
             // Yu-Gi-Oh style card
             ctx.fillStyle = '#7B5A2F';
             roundRect(0, 0, width, height, 20);
@@ -424,7 +424,7 @@ export default function TCGPage() {
             ctx.font = '14px Roboto, sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText('Duel Monsters Style Card 2026', width / 2, height - 30);
-        } else if (style === 'mtg') {
+        } else if (style === 'mana') {
             // MTG style card
             const gradient = ctx.createLinearGradient(0, 0, width, height);
             gradient.addColorStop(0, typeInfo.gradient[0]);
@@ -542,16 +542,34 @@ export default function TCGPage() {
     const handleDownload = () => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        canvas.toBlob((blob) => {
-            if (blob) {
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `${cardName || 'card'}-${style}.png`;
-                a.click();
-                URL.revokeObjectURL(url);
-            }
-        }, 'image/png');
+
+        // Use toDataURL for better broad support and easier filename control in a single flow
+        try {
+            const dataUrl = canvas.toDataURL('image/png');
+            const fileName = `${cardName || 'card'}-${style}.png`.replace(/[\\\/:*?"<>|]/g, ''); // Basic filename sanitization
+
+            const link = document.createElement('a');
+            link.download = fileName;
+            link.href = dataUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (err) {
+            console.error('Download failed:', err);
+            // Fallback to Blob if DataURL fails
+            canvas.toBlob((blob) => {
+                if (blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${cardName || 'card'}-${style}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }
+            }, 'image/png');
+        }
     };
 
     const handleShare = async () => {
@@ -615,7 +633,7 @@ export default function TCGPage() {
                         </div>
                     </div>
                     <div className="flex items-center gap-2 flex-wrap">
-                        {(['pokemon', 'yugioh', 'mtg'] as const).map((s) => (
+                        {(['pocket', 'duel', 'mana'] as const).map((s) => (
                             <button
                                 key={s}
                                 onClick={() => setStyle(s)}

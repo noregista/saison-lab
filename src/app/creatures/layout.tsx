@@ -4,10 +4,10 @@ export const metadata: Metadata = {
     title: '幻獣図鑑 | Saison Lab',
     description: '151匹の架空の幻獣を収録した図鑑。日英対応、インタラクティブなデータを収録。',
     icons: {
-        icon: '/favicon-pokedex.svg',
+        icon: '/favicon-creatures.svg',
     },
 };
 
-export default function PokedexLayout({ children }: { children: React.ReactNode }) {
+export default function CreatureDexLayout({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
 }
