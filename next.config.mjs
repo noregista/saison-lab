@@ -4,10 +4,7 @@ const nextConfig = {
     images: {
         unoptimized: true,
     },
-    // GitHub Pagesのベースパス設定（リポジトリ名に合わせる）
-    basePath: '/saison-lab',
-    assetPrefix: '/saison-lab/',
+    // basePath and assetPrefix removed for custom domain
 };
 
 export default nextConfig;
-

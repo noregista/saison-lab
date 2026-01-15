@@ -2,8 +2,6 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 
-// basePath for GitHub Pages - always use the configured basePath
-const basePath = '/saison-lab';
 
 type CardStyle = 'pokemon' | 'yugioh' | 'mtg';
 type Language = 'ja' | 'en';
@@ -802,7 +800,7 @@ export default function TCGPage() {
                 </h2>
                 <div className="bg-[rgba(255,255,255,0.1)] backdrop-blur border border-[rgba(255,255,255,0.2)] rounded-2xl p-6 shadow-xl flex justify-center">
                     <img
-                        src={lang === 'ja' ? `${basePath}/images/usage_guide.png` : `${basePath}/images/usage_guide_en.png`}
+                        src={lang === 'ja' ? `/images/usage_guide.png` : `/images/usage_guide_en.png`}
                         alt={lang === 'ja' ? '使い方ガイド' : 'Usage Guide'}
                         className="max-w-full h-auto rounded-xl shadow-lg"
                         style={{ maxWidth: '800px' }}

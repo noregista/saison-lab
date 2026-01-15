@@ -4,8 +4,6 @@ import { useState, useMemo, useEffect } from 'react';
 import { Search, Globe, X, Menu, Home } from 'lucide-react';
 import { countries, Country } from './data/countries';
 
-// basePath
-const basePath = '/saison-lab';
 
 type Lang = 'en' | 'jp';
 
@@ -88,7 +86,7 @@ export default function UnmappedPage() {
                 <div className="flex items-center justify-between px-4 py-4 max-w-7xl mx-auto">
                     <div className="flex items-center gap-4">
                         <a
-                            href={`${basePath}/`}
+                            href="/"
                             className="p-2 bg-[#252530] hover:bg-[#3a3a45] border border-[#3a3a45] rounded transition-colors"
                             title="Home"
                         >

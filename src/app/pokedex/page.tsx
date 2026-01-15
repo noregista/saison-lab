@@ -5,9 +5,6 @@ import { Search, X, ChevronLeft, ChevronRight, Home } from 'lucide-react';
 import Head from 'next/head';
 import { creatures, typeColors, Creature } from './data/creatures';
 
-// basePath for GitHub Pages - always use the configured basePath
-const basePath = '/saison-lab';
-
 // Temporary: Only first 5 creatures have images
 const hasImage = (id: number) => id <= 5;
 
@@ -97,7 +94,7 @@ export default function PokedexPage() {
                 <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <a
-                            href={`${basePath}/`}
+                            href="/"
                             className="p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
                             title="Home"
                         >
@@ -179,7 +176,7 @@ function CreatureCard({ creature, lang, onClick }: { creature: Creature; lang: L
             >
                 {hasImage(creature.id) ? (
                     <img
-                        src={`${basePath}/creatures/${String(creature.id).padStart(3, '0')}.png`}
+                        src={`/creatures/${String(creature.id).padStart(3, '0')}.png`}
                         alt={creature.name.en}
                         className="w-full h-full object-contain p-2 hover:scale-110 transition-transform duration-300"
                     />
@@ -264,7 +261,7 @@ function CreatureDetail({
                         >
                             {hasImage(creature.id) ? (
                                 <img
-                                    src={`${basePath}/creatures/${String(creature.id).padStart(3, '0')}.png`}
+                                    src={`/creatures/${String(creature.id).padStart(3, '0')}.png`}
                                     alt={creature.name.en}
                                     className="w-full h-full object-contain p-4 animate-in fade-in zoom-in duration-500"
                                 />

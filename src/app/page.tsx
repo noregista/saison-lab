@@ -3,8 +3,6 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 
-// basePath for GitHub Pages - always use the configured basePath
-const basePath = '/saison-lab';
 
 type Language = 'jp' | 'en';
 
@@ -200,7 +198,7 @@ export default function HomePage() {
                 <section className="bg-[rgba(22,27,34,0.7)] backdrop-blur-xl border border-[rgba(80,200,120,0.2)] rounded-3xl p-8 md:p-12 mb-8 text-center shadow-lg animate-fadeIn">
                     <div className="relative inline-block mb-6">
                         <img
-                            src={`${basePath}/images/profile.jpg`}
+                            src="/images/profile.jpg"
                             alt="Saison Profile Icon"
                             width={140}
                             height={140}
