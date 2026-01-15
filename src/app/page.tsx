@@ -19,7 +19,7 @@ const translations = {
         'app-creatures-desc': '151匹の架空の生物を収録したインタラクティブな図鑑。',
         'no-results': '該当するアプリが見つかりません',
         'update-title': '更新履歴',
-        'update-1': 'サイトを公開しました。TCG Card Generatorを追加。',
+        'update-1': 'サイトを公開しました。TCGカードジェネレーターを追加。',
         'update-2': 'Splitterを追加しました。',
         'footer-privacy': 'プライバシーポリシー',
         'footer-contact': 'お問い合わせ',
