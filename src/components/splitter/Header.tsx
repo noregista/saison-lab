@@ -16,31 +16,19 @@ export default function Header({ lang, onLangChange }: HeaderProps) {
         <header className="relative z-50 border-b border-neon/20 bg-dark/90 backdrop-blur-sm">
             <div className="container mx-auto px-4 py-4">
                 <div className="flex items-center justify-between">
-                    {/* Logo */}
+                    {/* Logo - Home link */}
                     <Link
                         href="https://saison-lab.com"
                         target="_blank"
-                        className="flex items-center gap-3 group"
+                        className="flex items-center group"
                     >
                         <div className="w-10 h-10 border-2 border-neon flex items-center justify-center group-hover:bg-neon transition-all duration-300">
                             <Scissors className="w-5 h-5 text-neon group-hover:text-black transition-colors" />
                         </div>
-                        <span className="font-pixel text-xs text-neon neon-glow hidden sm:block">
-                            {t.brand}
-                        </span>
                     </Link>
 
                     {/* Right side */}
                     <div className="flex items-center gap-4">
-                        {/* Other tools link */}
-                        <Link
-                            href="https://saison-lab.com"
-                            target="_blank"
-                            className="text-sm text-white/60 hover:text-neon transition-colors hidden sm:block"
-                        >
-                            {t.otherTools}
-                        </Link>
-
                         {/* Language switch */}
                         <button
                             onClick={() => onLangChange(lang === 'en' ? 'ja' : 'en')}

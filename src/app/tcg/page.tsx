@@ -600,18 +600,18 @@ export default function TCGPage() {
             <header className="bg-[rgba(255,255,255,0.1)] backdrop-blur-lg border-b border-[rgba(255,255,255,0.2)] px-4 md:px-6 py-4 shadow-lg">
                 <div className="max-w-[1400px] mx-auto flex justify-between items-center flex-wrap gap-4">
                     <div className="flex items-center gap-4">
-                        {/* Home link */}
+                        {/* Home link - Card themed */}
                         <a
                             href="https://saison-lab.com"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-10 h-10 bg-[rgba(255,255,255,0.15)] hover:bg-[rgba(255,255,255,0.25)] rounded-full flex items-center justify-center transition-colors"
+                            className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 rounded-lg flex items-center justify-center transition-all shadow-lg hover:shadow-yellow-400/30"
                             title={lang === 'ja' ? 'ホーム' : 'Home'}
                         >
-                            🏠
+                            <span className="text-lg">🎴</span>
                         </a>
                         <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text text-transparent" style={{ fontFamily: 'Oswald, sans-serif' }}>
-                            🎴 {t.title}
+                            {t.title}
                         </div>
                     </div>
                     <div className="flex items-center gap-2 flex-wrap">

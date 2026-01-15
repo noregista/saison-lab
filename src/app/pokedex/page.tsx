@@ -93,12 +93,15 @@ export default function PokedexPage() {
             <header className="sticky top-0 z-40 bg-gradient-to-r from-red-600 to-red-500 shadow-lg">
                 <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
                     <div className="flex items-center gap-4">
+                        {/* Home link - Pokedex themed */}
                         <a
-                            href="/"
-                            className="p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
-                            title="Home"
+                            href="https://saison-lab.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-all shadow-lg border-2 border-red-700"
+                            title={lang === 'jp' ? 'ホーム' : 'Home'}
                         >
-                            <Home size={20} />
+                            <span className="text-lg">🔴</span>
                         </a>
                         <div>
                             <h1 className="text-xl md:text-2xl font-bold tracking-wide">{t.title}</h1>
