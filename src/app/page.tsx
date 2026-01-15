@@ -98,14 +98,14 @@ const translations = {
 const apps = [
     {
         id: 'tcg',
-        name: { jp: 'TCG Card Generator', en: 'TCG Card Generator' },
+        name: { jp: 'TCGカードジェネレーター', en: 'TCG Card Generator' },
         href: '/tcg',
         icon: '🃏',
         descKey: 'app-tcg-desc' as const,
     },
     {
         id: 'splitter',
-        name: { jp: 'Splitter', en: 'Splitter' },
+        name: { jp: '画像分割ツール Splitter', en: 'Splitter' },
         href: '/splitter',
         icon: '✂️',
         descKey: 'app-splitter-desc' as const,
