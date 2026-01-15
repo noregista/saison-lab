@@ -547,7 +547,7 @@ export default function TCGPage() {
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `custom-card-${style}-${Date.now()}.png`;
+                a.download = `${cardName || 'card'}-${style}.png`;
                 a.click();
                 URL.revokeObjectURL(url);
             }
