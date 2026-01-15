@@ -2,7 +2,7 @@ export const translations = {
     en: {
         // Header
         brand: "Saison Lab",
-        otherTools: "Card Generator",
+        otherTools: "Other Tools",
 
         // Main
         title: "Splitter",
@@ -45,7 +45,7 @@ export const translations = {
     ja: {
         // Header
         brand: "Saison Lab",
-        otherTools: "カード生成",
+        otherTools: "他のツール",
 
         // Main
         title: "Splitter",

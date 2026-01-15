@@ -34,7 +34,7 @@ export default function Header({ lang, onLangChange }: HeaderProps) {
                     <div className="flex items-center gap-4">
                         {/* Other tools link */}
                         <Link
-                            href="https://saison-lab.com/tools"
+                            href="https://saison-lab.com"
                             target="_blank"
                             className="text-sm text-white/60 hover:text-neon transition-colors hidden sm:block"
                         >
