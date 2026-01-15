@@ -192,22 +192,12 @@ export default function UnmappedPage() {
                     ) : (
                         <div className="flex flex-col h-full p-4 md:p-8">
                             <p className="text-sm text-[#6a6a75] mb-6 uppercase tracking-widest text-center">{t.selectCountry}</p>
-                            {/* Country Grid instead of World Map */}
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 overflow-y-auto">
-                                {countries.map((country) => (
-                                    <button
-                                        key={country.id}
-                                        onClick={() => selectCountry(country)}
-                                        onMouseEnter={() => setHoveredCountry(country.id)}
-                                        onMouseLeave={() => setHoveredCountry(null)}
-                                        className={`p-3 bg-[#252530] border border-[#3a3a45] rounded-lg text-left transition-all hover:border-[#8b5a5a] hover:scale-105 ${hoveredCountry === country.id ? 'animate-shake' : ''}`}
-                                    >
-                                        <div className="text-xs text-[#8b5a5a] mb-1">{country.region.toUpperCase()}</div>
-                                        <div className="text-sm font-medium truncate">
-                                            {lang === 'en' ? country.name.en : country.name.jp}
-                                        </div>
-                                    </button>
-                                ))}
+                            {/* World Map Display */}
+                            <div className="flex-1 flex items-center justify-center">
+                                <WorldMapDisplay
+                                    highlightedRegion={hoveredCountry ? countries.find(c => c.id === hoveredCountry)?.region || null : null}
+                                    lang={lang}
+                                />
                             </div>
                         </div>
                     )}
@@ -275,6 +265,214 @@ function DetailCard({ label, value, isWarning, isTaboo }: { label: string; value
             <div className={`text-lg group-hover:animate-shake ${isWarning ? 'text-[#8b8b5a]' : ''} ${isTaboo ? 'text-[#8b5a5a]' : ''}`}>
                 {value}
             </div>
+        </div>
+    );
+}
+
+// World Map Display component with region highlighting
+function WorldMapDisplay({ highlightedRegion, lang }: { highlightedRegion: string | null; lang: 'en' | 'jp' }) {
+    const regionNames = {
+        europe: { en: 'Europe', jp: 'ヨーロッパ' },
+        asia: { en: 'Asia', jp: 'アジア' },
+        africa: { en: 'Africa', jp: 'アフリカ' },
+        americas: { en: 'Americas', jp: 'アメリカタイリク' },
+        oceania: { en: 'Oceania', jp: 'オセアニア' },
+    };
+
+    const getRegionColor = (region: string) => {
+        if (highlightedRegion === region) {
+            return '#ff4444'; // Red glow for highlighted region
+        }
+        return '#3a3a45';
+    };
+
+    const getRegionGlow = (region: string) => {
+        if (highlightedRegion === region) {
+            return 'drop-shadow(0 0 10px #ff4444) drop-shadow(0 0 20px #ff666688)';
+        }
+        return 'none';
+    };
+
+    return (
+        <div className="relative w-full max-w-4xl">
+            {/* SVG World Map */}
+            <svg viewBox="0 0 1000 500" className="w-full h-auto">
+                {/* Background */}
+                <rect width="1000" height="500" fill="#1a1a1f" />
+
+                {/* Grid lines for atmosphere */}
+                {Array.from({ length: 20 }).map((_, i) => (
+                    <line key={`h${i}`} x1="0" y1={i * 25} x2="1000" y2={i * 25} stroke="#252530" strokeWidth="0.5" />
+                ))}
+                {Array.from({ length: 40 }).map((_, i) => (
+                    <line key={`v${i}`} x1={i * 25} y1="0" x2={i * 25} y2="500" stroke="#252530" strokeWidth="0.5" />
+                ))}
+
+                {/* Americas */}
+                <g style={{ filter: getRegionGlow('americas') }}>
+                    <path
+                        d="M50,80 L180,60 L220,100 L250,80 L280,120 L260,180 L220,200 L180,180 L150,220 L120,200 L100,160 L60,140 Z"
+                        fill={getRegionColor('americas')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    <path
+                        d="M150,220 L170,240 L160,280 L140,300 L120,280 L130,250 Z"
+                        fill={getRegionColor('americas')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    <path
+                        d="M140,300 L180,320 L200,380 L180,450 L140,470 L100,420 L90,360 L110,320 Z"
+                        fill={getRegionColor('americas')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    {highlightedRegion === 'americas' && (
+                        <text x="150" y="180" fill="#ffffff" fontSize="14" textAnchor="middle" fontWeight="bold">
+                            {regionNames.americas[lang]}
+                        </text>
+                    )}
+                </g>
+
+                {/* Europe */}
+                <g style={{ filter: getRegionGlow('europe') }}>
+                    <path
+                        d="M420,80 L480,60 L540,80 L560,120 L540,160 L500,180 L460,160 L420,140 L400,100 Z"
+                        fill={getRegionColor('europe')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    <path
+                        d="M400,80 L410,70 L420,90 L410,100 Z"
+                        fill={getRegionColor('europe')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    <path
+                        d="M460,30 L480,20 L500,40 L490,70 L470,60 Z"
+                        fill={getRegionColor('europe')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    {highlightedRegion === 'europe' && (
+                        <text x="480" y="120" fill="#ffffff" fontSize="14" textAnchor="middle" fontWeight="bold">
+                            {regionNames.europe[lang]}
+                        </text>
+                    )}
+                </g>
+
+                {/* Africa */}
+                <g style={{ filter: getRegionGlow('africa') }}>
+                    <path
+                        d="M420,200 L500,180 L560,200 L580,280 L560,380 L500,420 L440,400 L420,320 L400,260 Z"
+                        fill={getRegionColor('africa')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    <path
+                        d="M580,340 L600,330 L610,380 L590,400 Z"
+                        fill={getRegionColor('africa')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    {highlightedRegion === 'africa' && (
+                        <text x="480" y="300" fill="#ffffff" fontSize="14" textAnchor="middle" fontWeight="bold">
+                            {regionNames.africa[lang]}
+                        </text>
+                    )}
+                </g>
+
+                {/* Asia */}
+                <g style={{ filter: getRegionGlow('asia') }}>
+                    <path
+                        d="M560,40 L900,30 L920,100 L880,140 L800,120 L700,140 L600,120 L560,80 Z"
+                        fill={getRegionColor('asia')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    <path
+                        d="M560,160 L620,140 L680,160 L720,200 L700,260 L640,280 L580,260 L560,200 Z"
+                        fill={getRegionColor('asia')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    <path
+                        d="M720,140 L820,130 L860,180 L840,240 L780,260 L720,240 L700,200 Z"
+                        fill={getRegionColor('asia')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    <path
+                        d="M720,260 L780,280 L800,340 L760,380 L700,360 L680,300 Z"
+                        fill={getRegionColor('asia')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    <path
+                        d="M880,140 L900,130 L910,180 L890,200 L870,180 Z"
+                        fill={getRegionColor('asia')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    {highlightedRegion === 'asia' && (
+                        <text x="750" y="180" fill="#ffffff" fontSize="14" textAnchor="middle" fontWeight="bold">
+                            {regionNames.asia[lang]}
+                        </text>
+                    )}
+                </g>
+
+                {/* Oceania */}
+                <g style={{ filter: getRegionGlow('oceania') }}>
+                    <path
+                        d="M780,360 L880,340 L920,380 L900,440 L840,460 L780,440 L760,400 Z"
+                        fill={getRegionColor('oceania')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    <path
+                        d="M940,420 L960,410 L970,450 L950,470 Z"
+                        fill={getRegionColor('oceania')}
+                        stroke="#8b5a5a"
+                        strokeWidth="1"
+                        className="transition-all duration-500"
+                    />
+                    <circle cx="950" cy="350" r="5" fill={getRegionColor('oceania')} stroke="#8b5a5a" strokeWidth="1" className="transition-all duration-500" />
+                    <circle cx="920" cy="300" r="4" fill={getRegionColor('oceania')} stroke="#8b5a5a" strokeWidth="1" className="transition-all duration-500" />
+                    {highlightedRegion === 'oceania' && (
+                        <text x="850" y="400" fill="#ffffff" fontSize="14" textAnchor="middle" fontWeight="bold">
+                            {regionNames.oceania[lang]}
+                        </text>
+                    )}
+                </g>
+
+                {/* Scanlines effect */}
+                <rect width="1000" height="500" fill="url(#scanlines)" opacity="0.05" className="pointer-events-none" />
+                <defs>
+                    <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
+                        <line x1="0" y1="2" x2="4" y2="2" stroke="#8b5a5a" strokeWidth="1" />
+                    </pattern>
+                </defs>
+
+                {/* Instructions */}
+                <text x="500" y="480" fill="#3a3a45" fontSize="10" textAnchor="middle" className="pointer-events-none uppercase tracking-widest">
+                    {lang === 'jp' ? 'サイドバーカラリョウドヲセンタク' : 'Select a territory from the sidebar'}
+                </text>
+            </svg>
         </div>
     );
 }

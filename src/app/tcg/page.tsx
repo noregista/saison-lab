@@ -798,12 +798,12 @@ export default function TCGPage() {
                 <h2 className="text-xl md:text-2xl font-bold text-white text-center mb-6" style={{ fontFamily: 'Oswald, sans-serif' }}>
                     📖 {t['howto.title']}
                 </h2>
-                <div className="bg-[rgba(255,255,255,0.1)] backdrop-blur border border-[rgba(255,255,255,0.2)] rounded-2xl p-6 shadow-xl flex justify-center">
+                <div className="bg-[rgba(255,255,255,0.1)] backdrop-blur border border-[rgba(255,255,255,0.2)] rounded-2xl p-4 md:p-6 shadow-xl flex justify-center overflow-hidden">
                     <img
                         src={lang === 'ja' ? `/images/usage_guide.png` : `/images/usage_guide_en.png`}
                         alt={lang === 'ja' ? '使い方ガイド' : 'Usage Guide'}
-                        className="max-w-full h-auto rounded-xl shadow-lg"
-                        style={{ maxWidth: '800px' }}
+                        className="w-full h-auto rounded-xl shadow-lg object-contain"
+                        style={{ maxWidth: '100%' }}
                     />
                 </div>
             </div>
