@@ -148,6 +148,42 @@ export default function PokedexPage() {
                 )}
             </main>
 
+            {/* Footer */}
+            <footer className="bg-gradient-to-r from-red-700 to-red-600 border-t border-red-400/30 py-6 mt-8">
+                <div className="max-w-7xl mx-auto px-4">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                        {/* Home link */}
+                        <a
+                            href="https://saison-lab.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-red-100/80 hover:text-white transition-colors"
+                        >
+                            <Home size={16} />
+                            <span className="text-sm">{lang === 'jp' ? 'ポータルに戻る' : 'Back to Portal'}</span>
+                        </a>
+
+                        {/* Copyright */}
+                        <p className="text-red-100/60 text-xs order-last md:order-none">
+                            © 2026 Saison Lab. All rights reserved.
+                        </p>
+
+                        {/* X (Twitter) follow link */}
+                        <a
+                            href="https://x.com/saisonlab"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-red-100/80 hover:text-white transition-colors"
+                        >
+                            <span className="text-sm">{lang === 'jp' ? 'フォローする' : 'Follow us'}</span>
+                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </footer>
+
             {/* Detail Modal */}
             {selectedCreature && (
                 <CreatureDetail
