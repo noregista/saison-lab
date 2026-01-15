@@ -37,7 +37,7 @@ export const translations = {
         // Footer
         backToPortal: "Back to Portal",
         followUs: "Follow us",
-        copyright: "© 2024 Saison Lab. All rights reserved.",
+        copyright: "© 2026 Saison Lab. All rights reserved.",
 
         // Ad
         adLabel: "AD SPACE",
@@ -80,7 +80,7 @@ export const translations = {
         // Footer
         backToPortal: "ポータルに戻る",
         followUs: "フォローする",
-        copyright: "© 2024 Saison Lab. All rights reserved.",
+        copyright: "© 2026 Saison Lab. All rights reserved.",
 
         // Ad
         adLabel: "広告枠",

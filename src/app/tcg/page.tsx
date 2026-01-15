@@ -817,8 +817,37 @@ export default function TCGPage() {
 
             {/* Footer */}
             <footer className="bg-[rgba(255,255,255,0.1)] backdrop-blur border-t border-[rgba(255,255,255,0.2)] py-6 mt-12">
-                <div className="max-w-[1400px] mx-auto text-center text-[rgba(255,255,255,0.6)] text-sm">
-                    © 2026 {t.title} | #CardMaker #CustomCard
+                <div className="max-w-[1400px] mx-auto px-4">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                        {/* Home link */}
+                        <a
+                            href="https://saison-lab.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-[rgba(255,255,255,0.6)] hover:text-white transition-colors"
+                        >
+                            <span>🏠</span>
+                            <span className="text-sm">{lang === 'ja' ? 'ポータルに戻る' : 'Back to Portal'}</span>
+                        </a>
+
+                        {/* Copyright */}
+                        <p className="text-[rgba(255,255,255,0.4)] text-xs order-last md:order-none">
+                            © 2026 Saison Lab. All rights reserved.
+                        </p>
+
+                        {/* X (Twitter) follow link */}
+                        <a
+                            href="https://x.com/saisonlab"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-[rgba(255,255,255,0.6)] hover:text-white transition-colors"
+                        >
+                            <span className="text-sm">{lang === 'ja' ? 'フォローする' : 'Follow us'}</span>
+                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </footer>
         </div>

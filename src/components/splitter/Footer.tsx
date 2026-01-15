@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Language, translations } from '@/lib/i18n';
-import { Twitter, Home } from 'lucide-react';
+import { Home } from 'lucide-react';
 
 interface FooterProps {
     lang: Language;
@@ -30,17 +30,20 @@ export default function Footer({ lang }: FooterProps) {
                         {t.copyright}
                     </p>
 
-                    {/* Social link */}
+                    {/* Social link - X (formerly Twitter) */}
                     <Link
                         href="https://x.com/saisonlab"
                         target="_blank"
                         className="flex items-center gap-2 text-white/60 hover:text-neon transition-colors"
                     >
                         <span className="text-sm">{t.followUs}</span>
-                        <Twitter className="w-4 h-4" />
+                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
                     </Link>
                 </div>
             </div>
         </footer>
     );
 }
+
