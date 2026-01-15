@@ -110,13 +110,6 @@ const apps = [
         icon: '✂️',
         descKey: 'app-splitter-desc' as const,
     },
-    {
-        id: 'creatures',
-        name: { jp: 'Creature Dex', en: 'Creature Dex' },
-        href: '/creatures',
-        icon: '🐾',
-        descKey: 'app-creatures-desc' as const,
-    },
 ];
 
 const updates = [
