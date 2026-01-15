@@ -6,6 +6,9 @@ export const metadata: Metadata = {
     description: "ひとりぼっちの開発者による個人制作アプリ集。A collection of apps by a solo developer.",
     keywords: ["Saison Lab", "セゾン ラボ", "TCG", "Card Generator", "Splitter", "Image Tool"],
     authors: [{ name: "Saison" }],
+    icons: {
+        icon: '/images/profile.jpg',
+    },
     openGraph: {
         title: "Saison Lab | セゾン ラボ",
         description: "ひとりぼっちの開発者による個人制作アプリ集",
@@ -23,7 +26,6 @@ export default function RootLayout({
             <head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                <link rel="icon" type="image/jpeg" href="/images/profile.jpg" />
                 <link rel="apple-touch-icon" href="/images/profile.jpg" />
             </head>
             <body className="antialiased">
