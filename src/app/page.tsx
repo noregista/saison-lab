@@ -16,12 +16,10 @@ const translations = {
         'apps-title': 'アプリ一覧',
         'app-tcg-desc': 'オリジナルのTCGカードを簡単に作成できるジェネレーター。画像をアップロードして、テキストを入力するだけ。',
         'app-splitter-desc': '画像を4分割してSNS投稿に最適化。2×2グリッドと1×4縦分割に対応。',
-        'app-pokedex-desc': '151匹の架空の幻獣を収録した図鑑。日英対応、インタラクティブなデータを収録。',
         'no-results': '該当するアプリが見つかりません',
         'update-title': '更新履歴',
         'update-1': 'サイトを公開しました。TCG Card Generatorを追加。',
         'update-2': 'Splitterを追加しました。',
-        'update-3': '幻獣図鑑を追加しました。',
         'footer-privacy': 'プライバシーポリシー',
         'footer-contact': 'お問い合わせ',
         'footer-disclaimer': '免責事項',
@@ -60,12 +58,10 @@ const translations = {
         'apps-title': 'Apps',
         'app-tcg-desc': 'A generator that makes it easy to create original TCG cards. Just upload an image and enter text.',
         'app-splitter-desc': 'Split images into 4 parts for optimal SNS posting. Supports 2×2 grid and 1×4 vertical split modes.',
-        'app-pokedex-desc': 'An encyclopedia of 151 fictional fantastic creatures. Includes bilingual support and interactive data.',
         'no-results': 'No matching apps found',
         'update-title': 'Updates',
         'update-1': 'Site launched. Added TCG Card Generator.',
         'update-2': 'Added Splitter.',
-        'update-3': 'Added Phantom Bestiary.',
         'footer-privacy': 'Privacy Policy',
         'footer-contact': 'Contact',
         'footer-disclaimer': 'Disclaimer',
@@ -112,17 +108,9 @@ const apps = [
         icon: '✂️',
         descKey: 'app-splitter-desc' as const,
     },
-    {
-        id: 'pokedex',
-        name: { jp: '幻獣図鑑', en: 'Phantom Bestiary' },
-        href: '/pokedex',
-        icon: '📖',
-        descKey: 'app-pokedex-desc' as const,
-    },
 ];
 
 const updates = [
-    { date: '2026.01.15', key: 'update-3' as const },
     { date: '2026.01.11', key: 'update-2' as const },
     { date: '2026.01.11', key: 'update-1' as const },
 ];

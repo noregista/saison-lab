@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react';
 import { Language, translations } from '@/lib/i18n';
-import { Upload, Image as ImageIcon } from 'lucide-react';
+import { Upload } from 'lucide-react';
 
 interface ImageUploaderProps {
     lang: Language;
@@ -69,7 +69,6 @@ export default function ImageUploader({ lang, onImageLoad }: ImageUploaderProps)
             {/* Animated icon */}
             <div className="relative">
                 <Upload className="w-12 h-12 text-neon animate-pulse" />
-                <ImageIcon className="w-6 h-6 text-neon/50 absolute -bottom-1 -right-1" />
             </div>
 
             {/* Text */}
