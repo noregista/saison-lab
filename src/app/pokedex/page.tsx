@@ -5,8 +5,8 @@ import { Search, X, ChevronLeft, ChevronRight, Home } from 'lucide-react';
 import Head from 'next/head';
 import { creatures, typeColors, Creature } from './data/creatures';
 
-// Temporary: Only first 26 creatures have images
-const hasImage = (id: number) => id <= 26;
+// Temporary: Only first 47 creatures have images
+const hasImage = (id: number) => id <= 47;
 
 // Type translations
 const typeTranslations: Record<string, string> = {
