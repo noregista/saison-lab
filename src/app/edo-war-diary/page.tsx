@@ -18,8 +18,8 @@ export default function EdoWarDiaryPage() {
             <Header lang={lang} setLang={setLang} />
             {/* Ad Placeholder */}
             <div className="max-w-3xl mx-auto px-6 py-2">
-                <div className="bg-amber-100/50 border-2 border-amber-800/30 rounded-lg px-4 py-2 text-center text-amber-700/50 text-xs" style={{ fontFamily: 'serif' }}>
-                    {lang === 'jp' ? '広告表示欄' : 'Ad Display Area'}
+                <div className="bg-amber-200/50 border-2 border-dashed border-amber-700/50 rounded-lg px-4 py-3 text-center text-amber-700/70 text-xs" style={{ fontFamily: 'serif' }}>
+                    📢 {lang === 'jp' ? '広告表示欄' : 'Ad Display Area'}
                 </div>
             </div>
             <Kawaraban lang={lang} />

@@ -232,8 +232,8 @@ export default function TheButtonPage() {
                 <button
                     onClick={() => setLang(lang === 'jp' ? 'en' : 'jp')}
                     className={`text-sm px-2 py-1 rounded border transition-colors ${phase >= 3
-                            ? 'border-gray-600 hover:border-white hover:text-white'
-                            : 'border-gray-400 hover:border-black hover:text-black'
+                        ? 'border-gray-600 hover:border-white hover:text-white'
+                        : 'border-gray-400 hover:border-black hover:text-black'
                         }`}
                 >
                     {lang === 'jp' ? 'EN' : 'JP'}
@@ -246,8 +246,8 @@ export default function TheButtonPage() {
             {/* Ad Placeholder - Only visible in Phase 1 */}
             {phase === 1 && (
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-40">
-                    <div className="bg-gray-100 border border-gray-300 rounded-lg px-8 py-2 text-gray-400 text-xs">
-                        Ad Display Area
+                    <div className="bg-gray-200/80 border-2 border-dashed border-gray-400 rounded-lg px-8 py-3 text-gray-500 text-xs">
+                        📢 Ad Display Area / 広告表示欄
                     </div>
                 </div>
             )}

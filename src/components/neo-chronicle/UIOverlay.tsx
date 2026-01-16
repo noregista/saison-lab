@@ -98,8 +98,8 @@ export function UIOverlay() {
 
             {/* Ad Placeholder */}
             <div className="absolute top-24 left-1/2 -translate-x-1/2 pointer-events-auto">
-                <div className={`border ${borderColor} bg-opacity-10 bg-current rounded px-6 py-1 text-xs opacity-50`}>
-                    {language === 'jp' ? '広告表示欄' : 'Ad Display Area'}
+                <div className={`border-2 border-dashed ${borderColor} bg-opacity-20 bg-current rounded px-6 py-2 text-xs`}>
+                    📢 {language === 'jp' ? '広告表示欄' : 'Ad Display Area'}
                 </div>
             </div>
 

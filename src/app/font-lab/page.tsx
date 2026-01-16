@@ -1,11 +1,18 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { toPng } from 'html-to-image';
 
-// 100+ Google Fonts List
-const FONTS = [
+// Japanese-compatible fonts (support hiragana, katakana, kanji)
+const JAPANESE_FONTS = [
+    'Noto Sans JP', 'Noto Serif JP', 'M PLUS 1p', 'M PLUS Rounded 1c', 'Kosugi Maru',
+    'Sawarabi Gothic', 'Sawarabi Mincho', 'BIZ UDGothic', 'BIZ UDMincho',
+    'Zen Maru Gothic', 'Zen Kaku Gothic New'
+];
+
+// Latin fonts (English/alphabet only)
+const LATIN_FONTS = [
     'Roboto', 'Open Sans', 'Lato', 'Montserrat', 'Oswald', 'Raleway', 'Poppins', 'Merriweather',
     'Ubuntu', 'Playfair Display', 'Nunito', 'PT Sans', 'Rubik', 'Work Sans', 'Quicksand', 'Karla',
     'Mulish', 'Inter', 'Fira Sans', 'Barlow', 'Archivo', 'Source Sans Pro', 'Cabin', 'Heebo',
@@ -20,10 +27,20 @@ const FONTS = [
     'Pathway Gothic One', 'Saira Condensed', 'Barlow Condensed', 'Roboto Condensed', 'DM Sans',
     'DM Serif Display', 'DM Serif Text', 'Manrope', 'Space Grotesk', 'Sora', 'Outfit', 'Lexend',
     'Plus Jakarta Sans', 'Albert Sans', 'Figtree', 'Urbanist', 'Red Hat Display', 'Epilogue',
-    'Be Vietnam Pro', 'Public Sans', 'Jost', 'Nunito Sans', 'Signika', 'Exo 2', 'Asap', 'Arimo',
-    'Noto Sans JP', 'Noto Serif JP', 'M PLUS 1p', 'M PLUS Rounded 1c', 'Kosugi Maru', 'Sawarabi Gothic',
-    'Sawarabi Mincho', 'BIZ UDGothic', 'BIZ UDMincho', 'Zen Maru Gothic', 'Zen Kaku Gothic New'
+    'Be Vietnam Pro', 'Public Sans', 'Jost', 'Nunito Sans', 'Signika', 'Exo 2', 'Asap', 'Arimo'
 ];
+
+const ALL_FONTS = [...LATIN_FONTS, ...JAPANESE_FONTS];
+
+// Check if text contains Japanese characters
+const containsJapanese = (text: string): boolean => {
+    return /[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf]/.test(text);
+};
+
+// Check if text contains only ASCII/Latin characters
+const isLatinOnly = (text: string): boolean => {
+    return /^[\x00-\x7F]*$/.test(text);
+};
 
 const texts = {
     jp: {
@@ -34,6 +51,9 @@ const texts = {
         searchPlaceholder: 'フォントを検索...',
         downloadBtn: 'PNG保存',
         back: 'Saison Lab へ戻る',
+        fontCount: '表示中',
+        jpOnly: '日本語フォント',
+        latinOnly: 'ラテン文字フォント',
     },
     en: {
         title: 'FONT LAB',
@@ -43,6 +63,9 @@ const texts = {
         searchPlaceholder: 'Search fonts...',
         downloadBtn: 'Save PNG',
         back: 'Back to Saison Lab',
+        fontCount: 'Showing',
+        jpOnly: 'Japanese Fonts',
+        latinOnly: 'Latin Fonts',
     },
 };
 
@@ -53,12 +76,33 @@ export default function FontLabPage() {
     const [isDark, setIsDark] = useState(false);
     const t = texts[lang];
 
-    const filteredFonts = FONTS.filter(font =>
-        font.toLowerCase().includes(search.toLowerCase())
-    );
+    // Determine which fonts to show based on input text
+    const compatibleFonts = useMemo(() => {
+        if (!text.trim()) return ALL_FONTS;
+
+        const hasJapanese = containsJapanese(text);
+        const hasLatinOnly = isLatinOnly(text);
+
+        if (hasJapanese) {
+            // Only show Japanese-compatible fonts
+            return JAPANESE_FONTS;
+        } else if (hasLatinOnly) {
+            // Show all fonts (Latin fonts work with ASCII)
+            return ALL_FONTS;
+        }
+        // Mixed or unknown - show all
+        return ALL_FONTS;
+    }, [text]);
+
+    // Filter by search query
+    const filteredFonts = useMemo(() => {
+        return compatibleFonts.filter(font =>
+            font.toLowerCase().includes(search.toLowerCase())
+        );
+    }, [compatibleFonts, search]);
 
     // Generate Google Fonts URL for all fonts
-    const fontUrl = `https://fonts.googleapis.com/css2?family=${FONTS.map(f => f.replace(/ /g, '+')).join('&family=')}:wght@400;700&display=swap`;
+    const fontUrl = `https://fonts.googleapis.com/css2?family=${ALL_FONTS.map(f => f.replace(/ /g, '+')).join('&family=')}:wght@400;700&display=swap`;
 
     const handleDownload = useCallback(async (font: string, ref: HTMLDivElement | null) => {
         if (!ref) return;
@@ -75,6 +119,8 @@ export default function FontLabPage() {
             console.error('Download failed:', err);
         }
     }, [text]);
+
+    const hasJapanese = containsJapanese(text);
 
     return (
         <main className={`min-h-screen transition-colors ${isDark ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
@@ -121,12 +167,12 @@ export default function FontLabPage() {
                     </div>
 
                     {/* Ad Placeholder */}
-                    <div className={`mb-4 border rounded-lg px-4 py-2 text-center text-xs ${isDark ? 'border-gray-700 text-gray-500' : 'border-gray-300 text-gray-400'}`}>
-                        Ad Display Area
+                    <div className={`mb-4 border-2 border-dashed rounded-lg px-4 py-3 text-center ${isDark ? 'border-gray-600 bg-gray-800/50 text-gray-400' : 'border-gray-400 bg-gray-200/50 text-gray-500'}`}>
+                        📢 Ad Display Area / 広告表示欄
                     </div>
 
                     {/* Input Controls */}
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-3 mb-3">
                         <input
                             type="text"
                             value={text}
@@ -141,6 +187,12 @@ export default function FontLabPage() {
                             placeholder={t.searchPlaceholder}
                             className={`w-[200px] px-4 py-2 rounded-lg border ${isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'}`}
                         />
+                    </div>
+
+                    {/* Font Count Indicator */}
+                    <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                        {t.fontCount}: <span className="font-bold">{filteredFonts.length}</span>
+                        {hasJapanese && <span className="ml-2 text-xs px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400">{t.jpOnly}</span>}
                     </div>
                 </div>
             </header>
