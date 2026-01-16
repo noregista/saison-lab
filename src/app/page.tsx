@@ -130,14 +130,14 @@ const apps = [
     },
     {
         id: 'neo-chronicle',
-        name: { jp: 'NEO-CHRONICLE', en: 'NEO-CHRONICLE' },
+        name: { jp: 'ネオ・クロニクル', en: 'NEO-CHRONICLE' },
         href: '/neo-chronicle',
         icon: '🌐',
         descKey: 'app-neo-chronicle-desc' as const,
     },
     {
         id: 'war-diary',
-        name: { jp: 'WAR DIARY', en: 'WAR DIARY' },
+        name: { jp: '戦争日記', en: 'WAR DIARY' },
         href: '/war-diary',
         icon: '📡',
         descKey: 'app-war-diary-desc' as const,
