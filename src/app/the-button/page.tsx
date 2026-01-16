@@ -32,6 +32,8 @@ export default function TheButtonPage() {
     const [buttonPos, setButtonPos] = useState({ x: 50, y: 50 });
     const [message, setMessage] = useState<string | null>(null);
     const [isEnding, setIsEnding] = useState(false);
+    const [showEndContent, setShowEndContent] = useState(false);
+    const [lang, setLang] = useState<'jp' | 'en'>('jp');
     const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; size: number }>>([]);
     const containerRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -112,6 +114,8 @@ export default function TheButtonPage() {
         // Phase 4: Trigger ending
         if (newCount >= 200) {
             setIsEnding(true);
+            // Show end content after blackhole animation
+            setTimeout(() => setShowEndContent(true), 3000);
         }
     };
 
@@ -223,10 +227,17 @@ export default function TheButtonPage() {
                 ← Saison Lab
             </Link>
 
-            {/* Count Display */}
-            <div className={`absolute top-4 right-4 font-mono text-sm z-50 ${phase >= 3 ? 'text-gray-400' : 'text-gray-500'
-                }`}>
-                {count.toString().padStart(4, '0')}
+            {/* Language Toggle & Count Display */}
+            <div className={`absolute top-4 right-4 flex items-center gap-4 z-50 ${phase >= 3 ? 'text-gray-400' : 'text-gray-500'}`}>
+                <button
+                    onClick={() => setLang(lang === 'jp' ? 'en' : 'jp')}
+                    className="text-xs hover:underline"
+                >
+                    {lang === 'jp' ? 'EN' : 'JP'}
+                </button>
+                <span className="font-mono text-sm">
+                    {count.toString().padStart(4, '0')}
+                </span>
             </div>
 
             {/* Phase 3: Cosmic particles */}
@@ -305,18 +316,33 @@ export default function TheButtonPage() {
             {/* Ending Screen */}
             {isEnding && (
                 <div
-                    className="absolute inset-0 bg-black flex flex-col items-center justify-center z-60"
-                    style={{ animation: 'fadeIn 4s ease-in 2s forwards', opacity: 0 }}
+                    className="absolute inset-0 bg-black flex flex-col items-center justify-center"
+                    style={{ zIndex: 100 }}
                 >
-                    <p className="text-gray-600 text-lg mb-8 font-mono">観測終了。</p>
-                    <p className="text-gray-700 text-sm mb-4">Observation Complete.</p>
-                    <p className="text-gray-500 text-xs mb-8">Total Clicks: {count}</p>
-                    <Link
-                        href="/"
-                        className="text-gray-400 hover:text-white text-sm underline"
-                    >
-                        Return to Saison Lab
-                    </Link>
+                    {!showEndContent ? (
+                        <div
+                            className="w-[300px] h-[300px] rounded-full bg-black"
+                            style={{
+                                animation: 'blackhole 3s ease-in forwards',
+                                boxShadow: '0 0 100px 50px rgba(0,0,0,0.9)'
+                            }}
+                        />
+                    ) : (
+                        <div className="flex flex-col items-center justify-center animate-pulse">
+                            <p className="text-gray-500 text-lg mb-4 font-mono">
+                                {lang === 'jp' ? '観測終了。' : 'Observation Complete.'}
+                            </p>
+                            <p className="text-gray-600 text-xs mb-8">
+                                {lang === 'jp' ? `総クリック数: ${count}` : `Total Clicks: ${count}`}
+                            </p>
+                            <a
+                                href="/"
+                                className="text-gray-400 hover:text-white text-sm underline cursor-pointer"
+                            >
+                                {lang === 'jp' ? 'Saison Lab へ戻る' : 'Return to Saison Lab'}
+                            </a>
+                        </div>
+                    )}
                 </div>
             )}
         </div>
