@@ -44,13 +44,13 @@ const isLatinOnly = (text: string): boolean => {
 
 const texts = {
     jp: {
-        title: 'FONT LAB',
-        subtitle: 'フォント・ラボ',
+        title: 'フォント・ラボ',
+        subtitle: 'FONT LAB',
         description: '100種類以上のフォントを試せる素材工場',
         inputPlaceholder: 'Saison Lab',
         searchPlaceholder: 'フォントを検索...',
         downloadBtn: 'PNG保存',
-        back: 'Saison Lab へ戻る',
+        back: '← Saison Lab へ戻る',
         fontCount: '表示中',
         jpOnly: '日本語フォント',
         latinOnly: 'ラテン文字フォント',
@@ -252,8 +252,8 @@ function FontCard({
             <button
                 onClick={() => onDownload(font, textRef.current)}
                 className={`text-xs px-3 py-1.5 rounded-lg transition-colors ${isDark
-                        ? 'bg-indigo-600 hover:bg-indigo-500 text-white'
-                        : 'bg-indigo-500 hover:bg-indigo-600 text-white'
+                    ? 'bg-indigo-600 hover:bg-indigo-500 text-white'
+                    : 'bg-indigo-500 hover:bg-indigo-600 text-white'
                     }`}
             >
                 {downloadLabel}
