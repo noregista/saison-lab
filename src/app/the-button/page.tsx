@@ -231,7 +231,10 @@ export default function TheButtonPage() {
             <div className={`absolute top-4 right-4 flex items-center gap-4 z-50 ${phase >= 3 ? 'text-gray-400' : 'text-gray-500'}`}>
                 <button
                     onClick={() => setLang(lang === 'jp' ? 'en' : 'jp')}
-                    className="text-xs hover:underline"
+                    className={`text-sm px-2 py-1 rounded border transition-colors ${phase >= 3
+                            ? 'border-gray-600 hover:border-white hover:text-white'
+                            : 'border-gray-400 hover:border-black hover:text-black'
+                        }`}
                 >
                     {lang === 'jp' ? 'EN' : 'JP'}
                 </button>
@@ -239,6 +242,15 @@ export default function TheButtonPage() {
                     {count.toString().padStart(4, '0')}
                 </span>
             </div>
+
+            {/* Ad Placeholder - Only visible in Phase 1 */}
+            {phase === 1 && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-40">
+                    <div className="bg-gray-100 border border-gray-300 rounded-lg px-8 py-2 text-gray-400 text-xs">
+                        Ad Display Area
+                    </div>
+                </div>
+            )}
 
             {/* Phase 3: Cosmic particles */}
             {phase >= 3 && particles.map(p => (

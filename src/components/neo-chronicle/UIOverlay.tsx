@@ -96,6 +96,13 @@ export function UIOverlay() {
                 </div>
             </header>
 
+            {/* Ad Placeholder */}
+            <div className="absolute top-24 left-1/2 -translate-x-1/2 pointer-events-auto">
+                <div className={`border ${borderColor} bg-opacity-10 bg-current rounded px-6 py-1 text-xs opacity-50`}>
+                    {language === 'jp' ? '広告表示欄' : 'Ad Display Area'}
+                </div>
+            </div>
+
             {/* Center (Empty for 3D) */}
 
             {/* Bottom Footer */}
