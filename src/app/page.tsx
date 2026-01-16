@@ -158,7 +158,7 @@ const apps = [
     },
     {
         id: 'font-lab',
-        name: { jp: 'FONT LAB', en: 'FONT LAB' },
+        name: { jp: 'フォント・ラボ', en: 'FONT LAB' },
         href: '/font-lab',
         icon: '🔤',
         descKey: 'app-font-lab-desc' as const,
