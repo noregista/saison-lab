@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- 急須アイコン - THE BREW用ファビコン -->
+  <ellipse cx="16" cy="20" rx="10" ry="8" fill="#5D9B4B"/>
+  <!-- 蓋 -->
+  <ellipse cx="16" cy="13" rx="8" ry="3" fill="#4A8040"/>
+  <circle cx="16" cy="10" r="2" fill="#3D6B35"/>
+  <!-- 注ぎ口 -->
+  <path d="M26 18 Q30 16, 28 22 Q26 24, 26 20" fill="#5D9B4B"/>
+  <!-- 取っ手 -->
+  <path d="M6 16 Q2 16, 2 20 Q2 24, 6 24" stroke="#4A8040" stroke-width="2" fill="none"/>
+  <!-- 湯気 -->
+  <path d="M12 6 Q13 4, 12 2" stroke="#999" stroke-width="1" fill="none" opacity="0.5"/>
+  <path d="M16 5 Q17 3, 16 1" stroke="#999" stroke-width="1" fill="none" opacity="0.5"/>
+  <path d="M20 6 Q21 4, 20 2" stroke="#999" stroke-width="1" fill="none" opacity="0.5"/>
+</svg>
