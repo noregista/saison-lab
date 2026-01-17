@@ -7,7 +7,6 @@
  */
 
 import App from './app.js';
-import { RegisterSW } from 'virtual:pwa-register';
 
 // DOMロード後に開始
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,11 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // PWA Service Worker Registration
-// Vite PWA プラグインを使用する場合は 'virtual:pwa-register' が使えるが、
-// ここでは手動登録のコードも記載しておく（プラグインなしでも動くように）
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('/sushi-lab/sw.js')
             .then(registration => {
                 console.log('SW registered: ', registration);
             })

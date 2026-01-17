@@ -349,13 +349,13 @@ export default function PianoLabPage() {
             </div>
 
             {/* ピアノ鍵盤 */}
-            <div className="max-w-4xl mx-auto px-4">
+            <div className="max-w-4xl mx-auto px-2 md:px-4">
                 <div
-                    className="relative rounded-xl p-4 overflow-hidden"
+                    className="relative rounded-xl p-2 md:p-4 overflow-x-auto"
                     style={{ backgroundColor: theme.card }}
                 >
-                    {/* 鍵盤コンテナ */}
-                    <div className="flex justify-center">
+                    {/* 鍵盤コンテナ - モバイルでスクロール可能 */}
+                    <div className="flex justify-center min-w-[540px] md:min-w-0">
                         <div className="relative flex">
                             {/* 白鍵 */}
                             {pianoKeys
@@ -412,7 +412,8 @@ export default function PianoLabPage() {
                                 .map((keyData) => {
                                     const isActive = activeKeys.has(keyData.note);
                                     // 黒鍵の位置計算（白鍵の間に配置）
-                                    const whiteKeyWidth = 56; // w-14 = 56px (md)
+                                    // モバイル: w-12 = 48px, デスクトップ: w-14 = 56px
+                                    const whiteKeyWidth = 48; // モバイル基準
                                     const positions: Record<string, number> = {
                                         'C#': 0,
                                         'D#': 1,

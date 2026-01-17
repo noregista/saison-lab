@@ -323,17 +323,17 @@ export default function DrumLabPage() {
             </div>
 
             {/* シーケンサーグリッド */}
-            <div className="max-w-4xl mx-auto px-4">
+            <div className="max-w-4xl mx-auto px-2 md:px-4">
                 <div
-                    className="rounded-xl p-4 overflow-x-auto"
+                    className="rounded-xl p-2 md:p-4 overflow-x-auto"
                     style={{ backgroundColor: colors.bgCard }}
                 >
-                    {/* ステップ番号 */}
-                    <div className="flex mb-2 ml-20">
+                    {/* ステップ番号 - モバイルでスクロール可能 */}
+                    <div className="flex mb-2 ml-16 md:ml-20 min-w-[384px] md:min-w-0">
                         {[...Array(STEPS)].map((_, i) => (
                             <div
                                 key={i}
-                                className="w-8 h-6 flex items-center justify-center text-xs opacity-40"
+                                className="w-6 md:w-8 h-5 md:h-6 flex items-center justify-center text-[10px] md:text-xs opacity-40"
                                 style={{
                                     color: currentStep === i ? colors.accent : colors.text,
                                     fontWeight: currentStep === i ? 'bold' : 'normal',
@@ -346,10 +346,10 @@ export default function DrumLabPage() {
 
                     {/* 各ドラム行 */}
                     {drumTypes.map((drum) => (
-                        <div key={drum} className="flex items-center mb-2">
+                        <div key={drum} className="flex items-center mb-2 min-w-[384px] md:min-w-0">
                             {/* ドラム名 */}
                             <div
-                                className="w-20 text-sm font-bold"
+                                className="w-16 md:w-20 text-xs md:text-sm font-bold flex-shrink-0"
                                 style={{
                                     color:
                                         drum === 'kick'
@@ -382,7 +382,7 @@ export default function DrumLabPage() {
                                         <button
                                             key={step}
                                             onClick={() => toggleStep(drum, step)}
-                                            className="w-8 h-8 rounded-md m-0.5 transition-all"
+                                            className="w-6 h-6 md:w-8 md:h-8 rounded m-0.5 transition-all"
                                             style={{
                                                 backgroundColor: isActive
                                                     ? drumColor
