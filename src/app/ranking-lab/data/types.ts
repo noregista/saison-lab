@@ -53,6 +53,7 @@ export interface Category {
     name: { jp: string; en: string };
     icon: string;
     color: string;
+    image: string;              // 背景画像パス (e.g., "/ranking-lab/images/economy.png")
     rankings: string[];         // 含まれるランキングID
 }
 

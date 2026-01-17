@@ -10,6 +10,7 @@ export const categories: Category[] = [
         name: { jp: '経済', en: 'Economy' },
         icon: '💰',
         color: '#10B981',
+        image: '/ranking-lab/images/economy.png',
         rankings: ['gdp-nominal', 'gdp-per-capita'],
     },
     {
@@ -17,6 +18,7 @@ export const categories: Category[] = [
         name: { jp: '人口', en: 'Population' },
         icon: '👥',
         color: '#3B82F6',
+        image: '/ranking-lab/images/population.png',
         rankings: ['population', 'population-density'],
     },
     {
@@ -24,6 +26,7 @@ export const categories: Category[] = [
         name: { jp: '地理', en: 'Geography' },
         icon: '🌍',
         color: '#8B5CF6',
+        image: '/ranking-lab/images/geography.png',
         rankings: ['area', 'coastline'],
     },
     {
@@ -31,6 +34,7 @@ export const categories: Category[] = [
         name: { jp: '技術', en: 'Technology' },
         icon: '💻',
         color: '#EC4899',
+        image: '/ranking-lab/images/technology.png',
         rankings: ['patent-applications', 'internet-penetration'],
     },
     {
@@ -38,6 +42,7 @@ export const categories: Category[] = [
         name: { jp: '生活', en: 'Life' },
         icon: '❤️',
         color: '#F59E0B',
+        image: '/ranking-lab/images/life.png',
         rankings: ['life-expectancy', 'happiness-index'],
     },
     {
@@ -45,6 +50,7 @@ export const categories: Category[] = [
         name: { jp: 'エネルギー', en: 'Energy' },
         icon: '⚡',
         color: '#06B6D4',
+        image: '/ranking-lab/images/energy.png',
         rankings: ['co2-emissions', 'renewable-energy'],
     },
 ];
