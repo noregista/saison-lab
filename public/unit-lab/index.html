@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>UNIT LAB | 単位ラボ | Saison Lab</title>
+    <meta name="description" content="国際単位系から伝統単位まで、直感的な換算と視覚的比較で単位を学べるデジタル図鑑">
+    <link rel="canonical" href="https://saison-lab.com/unit-lab/">
+    <link rel="alternate" hreflang="ja" href="https://saison-lab.com/unit-lab/?lang=ja">
+    <link rel="alternate" hreflang="en" href="https://saison-lab.com/unit-lab/?lang=en">
+    <link rel="alternate" hreflang="x-default" href="https://saison-lab.com/unit-lab/">
+    <meta property="og:title" content="UNIT LAB | 単位ラボ">
+    <meta property="og:description" content="メートル法から尺貫法まで、あらゆる単位を瞬時に換算">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3DDC97">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='4' y='6' width='24' height='6' rx='1' fill='%233DDC97'/><ellipse cx='16' cy='22' rx='8' ry='6' fill='%231B263B'/><rect x='14' y='15' width='4' height='4' rx='0.5' fill='%233DDC97'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style id="core-styles"></style>
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <svg class="logo-icon" viewBox="0 0 32 32" width="32" height="32">
+                        <rect x="4" y="6" width="24" height="6" rx="1" fill="#3DDC97"/>
+                        <line x1="8" y1="6" x2="8" y2="10" stroke="#0D1B2A" stroke-width="1"/>
+                        <line x1="16" y1="6" x2="16" y2="10" stroke="#0D1B2A" stroke-width="1"/>
+                        <line x1="24" y1="6" x2="24" y2="10" stroke="#0D1B2A" stroke-width="1"/>
+                        <ellipse cx="16" cy="22" rx="8" ry="6" fill="#1B263B"/>
+                        <ellipse cx="16" cy="18" rx="5" ry="3" fill="#1B263B"/>
+                        <rect x="14" y="15" width="4" height="4" rx="0.5" fill="#3DDC97"/>
+                    </svg>
+                    <span class="logo-text">UNIT LAB</span>
+                </div>
+                <div class="header-actions">
+                    <button class="lang-toggle" id="langToggle" aria-label="言語切替">
+                        <span class="lang-ja">JP</span> / <span class="lang-en">EN</span>
+                    </button>
+                    <button class="pwa-install" id="pwaInstall" style="display:none;" aria-label="アプリをインストール">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="ad-space" id="ad-header" role="complementary" aria-label="広告">
+            <span class="ad-placeholder">AD SPACE</span>
+        </div>
+
+        <nav class="category-nav" role="navigation" aria-label="単位カテゴリ">
+            <div class="category-scroll" id="categoryNav"></div>
+        </nav>
+
+        <main class="main-content">
+            <section class="converter-panel" aria-label="単位変換">
+                <div class="converter-grid">
+                    <div class="input-group">
+                        <label class="input-label" data-i18n="inputValue">入力値</label>
+                        <input type="text" id="inputValue" class="value-input" value="1" inputmode="decimal" aria-describedby="inputUnit">
+                        <select id="inputUnit" class="unit-select" aria-label="変換元単位"></select>
+                    </div>
+                    <button class="swap-btn" id="swapUnits" aria-label="単位を入れ替え">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 16l-4-4m0 0l4-4m-4 4h18M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </button>
+                    <div class="output-group">
+                        <label class="input-label" data-i18n="result">結果</label>
+                        <div id="outputValue" class="value-output" aria-live="polite">1000</div>
+                        <select id="outputUnit" class="unit-select" aria-label="変換先単位"></select>
+                    </div>
+                </div>
+                <div class="quick-results" id="quickResults"></div>
+            </section>
+
+            <section class="comparison-section" aria-label="視覚的比較">
+                <h2 class="section-title" data-i18n="visualComparison">視覚的比較</h2>
+                <div class="comparison-cards" id="comparisonCards"></div>
+            </section>
+
+            <section class="origin-section" aria-label="単位の由来">
+                <h2 class="section-title" data-i18n="origin">単位の由来</h2>
+                <div class="origin-content" id="originContent"></div>
+            </section>
+
+            <div class="ad-space" id="ad-content" role="complementary" aria-label="広告">
+                <span class="ad-placeholder">AD SPACE</span>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="ad-space" id="ad-footer" role="complementary" aria-label="広告">
+                <span class="ad-placeholder">AD SPACE</span>
+            </div>
+            <div class="footer-content">
+                <div class="legal-links">
+                    <button class="legal-link" id="privacyBtn" data-i18n="privacy">プライバシーポリシー</button>
+                    <button class="legal-link" id="termsBtn" data-i18n="terms">利用規約</button>
+                    <button class="legal-link" id="disclaimerBtn" data-i18n="disclaimer">免責事項</button>
+                </div>
+                <p class="copyright">© 2026 Saison Lab. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <div class="modal" id="legalModal" role="dialog" aria-modal="true" hidden>
+            <div class="modal-backdrop"></div>
+            <div class="modal-content">
+                <button class="modal-close" aria-label="閉じる">&times;</button>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-body" id="modalBody"></div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
+</CodeContent>
+<parameter name="EmptyFile">false
