@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+  <title>SUSHI LAB | 寿司ラボ - 外国人のための寿司完全ガイド | Saison Lab</title>
+  <meta name="description" content="寿司の種類、マナー、注文方法を完全攻略。日本の寿司屋で最高の体験を。Your ultimate guide to sushi in Japan.">
+  <meta name="keywords" content="sushi, 寿司, Japan, マナー, etiquette, guide, Japanese food, 和食">
+  <meta name="author" content="Saison Lab">
+
+  <!-- Canonical & hreflang -->
+  <link rel="canonical" href="https://saison-lab.com/sushi-lab/">
+  <link rel="alternate" hreflang="ja" href="https://saison-lab.com/sushi-lab/">
+  <link rel="alternate" hreflang="en" href="https://saison-lab.com/sushi-lab/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://saison-lab.com/sushi-lab/">
+
+  <!-- OGP Meta Tags -->
+  <meta property="og:title" content="SUSHI LAB | 寿司ラボ - 外国人のための寿司ガイド">
+  <meta property="og:description" content="寿司の種類、マナー、注文方法を完全攻略。日本の寿司屋で最高の体験を。">
+  <meta property="og:image" content="https://saison-lab.com/sushi-lab/assets/og-image.png">
+  <meta property="og:url" content="https://saison-lab.com/sushi-lab/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Saison Lab">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SUSHI LAB | 寿司ラボ">
+  <meta name="twitter:description" content="寿司の種類、マナー、注文方法を完全攻略。日本の寿司屋で最高の体験を。">
+  <meta name="twitter:image" content="https://saison-lab.com/sushi-lab/assets/og-image.png">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#B22222">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+
+<body>
+  <!-- Noren Entry Animation Overlay -->
+  <!-- 暖簾（のれん）をくぐるようなエントリーアニメーション -->
+  <div id="noren-overlay" class="noren-overlay">
+    <div class="noren-left"></div>
+    <div class="noren-right"></div>
+    <div class="noren-text">
+      <span class="noren-kanji">寿司</span>
+      <span class="noren-english">SUSHI LAB</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- ミニマルな握り寿司アイコン -->
+          <ellipse cx="20" cy="28" rx="16" ry="8" fill="var(--color-rice)" />
+          <ellipse cx="20" cy="26" rx="14" ry="6" fill="var(--color-rice-shadow)" />
+          <path d="M6 24C6 24 8 16 20 16C32 16 34 24 34 24" fill="var(--color-neta)" />
+          <ellipse cx="20" cy="20" rx="12" ry="5" fill="var(--color-neta)" />
+        </svg>
+        <h1 class="logo-text">
+          <span class="logo-ja">寿司ラボ</span>
+          <span class="logo-en">SUSHI LAB</span>
+        </h1>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-btn" data-section="encyclopedia" data-i18n="nav.encyclopedia">
+          <span class="nav-icon">🍣</span>
+          <span class="nav-text">寿司図鑑</span>
+        </button>
+        <button class="nav-btn" data-section="manners" data-i18n="nav.manners">
+          <span class="nav-icon">🎌</span>
+          <span class="nav-text">マナー</span>
+        </button>
+        <button class="nav-btn" data-section="phrases" data-i18n="nav.phrases">
+          <span class="nav-icon">💬</span>
+          <span class="nav-text">フレーズ</span>
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <button id="lang-toggle" class="lang-toggle" aria-label="Toggle Language">
+          <span class="lang-ja">JP</span>
+          <span class="lang-divider">/</span>
+          <span class="lang-en">EN</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Ad Space 1: Top Banner -->
+  <div class="ad-container ad-top">
+    <div class="ad-placeholder" data-ad-slot="top-banner">
+      <span class="ad-label">広告 / Advertisement</span>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-content">
+        <h2 class="hero-title" data-i18n="hero.title">
+          <span class="hero-title-ja">日本の寿司を<br>完全攻略</span>
+        </h2>
+        <p class="hero-subtitle" data-i18n="hero.subtitle">
+          寿司の種類、マナー、注文方法をマスターして<br>最高の寿司体験を
+        </p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" data-section="encyclopedia" data-i18n="hero.cta.encyclopedia">
+            寿司図鑑を見る
+          </button>
+          <button class="btn btn-secondary" data-section="phrases" data-i18n="hero.cta.phrases">
+            注文フレーズ
+          </button>
+        </div>
+      </div>
+      <div class="hero-decoration">
+        <div class="hero-circle"></div>
+      </div>
+    </section>
+
+    <!-- Sushi Encyclopedia Section -->
+    <section class="section section-encyclopedia" id="encyclopedia">
+      <div class="section-header">
+        <h2 class="section-title" data-i18n="encyclopedia.title">
+          <span class="section-title-icon">🍣</span>
+          寿司図鑑
+        </h2>
+        <p class="section-subtitle" data-i18n="encyclopedia.subtitle">
+          定番から高級ネタまで、寿司の世界を探索
+        </p>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="filter-controls">
+        <div class="filter-group">
+          <label class="filter-label" data-i18n="filter.category">カテゴリ</label>
+          <div class="filter-buttons" id="category-filters">
+            <button class="filter-btn active" data-category="all" data-i18n="filter.all">すべて</button>
+            <button class="filter-btn" data-category="akami" data-i18n="filter.akami">赤身</button>
+            <button class="filter-btn" data-category="shiromi" data-i18n="filter.shiromi">白身</button>
+            <button class="filter-btn" data-category="hikarimono" data-i18n="filter.hikarimono">光物</button>
+            <button class="filter-btn" data-category="ebi-kani" data-i18n="filter.ebi-kani">海老・蟹</button>
+            <button class="filter-btn" data-category="ika-tako" data-i18n="filter.ika-tako">イカ・タコ</button>
+            <button class="filter-btn" data-category="kai" data-i18n="filter.kai">貝類</button>
+            <button class="filter-btn" data-category="gunkan" data-i18n="filter.gunkan">軍艦</button>
+            <button class="filter-btn" data-category="tamago" data-i18n="filter.tamago">玉子・他</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" data-i18n="filter.taste">味わい</label>
+          <div class="taste-sliders">
+            <div class="taste-slider-group">
+              <label data-i18n="taste.fatty">脂のり</label>
+              <input type="range" class="taste-slider" id="filter-fatty" min="0" max="5" value="0">
+              <span class="taste-value">0</span>
+            </div>
+            <div class="taste-slider-group">
+              <label data-i18n="taste.light">さっぱり</label>
+              <input type="range" class="taste-slider" id="filter-light" min="0" max="5" value="0">
+              <span class="taste-value">0</span>
+            </div>
+            <div class="taste-slider-group">
+              <label data-i18n="taste.sweet">甘み</label>
+              <input type="range" class="taste-slider" id="filter-sweet" min="0" max="5" value="0">
+              <span class="taste-value">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sushi Grid -->
+      <div class="sushi-grid" id="sushi-grid">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- Ad Space 2: Mid-content Rectangle -->
+    <div class="ad-container ad-mid">
+      <div class="ad-placeholder" data-ad-slot="mid-rectangle">
+        <span class="ad-label">広告 / Advertisement</span>
+      </div>
+    </div>
+
+    <!-- Manners Section -->
+    <section class="section section-manners" id="manners">
+      <div class="section-header">
+        <h2 class="section-title" data-i18n="manners.title">
+          <span class="section-title-icon">🎌</span>
+          寿司マナーガイド
+        </h2>
+        <p class="section-subtitle" data-i18n="manners.subtitle">
+          日本の寿司屋で恥をかかない、正しい作法
+        </p>
+      </div>
+
+      <!-- Manner Steps -->
+      <div class="manner-steps" id="manner-steps">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- Phrases Section -->
+    <section class="section section-phrases" id="phrases">
+      <div class="section-header">
+        <h2 class="section-title" data-i18n="phrases.title">
+          <span class="section-title-icon">💬</span>
+          指差しフレーズ集
+        </h2>
+        <p class="section-subtitle" data-i18n="phrases.subtitle">
+          すぐに使える注文フレーズ。音声付きで発音もバッチリ
+        </p>
+      </div>
+
+      <!-- Phrase Categories -->
+      <div class="phrase-categories" id="phrase-categories">
+        <button class="phrase-cat-btn active" data-phrase-cat="order" data-i18n="phrases.cat.order">注文</button>
+        <button class="phrase-cat-btn" data-phrase-cat="confirm" data-i18n="phrases.cat.confirm">確認</button>
+        <button class="phrase-cat-btn" data-phrase-cat="request" data-i18n="phrases.cat.request">お願い</button>
+        <button class="phrase-cat-btn" data-phrase-cat="thanks" data-i18n="phrases.cat.thanks">感謝</button>
+      </div>
+
+      <!-- Phrase Cards -->
+      <div class="phrase-cards" id="phrase-cards">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="footer-logo">SUSHI LAB</span>
+        <span class="footer-tagline" data-i18n="footer.tagline">by Saison Lab</span>
+      </div>
+
+      <nav class="footer-nav">
+        <button class="footer-link" data-modal="privacy" data-i18n="footer.privacy">Privacy Policy</button>
+        <button class="footer-link" data-modal="disclaimer" data-i18n="footer.disclaimer">Disclaimer</button>
+        <button class="footer-link" data-modal="contact" data-i18n="footer.contact">Contact</button>
+      </nav>
+
+      <div class="footer-copyright">
+        <p>© 2026 Saison Lab. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Ad Space 3: Sticky Footer Banner -->
+  <div class="ad-container ad-sticky">
+    <div class="ad-placeholder" data-ad-slot="sticky-footer">
+      <span class="ad-label">広告 / Advertisement</span>
+      <button class="ad-close" aria-label="Close Ad">✕</button>
+    </div>
+  </div>
+
+  <!-- Modal Container -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" aria-label="Close Modal">✕</button>
+      <div class="modal-content" id="modal-content">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Sushi Detail Modal -->
+  <div class="modal-overlay" id="sushi-modal-overlay">
+    <div class="modal sushi-modal" id="sushi-modal">
+      <button class="modal-close" aria-label="Close Modal">✕</button>
+      <div class="sushi-modal-content" id="sushi-modal-content">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

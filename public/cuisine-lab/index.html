@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUISINE LAB | キュイジーヌ・ラボ | Saison Lab</title>
+  <meta name="description" content="世界各国の代表料理TOP3を、味のプロフィール・文化的背景・主要材料とともに紹介するデジタル・カタログ。">
+  <link rel="canonical" href="https://saison-lab.com/cuisine-lab/">
+  <link rel="alternate" hreflang="ja" href="https://saison-lab.com/cuisine-lab/">
+  <link rel="alternate" hreflang="en" href="https://saison-lab.com/cuisine-lab/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://saison-lab.com/cuisine-lab/">
+  <meta property="og:title" content="CUISINE LAB | キュイジーヌ・ラボ">
+  <meta property="og:description" content="世界の美食を言葉で味わう。各国TOP3料理の味覚プロファイルと文化的背景を探求。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://saison-lab.com/cuisine-lab/">
+  <meta property="og:site_name" content="Saison Lab">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CUISINE LAB | キュイジーヌ・ラボ">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#c9a962">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Cpath d='M10 6v6M8 6v4.5a2 2 0 004 0v-4.5M10 12v14' stroke='%23c9a962' stroke-width='1.5' fill='none'/%3E%3Cellipse cx='22' cy='9' rx='3' ry='4' fill='none' stroke='%23c9a962' stroke-width='1.5'/%3E%3Cpath d='M22 13v13' stroke='%23c9a962' stroke-width='1.5'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+JP:wght@300;400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="skeleton-overlay" class="skeleton-overlay"><div class="skeleton-content"><div class="skeleton-logo"></div><div class="skeleton-search"></div><div class="skeleton-cards"><div class="skeleton-card"></div><div class="skeleton-card"></div></div></div></div>
+  <header class="header"><div class="header-container">
+    <div class="logo"><svg class="logo-icon" viewBox="0 0 32 32"><path d="M10 6v6M8 6v4.5a2 2 0 004 0v-4.5M10 12v14" stroke="currentColor" stroke-width="1.5" fill="none"/><ellipse cx="22" cy="9" rx="3" ry="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M22 13v13" stroke="currentColor" stroke-width="1.5"/></svg><div class="logo-text"><span class="logo-main">CUISINE LAB</span><span class="logo-sub" data-i18n="subtitle">世界の美食を言葉で味わう</span></div></div>
+    <nav class="header-nav"><button class="lang-toggle" id="lang-toggle"><span class="lang-current">JP</span>/<span class="lang-other">EN</span></button></nav>
+  </div></header>
+  <main class="main">
+    <section class="search-section"><div class="search-container"><div class="search-box"><svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2"/></svg><input type="search" id="country-search" class="search-input" placeholder="国名で検索..." autocomplete="off"><button class="search-clear" id="search-clear" hidden><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"/></svg></button></div></div>
+    <div class="filter-container"><button class="filter-btn active" data-region="all" data-i18n="filterAll">すべて</button><button class="filter-btn" data-region="asia" data-i18n="filterAsia">アジア</button><button class="filter-btn" data-region="europe" data-i18n="filterEurope">ヨーロッパ</button><button class="filter-btn" data-region="americas" data-i18n="filterAmericas">アメリカ</button><button class="filter-btn" data-region="middle-east-africa" data-i18n="filterMEA">中東・アフリカ</button></div></section>
+    <aside class="ad-space ad-leaderboard"><div class="ad-placeholder"><span>AD SPACE</span><span>728×90</span></div></aside>
+    <section class="countries-section"><h2 class="section-title" data-i18n="countriesHeading"><span class="title-num">20</span>カ国の代表料理</h2><div id="countries-grid" class="countries-grid"></div><div id="no-results" class="no-results" hidden><p data-i18n="noResults">該当する国が見つかりません</p><button id="reset-search" data-i18n="resetSearch">リセット</button></div></section>
+    <aside class="ad-space ad-rectangle"><div class="ad-placeholder"><span>AD SPACE</span><span>300×250</span></div></aside>
+    <dialog id="dish-modal" class="dish-modal"><div class="modal-content"><header class="modal-header"><div class="modal-country"><span id="modal-flag"></span><span id="modal-country-name"></span></div><button class="modal-close" id="modal-close"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"/></svg></button></header><div class="modal-body" id="modal-body"></div><footer class="modal-footer"><button class="favorite-btn" id="favorite-btn"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span data-i18n="addFavorite">お気に入り</span></button><button class="share-btn" id="share-btn"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" stroke="currentColor" stroke-width="2"/></svg><span data-i18n="share">シェア</span></button></footer></div></dialog>
+    <aside class="ad-space ad-leaderboard"><div class="ad-placeholder"><span>AD SPACE</span><span>728×90</span></div></aside>
+  </main>
+  <footer class="footer"><div class="footer-container"><nav class="footer-nav"><button class="footer-link" id="open-privacy" data-i18n="privacyPolicy">プライバシーポリシー</button><button class="footer-link" id="open-disclaimer" data-i18n="disclaimer">免責事項</button><button class="footer-link" id="open-contact" data-i18n="contact">お問い合わせ</button></nav><p class="footer-copyright">© 2026 Saison Lab.</p><a href="https://saison-lab.com" class="back-link" data-i18n="backToHome">← Saison Lab</a></div></footer>
+  <dialog id="privacy-modal" class="legal-modal"><div class="legal-content"><header class="legal-header"><h2 data-i18n="privacyPolicy">プライバシーポリシー</h2><button class="legal-close"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"/></svg></button></header><div class="legal-body"><p data-i18n="privacyText">当サイトではLocalStorageを使用してお気に入り情報を保存しています。個人情報は収集しておりません。</p></div></div></dialog>
+  <dialog id="disclaimer-modal" class="legal-modal"><div class="legal-content"><header class="legal-header"><h2 data-i18n="disclaimer">免責事項</h2><button class="legal-close"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"/></svg></button></header><div class="legal-body"><p data-i18n="disclaimerText">掲載情報は一般的な知識に基づきます。アレルギーをお持ちの方は実際の材料をご確認ください。</p></div></div></dialog>
+  <dialog id="contact-modal" class="legal-modal"><div class="legal-content"><header class="legal-header"><h2 data-i18n="contact">お問い合わせ</h2><button class="legal-close"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"/></svg></button></header><div class="legal-body"><p>contact@saison-lab.com</p></div></div></dialog>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

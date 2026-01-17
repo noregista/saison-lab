@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/temple-lab/sw.js', { scope: '/temple-lab/' })})}
