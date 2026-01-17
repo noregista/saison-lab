@@ -202,191 +202,199 @@ export default function XylophoneLabPage() {
     // ============================================================
     return (
         <main
-            className="min-h-screen"
+            className="min-h-screen relative"
             style={{ backgroundColor: colors.bgDark, color: colors.text }}
         >
-            {/* 波紋エフェクト */}
-            {ripples.map((ripple) => (
-                <div
-                    key={ripple.id}
-                    className="fixed pointer-events-none rounded-full animate-ping"
-                    style={{
-                        left: ripple.x - 50,
-                        top: ripple.y - 50,
-                        width: 100,
-                        height: 100,
-                        backgroundColor: ripple.color,
-                        opacity: 0.5,
-                        zIndex: 100,
-                    }}
-                />
-            ))}
+            {/* Background Image */}
+            <div
+                className="absolute inset-0 z-0 bg-cover bg-center opacity-30 pointer-events-none mix-blend-overlay"
+                style={{ backgroundImage: 'url("/xylophone-lab/bg-kids.png")' }}
+            />
+            {/* Content Wrapper */}
+            <div className="relative z-10">
+                {/* 波紋エフェクト */}
+                {ripples.map((ripple) => (
+                    <div
+                        key={ripple.id}
+                        className="fixed pointer-events-none rounded-full animate-ping"
+                        style={{
+                            left: ripple.x - 50,
+                            top: ripple.y - 50,
+                            width: 100,
+                            height: 100,
+                            backgroundColor: ripple.color,
+                            opacity: 0.5,
+                            zIndex: 100,
+                        }}
+                    />
+                ))}
 
-            {/* ヘッダー */}
-            <header className="flex items-center justify-between p-4 max-w-4xl mx-auto">
-                <Link
-                    href="/"
-                    className="text-sm opacity-60 hover:opacity-100 transition-opacity"
-                >
-                    {t.back}
-                </Link>
-                <button
-                    onClick={() => setLang(lang === 'jp' ? 'en' : 'jp')}
-                    className="px-3 py-1 text-sm border rounded-full hover:bg-white/10 transition-colors"
-                    style={{ borderColor: colors.primary }}
-                >
-                    {lang === 'jp' ? 'EN' : 'JP'}
-                </button>
-            </header>
+                {/* ヘッダー */}
+                <header className="flex items-center justify-between p-4 max-w-4xl mx-auto">
+                    <Link
+                        href="/"
+                        className="text-sm opacity-60 hover:opacity-100 transition-opacity"
+                    >
+                        {t.back}
+                    </Link>
+                    <button
+                        onClick={() => setLang(lang === 'jp' ? 'en' : 'jp')}
+                        className="px-3 py-1 text-sm border rounded-full hover:bg-white/10 transition-colors"
+                        style={{ borderColor: colors.primary }}
+                    >
+                        {lang === 'jp' ? 'EN' : 'JP'}
+                    </button>
+                </header>
 
-            {/* タイトル */}
-            <div className="text-center py-6">
-                <h1
-                    className="text-4xl md:text-5xl font-bold mb-2"
-                    style={{ color: colors.primary }}
-                >
-                    🎵 {t.title}
-                </h1>
-                <p className="text-lg opacity-60">{t.subtitle}</p>
-            </div>
+                {/* タイトル */}
+                <div className="text-center py-6">
+                    <h1
+                        className="text-4xl md:text-5xl font-bold mb-2"
+                        style={{ color: colors.primary }}
+                    >
+                        🎵 {t.title}
+                    </h1>
+                    <p className="text-lg opacity-60">{t.subtitle}</p>
+                </div>
 
-            {/* コントロール */}
-            <div className="max-w-4xl mx-auto px-4 mb-6">
-                <div
-                    className="rounded-xl p-4 flex flex-wrap justify-center gap-6"
-                    style={{ backgroundColor: colors.bgCard }}
-                >
-                    {/* 音色切替 */}
-                    <div className="flex items-center gap-3">
-                        <span className="text-sm opacity-60">{t.instrument}</span>
-                        <div className="flex gap-2">
-                            <button
-                                onClick={() => setInstrumentType('wood')}
-                                className="px-4 py-2 rounded-lg text-sm font-bold transition-all"
-                                style={{
-                                    backgroundColor:
-                                        instrumentType === 'wood'
-                                            ? colors.primary
-                                            : `${colors.primary}22`,
-                                    color:
-                                        instrumentType === 'wood'
-                                            ? colors.bgDark
-                                            : colors.text,
-                                }}
-                            >
-                                🪵 {t.wood}
-                            </button>
-                            <button
-                                onClick={() => setInstrumentType('metal')}
-                                className="px-4 py-2 rounded-lg text-sm font-bold transition-all"
-                                style={{
-                                    backgroundColor:
-                                        instrumentType === 'metal'
-                                            ? colors.secondary
-                                            : `${colors.secondary}22`,
-                                    color:
-                                        instrumentType === 'metal'
-                                            ? colors.bgDark
-                                            : colors.text,
-                                }}
-                            >
-                                🔔 {t.metal}
-                            </button>
+                {/* コントロール */}
+                <div className="max-w-4xl mx-auto px-4 mb-6">
+                    <div
+                        className="rounded-xl p-4 flex flex-wrap justify-center gap-6"
+                        style={{ backgroundColor: colors.bgCard }}
+                    >
+                        {/* 音色切替 */}
+                        <div className="flex items-center gap-3">
+                            <span className="text-sm opacity-60">{t.instrument}</span>
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={() => setInstrumentType('wood')}
+                                    className="px-4 py-2 rounded-lg text-sm font-bold transition-all"
+                                    style={{
+                                        backgroundColor:
+                                            instrumentType === 'wood'
+                                                ? colors.primary
+                                                : `${colors.primary}22`,
+                                        color:
+                                            instrumentType === 'wood'
+                                                ? colors.bgDark
+                                                : colors.text,
+                                    }}
+                                >
+                                    🪵 {t.wood}
+                                </button>
+                                <button
+                                    onClick={() => setInstrumentType('metal')}
+                                    className="px-4 py-2 rounded-lg text-sm font-bold transition-all"
+                                    style={{
+                                        backgroundColor:
+                                            instrumentType === 'metal'
+                                                ? colors.secondary
+                                                : `${colors.secondary}22`,
+                                        color:
+                                            instrumentType === 'metal'
+                                                ? colors.bgDark
+                                                : colors.text,
+                                    }}
+                                >
+                                    🔔 {t.metal}
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* ボリューム */}
+                        <div className="flex items-center gap-3">
+                            <span className="text-sm opacity-60">{t.volume}</span>
+                            <input
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.1"
+                                value={volume}
+                                onChange={(e) => setVolume(parseFloat(e.target.value))}
+                                className="w-32"
+                                style={{ accentColor: colors.accent }}
+                            />
                         </div>
                     </div>
-
-                    {/* ボリューム */}
-                    <div className="flex items-center gap-3">
-                        <span className="text-sm opacity-60">{t.volume}</span>
-                        <input
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.1"
-                            value={volume}
-                            onChange={(e) => setVolume(parseFloat(e.target.value))}
-                            className="w-32"
-                            style={{ accentColor: colors.accent }}
-                        />
-                    </div>
                 </div>
-            </div>
 
-            {/* 木琴鍵盤 */}
-            <div className="max-w-4xl mx-auto px-4">
-                <div
-                    className="rounded-xl p-6 overflow-x-auto"
-                    style={{ backgroundColor: colors.bgCard }}
-                >
-                    <div className="flex justify-center gap-1 md:gap-2 min-w-max">
-                        {notes.map((note, index) => {
-                            const isActive = activeKeys.has(index);
-                            // 鍵盤の高さ（グラデーション）
-                            const height = 180 - index * 8;
+                {/* 木琴鍵盤 */}
+                <div className="max-w-4xl mx-auto px-4">
+                    <div
+                        className="rounded-xl p-6 overflow-x-auto"
+                        style={{ backgroundColor: colors.bgCard }}
+                    >
+                        <div className="flex justify-center gap-1 md:gap-2 min-w-max">
+                            {notes.map((note, index) => {
+                                const isActive = activeKeys.has(index);
+                                // 鍵盤の高さ（グラデーション）
+                                const height = 180 - index * 8;
 
-                            return (
-                                <button
-                                    key={note}
-                                    onClick={(e) => playNote(index, e)}
-                                    onTouchStart={(e) => {
-                                        e.preventDefault();
-                                        playNote(index, e);
-                                    }}
-                                    className="flex flex-col items-center justify-end rounded-lg transition-all duration-75"
-                                    style={{
-                                        width: 50,
-                                        height: height,
-                                        backgroundColor: keyColors[index],
-                                        transform: isActive
-                                            ? 'translateY(4px) scale(0.95)'
-                                            : 'none',
-                                        boxShadow: isActive
-                                            ? 'inset 0 -4px 10px rgba(0,0,0,0.3)'
-                                            : `0 4px 15px ${keyColors[index]}66`,
-                                    }}
-                                    aria-label={`${noteLabels[index]} key`}
-                                >
-                                    <span
-                                        className="text-sm font-bold pb-2"
-                                        style={{ color: colors.bgDark }}
+                                return (
+                                    <button
+                                        key={note}
+                                        onClick={(e) => playNote(index, e)}
+                                        onTouchStart={(e) => {
+                                            e.preventDefault();
+                                            playNote(index, e);
+                                        }}
+                                        className="flex flex-col items-center justify-end rounded-lg transition-all duration-75"
+                                        style={{
+                                            width: 50,
+                                            height: height,
+                                            backgroundColor: keyColors[index],
+                                            transform: isActive
+                                                ? 'translateY(4px) scale(0.95)'
+                                                : 'none',
+                                            boxShadow: isActive
+                                                ? 'inset 0 -4px 10px rgba(0,0,0,0.3)'
+                                                : `0 4px 15px ${keyColors[index]}66`,
+                                        }}
+                                        aria-label={`${noteLabels[index]} key`}
                                     >
-                                        {noteLabels[index]}
-                                    </span>
-                                </button>
-                            );
-                        })}
+                                        <span
+                                            className="text-sm font-bold pb-2"
+                                            style={{ color: colors.bgDark }}
+                                        >
+                                            {noteLabels[index]}
+                                        </span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                        <p className="text-xs text-center mt-4 opacity-40">{t.hint}</p>
                     </div>
-                    <p className="text-xs text-center mt-4 opacity-40">{t.hint}</p>
                 </div>
-            </div>
 
-            {/* 広告エリア */}
-            <div className="max-w-4xl mx-auto px-4 py-8">
-                <div
-                    className="border-2 border-dashed rounded-lg px-4 py-8 text-center text-sm opacity-50"
-                    style={{ borderColor: colors.secondary }}
+                {/* 広告エリア */}
+                <div className="max-w-4xl mx-auto px-4 py-8">
+                    <div
+                        className="border-2 border-dashed rounded-lg px-4 py-8 text-center text-sm opacity-50"
+                        style={{ borderColor: colors.secondary }}
+                    >
+                        📢 Ad Display Area / 広告表示欄 (728x90)
+                    </div>
+                </div>
+
+                {/* フッター */}
+                <footer
+                    className="border-t py-6"
+                    style={{ borderColor: `${colors.primary}33` }}
                 >
-                    📢 Ad Display Area / 広告表示欄 (728x90)
-                </div>
-            </div>
-
-            {/* フッター */}
-            <footer
-                className="border-t py-6"
-                style={{ borderColor: `${colors.primary}33` }}
-            >
-                <div className="max-w-4xl mx-auto px-4 text-center text-sm opacity-60">
-                    <div className="flex justify-center gap-4 mb-2">
-                        <Link href="#" className="hover:opacity-100 transition-opacity">
-                            {t.privacy}
-                        </Link>
-                        <Link href="#" className="hover:opacity-100 transition-opacity">
-                            {t.disclaimer}
-                        </Link>
+                    <div className="max-w-4xl mx-auto px-4 text-center text-sm opacity-60">
+                        <div className="flex justify-center gap-4 mb-2">
+                            <Link href="#" className="hover:opacity-100 transition-opacity">
+                                {t.privacy}
+                            </Link>
+                            <Link href="#" className="hover:opacity-100 transition-opacity">
+                                {t.disclaimer}
+                            </Link>
+                        </div>
+                        <p>{t.copyright}</p>
                     </div>
-                    <p>{t.copyright}</p>
-                </div>
-            </footer>
+                </footer>
+            </div>
         </main>
     );
 }

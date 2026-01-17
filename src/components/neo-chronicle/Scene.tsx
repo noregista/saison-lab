@@ -29,12 +29,31 @@ export default function Scene() {
         return () => clearInterval(interval);
     }, [setTimeString]);
 
-    // BG Color transition
-    const bgColor = theme === 'day' ? '#f0f0f0' : '#050505';
+    // BG Image transition
+    // const bgColor = theme === 'day' ? '#f0f0f0' : '#050505'; // Deprecated
 
     return (
         <>
-            <div className="absolute inset-0 z-0 transition-colors duration-1000" style={{ backgroundColor: bgColor }}>
+            <div className="absolute inset-0 z-0">
+                {/* Night BG (Always present usually, or manageable) */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
+                    style={{
+                        backgroundImage: 'url(/neo-chronicle/bg-night.png)',
+                        opacity: theme === 'night' ? 1 : 0
+                    }}
+                />
+                {/* Day BG */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
+                    style={{
+                        backgroundImage: 'url(/neo-chronicle/bg-day.png)',
+                        opacity: theme === 'day' ? 1 : 0
+                    }}
+                />
+                {/* Fallback color if images miss */}
+                <div className="absolute inset-0 -z-10 bg-black" />
+
                 <Canvas dpr={[1, 2]}>
                     <PerspectiveCamera makeDefault position={[0, 0, 5]} />
                     <ambientLight intensity={0.5} />

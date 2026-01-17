@@ -179,7 +179,7 @@ export default function TheButtonPage() {
     const getBackgroundClass = () => {
         if (phase === 1) return 'bg-white';
         if (phase === 2) return 'bg-gray-100';
-        if (phase === 3) return 'bg-gradient-to-br from-gray-900 via-purple-900 to-black';
+        if (phase === 3) return 'bg-cover bg-center'; // Image handled in style
         if (phase === 4) return 'bg-black';
         return 'bg-white';
     };
@@ -188,6 +188,9 @@ export default function TheButtonPage() {
         <div
             ref={containerRef}
             className={`min-h-screen relative overflow-hidden transition-all duration-1000 ${getBackgroundClass()}`}
+            style={{
+                backgroundImage: phase === 3 ? 'url("/the-button/space-bg.png")' : 'none',
+            }}
         >
             {/* Custom CSS Animations */}
             <style jsx global>{`

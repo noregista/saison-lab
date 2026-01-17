@@ -306,198 +306,205 @@ export default function GlobalPlatePage() {
     }, [selectedFood]);
 
     return (
-        <div className="min-h-screen font-sans" style={{ background: 'linear-gradient(135deg, #FAF7F2 0%, #F5F0E8 50%, #FAF7F2 100%)', color: '#2D2926' }}>
-            {/* Header */}
-            <header className="sticky top-0 z-40 bg-[rgba(250,247,242,0.9)] backdrop-blur-md border-b border-[#D4A574]/20 px-4 md:px-8 py-4">
-                <div className="max-w-7xl mx-auto flex justify-between items-center flex-wrap gap-4">
-                    <Link href="/" className="flex items-center gap-3 no-underline">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4A574] to-amber-600 p-1 shadow-lg">
-                            <div className="w-full h-full rounded-full bg-[#FAF7F2] flex items-center justify-center text-lg">🍽️</div>
-                        </div>
-                        <div>
-                            <h1 className="text-lg font-bold text-[#2D2926] tracking-wide">GLOBAL PLATE</h1>
-                            <p className="text-xs text-[#8B7355]">{lang === 'jp' ? 'グローバル・プレート' : 'World Staple Foods'}</p>
-                        </div>
-                    </Link>
-                    <div className="flex items-center gap-4">
-                        <input
-                            type="text"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder={uiStrings.search[lang]}
-                            className="px-4 py-2 rounded-full bg-white/50 border border-[#D4A574]/30 text-[#2D2926] placeholder:text-[#8B7355]/60 focus:outline-none focus:ring-2 focus:ring-[#D4A574]/50 text-sm w-full md:w-48"
-                        />
-                        <div className="flex bg-[#D4A574]/20 rounded-full p-1 gap-1">
-                            <button onClick={() => setLang('jp')} className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${lang === 'jp' ? 'bg-[#D4A574] text-white' : 'text-[#8B7355]'}`}>JP</button>
-                            <button onClick={() => setLang('en')} className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${lang === 'en' ? 'bg-[#D4A574] text-white' : 'text-[#8B7355]'}`}>EN</button>
+        <div className="min-h-screen font-sans relative" style={{ background: 'linear-gradient(135deg, #FAF7F2 0%, #F5F0E8 50%, #FAF7F2 100%)', color: '#2D2926' }}>
+            {/* Background Image */}
+            <div
+                className="absolute inset-0 z-0 bg-cover bg-center opacity-40 pointer-events-none mix-blend-overlay"
+                style={{ backgroundImage: 'url("/global-plate/bg-table.png")' }}
+            />
+            {/* Content Wrapper */}
+            <div className="relative z-10">
+                {/* Header */}
+                <header className="sticky top-0 z-40 bg-[rgba(250,247,242,0.9)] backdrop-blur-md border-b border-[#D4A574]/20 px-4 md:px-8 py-4">
+                    <div className="max-w-7xl mx-auto flex justify-between items-center flex-wrap gap-4">
+                        <Link href="/" className="flex items-center gap-3 no-underline">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4A574] to-amber-600 p-1 shadow-lg">
+                                <div className="w-full h-full rounded-full bg-[#FAF7F2] flex items-center justify-center text-lg">🍽️</div>
+                            </div>
+                            <div>
+                                <h1 className="text-lg font-bold text-[#2D2926] tracking-wide">GLOBAL PLATE</h1>
+                                <p className="text-xs text-[#8B7355]">{lang === 'jp' ? 'グローバル・プレート' : 'World Staple Foods'}</p>
+                            </div>
+                        </Link>
+                        <div className="flex items-center gap-4">
+                            <input
+                                type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder={uiStrings.search[lang]}
+                                className="px-4 py-2 rounded-full bg-white/50 border border-[#D4A574]/30 text-[#2D2926] placeholder:text-[#8B7355]/60 focus:outline-none focus:ring-2 focus:ring-[#D4A574]/50 text-sm w-full md:w-48"
+                            />
+                            <div className="flex bg-[#D4A574]/20 rounded-full p-1 gap-1">
+                                <button onClick={() => setLang('jp')} className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${lang === 'jp' ? 'bg-[#D4A574] text-white' : 'text-[#8B7355]'}`}>JP</button>
+                                <button onClick={() => setLang('en')} className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${lang === 'en' ? 'bg-[#D4A574] text-white' : 'text-[#8B7355]'}`}>EN</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </header>
+                </header>
 
-            <main className="max-w-7xl mx-auto px-4 md:px-8 py-8">
-                {/* Hero */}
-                <section className="text-center py-8 animate-fadeIn">
-                    <h2 className="text-3xl md:text-4xl font-bold text-[#2D2926] mb-4">{uiStrings.siteTagline[lang]}</h2>
-                    <p className="text-[#8B7355] max-w-2xl mx-auto mb-8">{lang === 'jp' ? '米、小麦、トウモロコシ、芋類など、世界各地の主食の歴史と文化を探索しましょう。' : 'Discover the history and culture of staple foods around the world.'}</p>
+                <main className="max-w-7xl mx-auto px-4 md:px-8 py-8">
+                    {/* Hero */}
+                    <section className="text-center py-8 animate-fadeIn">
+                        <h2 className="text-3xl md:text-4xl font-bold text-[#2D2926] mb-4">{uiStrings.siteTagline[lang]}</h2>
+                        <p className="text-[#8B7355] max-w-2xl mx-auto mb-8">{lang === 'jp' ? '米、小麦、トウモロコシ、芋類など、世界各地の主食の歴史と文化を探索しましょう。' : 'Discover the history and culture of staple foods around the world.'}</p>
 
-                    <WorldMap lang={lang} foods={filteredFoods} onRegionClick={(code) => setSelectedRegion(prev => prev === code ? null : code)} />
+                        <WorldMap lang={lang} foods={filteredFoods} onRegionClick={(code) => setSelectedRegion(prev => prev === code ? null : code)} />
 
-                    {selectedRegion && (
-                        <div className="mt-4">
-                            <span className="inline-flex items-center gap-2 px-4 py-1 bg-[#D4A574] text-white rounded-full text-sm">
-                                {worldRegions.find(r => r.code === selectedRegion)?.name[lang]} ✕
-                                <button onClick={() => setSelectedRegion(null)} className="hover:text-black">Cancel</button>
-                            </span>
-                        </div>
-                    )}
-                </section>
+                        {selectedRegion && (
+                            <div className="mt-4">
+                                <span className="inline-flex items-center gap-2 px-4 py-1 bg-[#D4A574] text-white rounded-full text-sm">
+                                    {worldRegions.find(r => r.code === selectedRegion)?.name[lang]} ✕
+                                    <button onClick={() => setSelectedRegion(null)} className="hover:text-black">Cancel</button>
+                                </span>
+                            </div>
+                        )}
+                    </section>
 
-                {/* Category Filter */}
-                <section className="py-6 flex flex-wrap justify-center gap-3 border-t border-[#D4A574]/20 pt-8">
-                    <button onClick={() => setSelectedCategory(null)} className={`px-5 py-2.5 rounded-full font-medium transition-all ${selectedCategory === null ? 'bg-[#D4A574] text-white shadow-lg' : 'bg-white/50 text-[#2D2926] hover:bg-[#D4A574]/20'}`}>{uiStrings.categoryAll[lang]}</button>
-                    {categories.map((cat) => (
-                        <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`px-5 py-2.5 rounded-full font-medium transition-all flex items-center gap-2 ${selectedCategory === cat.id ? `${cat.color} text-white shadow-lg` : 'bg-white/50 text-[#2D2926] hover:bg-[#D4A574]/20'}`}>
-                            <span>{cat.emoji}</span><span>{getText(cat.name, lang)}</span>
-                        </button>
-                    ))}
-                </section>
+                    {/* Category Filter */}
+                    <section className="py-6 flex flex-wrap justify-center gap-3 border-t border-[#D4A574]/20 pt-8">
+                        <button onClick={() => setSelectedCategory(null)} className={`px-5 py-2.5 rounded-full font-medium transition-all ${selectedCategory === null ? 'bg-[#D4A574] text-white shadow-lg' : 'bg-white/50 text-[#2D2926] hover:bg-[#D4A574]/20'}`}>{uiStrings.categoryAll[lang]}</button>
+                        {categories.map((cat) => (
+                            <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`px-5 py-2.5 rounded-full font-medium transition-all flex items-center gap-2 ${selectedCategory === cat.id ? `${cat.color} text-white shadow-lg` : 'bg-white/50 text-[#2D2926] hover:bg-[#D4A574]/20'}`}>
+                                <span>{cat.emoji}</span><span>{getText(cat.name, lang)}</span>
+                            </button>
+                        ))}
+                    </section>
 
-                {/* Food Grid */}
-                <section className="py-8 min-h-[400px]">
-                    {isLoading ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
-                            {[...Array(8)].map((_, i) => (
-                                <div key={i} className="animate-pulse w-48 h-64">
-                                    <div className="w-full h-48 rounded-full bg-[#D4A574]/20"></div>
-                                    <div className="mt-4 h-5 bg-[#D4A574]/20 rounded w-24 mx-auto"></div>
-                                </div>
-                            ))}
-                        </div>
-                    ) : filteredFoods.length === 0 ? (
-                        <div className="text-center py-16">
-                            <div className="text-6xl mb-4">🍽️</div>
-                            <p className="text-xl text-[#2D2926]">{uiStrings.noResults[lang]}</p>
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
-                            {filteredFoods.map((food) => {
-                                const catInfo = getCategoryInfo(food.category);
-                                return (
-                                    <article key={food.id} onClick={() => setSelectedFood(food)} className="cursor-pointer group">
-                                        <div className="relative w-48 h-48 mx-auto transition-transform duration-300 group-hover:scale-105">
-                                            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-100 to-amber-200 shadow-xl border-4 border-amber-200/50" />
-                                            <div className="absolute inset-4 rounded-full bg-gradient-to-br from-[#FAF7F2] to-amber-50 shadow-inner" />
-                                            <div className="absolute inset-6 rounded-full flex items-center justify-center">
-                                                <span className="text-5xl drop-shadow-sm">{food.emoji}</span>
+                    {/* Food Grid */}
+                    <section className="py-8 min-h-[400px]">
+                        {isLoading ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
+                                {[...Array(8)].map((_, i) => (
+                                    <div key={i} className="animate-pulse w-48 h-64">
+                                        <div className="w-full h-48 rounded-full bg-[#D4A574]/20"></div>
+                                        <div className="mt-4 h-5 bg-[#D4A574]/20 rounded w-24 mx-auto"></div>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : filteredFoods.length === 0 ? (
+                            <div className="text-center py-16">
+                                <div className="text-6xl mb-4">🍽️</div>
+                                <p className="text-xl text-[#2D2926]">{uiStrings.noResults[lang]}</p>
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
+                                {filteredFoods.map((food) => {
+                                    const catInfo = getCategoryInfo(food.category);
+                                    return (
+                                        <article key={food.id} onClick={() => setSelectedFood(food)} className="cursor-pointer group">
+                                            <div className="relative w-48 h-48 mx-auto transition-transform duration-300 group-hover:scale-105">
+                                                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-100 to-amber-200 shadow-xl border-4 border-amber-200/50" />
+                                                <div className="absolute inset-4 rounded-full bg-gradient-to-br from-[#FAF7F2] to-amber-50 shadow-inner" />
+                                                <div className="absolute inset-6 rounded-full flex items-center justify-center">
+                                                    <span className="text-5xl drop-shadow-sm">{food.emoji}</span>
+                                                </div>
+                                                {catInfo && <div className={`absolute -top-2 -right-2 w-8 h-8 rounded-full ${catInfo.color} flex items-center justify-center shadow-lg text-sm text-white`}>{catInfo.emoji}</div>}
                                             </div>
-                                            {catInfo && <div className={`absolute -top-2 -right-2 w-8 h-8 rounded-full ${catInfo.color} flex items-center justify-center shadow-lg text-sm text-white`}>{catInfo.emoji}</div>}
-                                        </div>
-                                        <div className="mt-6 text-center">
-                                            <h3 className="text-lg font-bold text-[#2D2926] group-hover:text-[#D4A574] transition-colors">{getText(food.name, lang)}</h3>
-                                            <p className="text-xs text-[#8B7355] uppercase tracking-wider">{lang === 'en' ? getText(food.name, 'jp') : getText(food.name, 'en')}</p>
-                                        </div>
-                                        {/* Featured Dish Preview (Mobile hidden, shows on hover in concept but simplified here) */}
-                                    </article>
-                                );
-                            })}
-                        </div>
-                    )}
-                </section>
-
-                {/* Back to Home */}
-                <section className="py-8 text-center border-t border-[#D4A574]/20">
-                    <Link href="/" className="inline-flex items-center gap-2 px-6 py-3 bg-[#D4A574] text-white rounded-full font-medium hover:shadow-lg transition-all hover:-translate-y-0.5 no-underline">
-                        ← {uiStrings.backToHome[lang]}
-                    </Link>
-                </section>
-            </main>
-
-            {/* Detail Modal */}
-            {selectedFood && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4 animate-fadeIn" onClick={() => setSelectedFood(null)}>
-                    <div className="bg-[#FAF7F2] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 shadow-2xl relative" onClick={(e) => e.stopPropagation()}>
-                        <button onClick={() => setSelectedFood(null)} className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#D4A574]/10 flex items-center justify-center text-[#2D2926] hover:bg-[#D4A574]/30 text-xl transition-colors">✕</button>
-
-                        <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8">
-                            <div className="relative w-32 h-32 flex-shrink-0">
-                                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-100 to-amber-200 shadow-lg border-2 border-amber-200/50" />
-                                <div className="absolute inset-0 flex items-center justify-center text-6xl">{selectedFood.emoji}</div>
+                                            <div className="mt-6 text-center">
+                                                <h3 className="text-lg font-bold text-[#2D2926] group-hover:text-[#D4A574] transition-colors">{getText(food.name, lang)}</h3>
+                                                <p className="text-xs text-[#8B7355] uppercase tracking-wider">{lang === 'en' ? getText(food.name, 'jp') : getText(food.name, 'en')}</p>
+                                            </div>
+                                            {/* Featured Dish Preview (Mobile hidden, shows on hover in concept but simplified here) */}
+                                        </article>
+                                    );
+                                })}
                             </div>
-                            <div className="text-center md:text-left">
-                                <span className={`inline-block px-3 py-1 rounded-full text-xs text-white font-medium mb-2 ${getCategoryInfo(selectedFood.category)?.color}`}>{getText(getCategoryInfo(selectedFood.category)?.name || { jp: '', en: '' }, lang)}</span>
-                                <h2 className="text-3xl font-bold text-[#2D2926] mb-1">{getText(selectedFood.name, lang)}</h2>
-                                <p className="text-lg text-[#8B7355]">{lang === 'en' ? getText(selectedFood.name, 'jp') : getText(selectedFood.name, 'en')}</p>
-                            </div>
-                        </div>
+                        )}
+                    </section>
 
-                        <div className="space-y-8">
-                            {/* Origin & History */}
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <section className="bg-white/50 p-4 rounded-2xl">
-                                    <h3 className="text-sm font-bold text-[#8B7355] uppercase tracking-widest mb-2 flex items-center gap-2">📍 {uiStrings.origin[lang]}</h3>
-                                    <p className="text-[#2D2926] font-medium">{selectedFood.origin.join(lang === 'jp' ? '、' : ', ')}</p>
+                    {/* Back to Home */}
+                    <section className="py-8 text-center border-t border-[#D4A574]/20">
+                        <Link href="/" className="inline-flex items-center gap-2 px-6 py-3 bg-[#D4A574] text-white rounded-full font-medium hover:shadow-lg transition-all hover:-translate-y-0.5 no-underline">
+                            ← {uiStrings.backToHome[lang]}
+                        </Link>
+                    </section>
+                </main>
+
+                {/* Detail Modal */}
+                {selectedFood && (
+                    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4 animate-fadeIn" onClick={() => setSelectedFood(null)}>
+                        <div className="bg-[#FAF7F2] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 shadow-2xl relative" onClick={(e) => e.stopPropagation()}>
+                            <button onClick={() => setSelectedFood(null)} className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#D4A574]/10 flex items-center justify-center text-[#2D2926] hover:bg-[#D4A574]/30 text-xl transition-colors">✕</button>
+
+                            <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8">
+                                <div className="relative w-32 h-32 flex-shrink-0">
+                                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-100 to-amber-200 shadow-lg border-2 border-amber-200/50" />
+                                    <div className="absolute inset-0 flex items-center justify-center text-6xl">{selectedFood.emoji}</div>
+                                </div>
+                                <div className="text-center md:text-left">
+                                    <span className={`inline-block px-3 py-1 rounded-full text-xs text-white font-medium mb-2 ${getCategoryInfo(selectedFood.category)?.color}`}>{getText(getCategoryInfo(selectedFood.category)?.name || { jp: '', en: '' }, lang)}</span>
+                                    <h2 className="text-3xl font-bold text-[#2D2926] mb-1">{getText(selectedFood.name, lang)}</h2>
+                                    <p className="text-lg text-[#8B7355]">{lang === 'en' ? getText(selectedFood.name, 'jp') : getText(selectedFood.name, 'en')}</p>
+                                </div>
+                            </div>
+
+                            <div className="space-y-8">
+                                {/* Origin & History */}
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <section className="bg-white/50 p-4 rounded-2xl">
+                                        <h3 className="text-sm font-bold text-[#8B7355] uppercase tracking-widest mb-2 flex items-center gap-2">📍 {uiStrings.origin[lang]}</h3>
+                                        <p className="text-[#2D2926] font-medium">{selectedFood.origin.join(lang === 'jp' ? '、' : ', ')}</p>
+                                    </section>
+                                    <section className="bg-white/50 p-4 rounded-2xl">
+                                        <h3 className="text-sm font-bold text-[#8B7355] uppercase tracking-widest mb-2 flex items-center gap-2">👨‍🍳 {uiStrings.cookingMethods[lang]}</h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            {selectedFood.cookingMethods.map((method, i) => (
+                                                <span key={i} className="px-3 py-1 bg-[#D4A574]/20 rounded-full text-sm text-[#2D2926]">{getText(method, lang)}</span>
+                                            ))}
+                                        </div>
+                                    </section>
+                                </div>
+
+                                {/* History Text */}
+                                <section>
+                                    <h3 className="text-lg font-bold text-[#2D2926] mb-3 border-b border-[#D4A574]/20 pb-2">📜 {uiStrings.history[lang]}</h3>
+                                    <p className="text-[#594a3a] leading-relaxed">{getText(selectedFood.history, lang)}</p>
                                 </section>
-                                <section className="bg-white/50 p-4 rounded-2xl">
-                                    <h3 className="text-sm font-bold text-[#8B7355] uppercase tracking-widest mb-2 flex items-center gap-2">👨‍🍳 {uiStrings.cookingMethods[lang]}</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {selectedFood.cookingMethods.map((method, i) => (
-                                            <span key={i} className="px-3 py-1 bg-[#D4A574]/20 rounded-full text-sm text-[#2D2926]">{getText(method, lang)}</span>
+
+                                {/* Nutrition */}
+                                <section>
+                                    <h3 className="text-lg font-bold text-[#2D2926] mb-3 border-b border-[#D4A574]/20 pb-2">🔥 {uiStrings.nutrition[lang]}</h3>
+                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                        <div className="bg-white/60 rounded-xl p-3 text-center border border-[#D4A574]/10">
+                                            <p className="text-2xl font-bold text-[#2D2926]">{selectedFood.nutrition.calories}</p>
+                                            <p className="text-xs text-[#8B7355] font-medium mt-1">{uiStrings.calories[lang]} (kcal)</p>
+                                        </div>
+                                        <div className="bg-white/60 rounded-xl p-3 text-center border border-[#D4A574]/10">
+                                            <p className="text-2xl font-bold text-[#2D2926]">{selectedFood.nutrition.carbs}g</p>
+                                            <p className="text-xs text-[#8B7355] font-medium mt-1">{uiStrings.carbs[lang]}</p>
+                                        </div>
+                                        <div className="bg-white/60 rounded-xl p-3 text-center border border-[#D4A574]/10">
+                                            <p className="text-2xl font-bold text-[#2D2926]">{selectedFood.nutrition.protein}g</p>
+                                            <p className="text-xs text-[#8B7355] font-medium mt-1">{uiStrings.protein[lang]}</p>
+                                        </div>
+                                        <div className="bg-white/60 rounded-xl p-3 text-center border border-[#D4A574]/10">
+                                            <p className="text-2xl font-bold text-[#2D2926]">{selectedFood.nutrition.fiber}g</p>
+                                            <p className="text-xs text-[#8B7355] font-medium mt-1">{uiStrings.fiber[lang]}</p>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                {/* Featured Dishes */}
+                                <section>
+                                    <h3 className="text-lg font-bold text-[#2D2926] mb-3 border-b border-[#D4A574]/20 pb-2">🥘 {uiStrings.featuredDishes[lang]}</h3>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        {selectedFood.featuredDishes.map((dish) => (
+                                            <div key={dish.id} className="bg-white/80 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                                                <div className="flex items-center gap-3 mb-2">
+                                                    <span className="text-2xl">{getFlagEmoji(dish.country)}</span>
+                                                    <h4 className="font-bold text-[#2D2926]">{getText(dish.name, lang)}</h4>
+                                                </div>
+                                                <p className="text-sm text-[#8B7355]">{getText(dish.description, lang)}</p>
+                                            </div>
                                         ))}
                                     </div>
                                 </section>
                             </div>
-
-                            {/* History Text */}
-                            <section>
-                                <h3 className="text-lg font-bold text-[#2D2926] mb-3 border-b border-[#D4A574]/20 pb-2">📜 {uiStrings.history[lang]}</h3>
-                                <p className="text-[#594a3a] leading-relaxed">{getText(selectedFood.history, lang)}</p>
-                            </section>
-
-                            {/* Nutrition */}
-                            <section>
-                                <h3 className="text-lg font-bold text-[#2D2926] mb-3 border-b border-[#D4A574]/20 pb-2">🔥 {uiStrings.nutrition[lang]}</h3>
-                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                    <div className="bg-white/60 rounded-xl p-3 text-center border border-[#D4A574]/10">
-                                        <p className="text-2xl font-bold text-[#2D2926]">{selectedFood.nutrition.calories}</p>
-                                        <p className="text-xs text-[#8B7355] font-medium mt-1">{uiStrings.calories[lang]} (kcal)</p>
-                                    </div>
-                                    <div className="bg-white/60 rounded-xl p-3 text-center border border-[#D4A574]/10">
-                                        <p className="text-2xl font-bold text-[#2D2926]">{selectedFood.nutrition.carbs}g</p>
-                                        <p className="text-xs text-[#8B7355] font-medium mt-1">{uiStrings.carbs[lang]}</p>
-                                    </div>
-                                    <div className="bg-white/60 rounded-xl p-3 text-center border border-[#D4A574]/10">
-                                        <p className="text-2xl font-bold text-[#2D2926]">{selectedFood.nutrition.protein}g</p>
-                                        <p className="text-xs text-[#8B7355] font-medium mt-1">{uiStrings.protein[lang]}</p>
-                                    </div>
-                                    <div className="bg-white/60 rounded-xl p-3 text-center border border-[#D4A574]/10">
-                                        <p className="text-2xl font-bold text-[#2D2926]">{selectedFood.nutrition.fiber}g</p>
-                                        <p className="text-xs text-[#8B7355] font-medium mt-1">{uiStrings.fiber[lang]}</p>
-                                    </div>
-                                </div>
-                            </section>
-
-                            {/* Featured Dishes */}
-                            <section>
-                                <h3 className="text-lg font-bold text-[#2D2926] mb-3 border-b border-[#D4A574]/20 pb-2">🥘 {uiStrings.featuredDishes[lang]}</h3>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {selectedFood.featuredDishes.map((dish) => (
-                                        <div key={dish.id} className="bg-white/80 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
-                                            <div className="flex items-center gap-3 mb-2">
-                                                <span className="text-2xl">{getFlagEmoji(dish.country)}</span>
-                                                <h4 className="font-bold text-[#2D2926]">{getText(dish.name, lang)}</h4>
-                                            </div>
-                                            <p className="text-sm text-[#8B7355]">{getText(dish.description, lang)}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            <style jsx global>{`
+                <style jsx global>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }
@@ -506,6 +513,7 @@ export default function GlobalPlatePage() {
           animation: fadeIn 0.5s ease-out forwards;
         }
       `}</style>
+            </div>
         </div>
     );
 }

@@ -235,207 +235,215 @@ export default function DrumLabPage() {
     // ============================================================
     return (
         <main
-            className="min-h-screen"
+            className="min-h-screen relative"
             style={{ backgroundColor: colors.bgDark, color: colors.text }}
         >
-            {/* ヘッダー */}
-            <header className="flex items-center justify-between p-4 max-w-4xl mx-auto">
-                <Link
-                    href="/"
-                    className="text-sm opacity-60 hover:opacity-100 transition-opacity"
-                >
-                    {t.back}
-                </Link>
-                <button
-                    onClick={() => setLang(lang === 'jp' ? 'en' : 'jp')}
-                    className="px-3 py-1 text-sm border rounded-full hover:bg-white/10 transition-colors"
-                    style={{ borderColor: colors.primary }}
-                >
-                    {lang === 'jp' ? 'EN' : 'JP'}
-                </button>
-            </header>
-
-            {/* タイトル */}
-            <div className="text-center py-6">
-                <h1
-                    className="text-4xl md:text-5xl font-bold mb-2"
-                    style={{ color: colors.primary }}
-                >
-                    🥁 {t.title}
-                </h1>
-                <p className="text-lg opacity-60">{t.subtitle}</p>
-            </div>
-
-            {/* コントロール */}
-            <div className="max-w-4xl mx-auto px-4 mb-6">
-                <div
-                    className="rounded-xl p-4 flex flex-wrap justify-center gap-4"
-                    style={{ backgroundColor: colors.bgCard }}
-                >
-                    {/* 再生/停止 */}
-                    <button
-                        onClick={togglePlay}
-                        disabled={!isLoaded}
-                        className="px-6 py-3 rounded-lg font-bold transition-all"
-                        style={{
-                            backgroundColor: isPlaying ? colors.primary : colors.accent,
-                            color: colors.bgDark,
-                            opacity: isLoaded ? 1 : 0.5,
-                        }}
+            {/* Background Image */}
+            <div
+                className="absolute inset-0 z-0 bg-cover bg-center opacity-30 pointer-events-none mix-blend-overlay"
+                style={{ backgroundImage: 'url("/drum-lab/bg-acoustic.png")' }}
+            />
+            {/* Content Wrapper */}
+            <div className="relative z-10">
+                {/* ヘッダー */}
+                <header className="flex items-center justify-between p-4 max-w-4xl mx-auto">
+                    <Link
+                        href="/"
+                        className="text-sm opacity-60 hover:opacity-100 transition-opacity"
                     >
-                        {isPlaying ? t.stop : t.play}
-                    </button>
-
-                    {/* BPM */}
-                    <div className="flex items-center gap-3">
-                        <span className="text-sm opacity-60">{t.bpm}</span>
-                        <button
-                            onClick={() => setBpm((prev) => Math.max(60, prev - 10))}
-                            className="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-white/10"
-                            style={{ borderColor: colors.accent }}
-                        >
-                            ◀
-                        </button>
-                        <span
-                            className="text-xl font-bold w-12 text-center"
-                            style={{ color: colors.accent }}
-                        >
-                            {bpm}
-                        </span>
-                        <button
-                            onClick={() => setBpm((prev) => Math.min(180, prev + 10))}
-                            className="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-white/10"
-                            style={{ borderColor: colors.accent }}
-                        >
-                            ▶
-                        </button>
-                    </div>
-
-                    {/* クリア */}
+                        {t.back}
+                    </Link>
                     <button
-                        onClick={clearPattern}
-                        className="px-4 py-2 rounded-lg text-sm border hover:bg-white/10 transition-all"
+                        onClick={() => setLang(lang === 'jp' ? 'en' : 'jp')}
+                        className="px-3 py-1 text-sm border rounded-full hover:bg-white/10 transition-colors"
                         style={{ borderColor: colors.primary }}
                     >
-                        🗑️ {t.clear}
+                        {lang === 'jp' ? 'EN' : 'JP'}
                     </button>
-                </div>
-            </div>
+                </header>
 
-            {/* シーケンサーグリッド */}
-            <div className="max-w-4xl mx-auto px-2 md:px-4">
-                <div
-                    className="rounded-xl p-2 md:p-4 overflow-x-auto"
-                    style={{ backgroundColor: colors.bgCard }}
-                >
-                    {/* ステップ番号 - モバイルでスクロール可能 */}
-                    <div className="flex mb-2 ml-16 md:ml-20 min-w-[384px] md:min-w-0">
-                        {[...Array(STEPS)].map((_, i) => (
-                            <div
-                                key={i}
-                                className="w-6 md:w-8 h-5 md:h-6 flex items-center justify-center text-[10px] md:text-xs opacity-40"
-                                style={{
-                                    color: currentStep === i ? colors.accent : colors.text,
-                                    fontWeight: currentStep === i ? 'bold' : 'normal',
-                                }}
+                {/* タイトル */}
+                <div className="text-center py-6">
+                    <h1
+                        className="text-4xl md:text-5xl font-bold mb-2"
+                        style={{ color: colors.primary }}
+                    >
+                        🥁 {t.title}
+                    </h1>
+                    <p className="text-lg opacity-60">{t.subtitle}</p>
+                </div>
+
+                {/* コントロール */}
+                <div className="max-w-4xl mx-auto px-4 mb-6">
+                    <div
+                        className="rounded-xl p-4 flex flex-wrap justify-center gap-4"
+                        style={{ backgroundColor: colors.bgCard }}
+                    >
+                        {/* 再生/停止 */}
+                        <button
+                            onClick={togglePlay}
+                            disabled={!isLoaded}
+                            className="px-6 py-3 rounded-lg font-bold transition-all"
+                            style={{
+                                backgroundColor: isPlaying ? colors.primary : colors.accent,
+                                color: colors.bgDark,
+                                opacity: isLoaded ? 1 : 0.5,
+                            }}
+                        >
+                            {isPlaying ? t.stop : t.play}
+                        </button>
+
+                        {/* BPM */}
+                        <div className="flex items-center gap-3">
+                            <span className="text-sm opacity-60">{t.bpm}</span>
+                            <button
+                                onClick={() => setBpm((prev) => Math.max(60, prev - 10))}
+                                className="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-white/10"
+                                style={{ borderColor: colors.accent }}
                             >
-                                {i + 1}
+                                ◀
+                            </button>
+                            <span
+                                className="text-xl font-bold w-12 text-center"
+                                style={{ color: colors.accent }}
+                            >
+                                {bpm}
+                            </span>
+                            <button
+                                onClick={() => setBpm((prev) => Math.min(180, prev + 10))}
+                                className="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-white/10"
+                                style={{ borderColor: colors.accent }}
+                            >
+                                ▶
+                            </button>
+                        </div>
+
+                        {/* クリア */}
+                        <button
+                            onClick={clearPattern}
+                            className="px-4 py-2 rounded-lg text-sm border hover:bg-white/10 transition-all"
+                            style={{ borderColor: colors.primary }}
+                        >
+                            🗑️ {t.clear}
+                        </button>
+                    </div>
+                </div>
+
+                {/* シーケンサーグリッド */}
+                <div className="max-w-4xl mx-auto px-2 md:px-4">
+                    <div
+                        className="rounded-xl p-2 md:p-4 overflow-x-auto"
+                        style={{ backgroundColor: colors.bgCard }}
+                    >
+                        {/* ステップ番号 - モバイルでスクロール可能 */}
+                        <div className="flex mb-2 ml-16 md:ml-20 min-w-[384px] md:min-w-0">
+                            {[...Array(STEPS)].map((_, i) => (
+                                <div
+                                    key={i}
+                                    className="w-6 md:w-8 h-5 md:h-6 flex items-center justify-center text-[10px] md:text-xs opacity-40"
+                                    style={{
+                                        color: currentStep === i ? colors.accent : colors.text,
+                                        fontWeight: currentStep === i ? 'bold' : 'normal',
+                                    }}
+                                >
+                                    {i + 1}
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* 各ドラム行 */}
+                        {drumTypes.map((drum) => (
+                            <div key={drum} className="flex items-center mb-2 min-w-[384px] md:min-w-0">
+                                {/* ドラム名 */}
+                                <div
+                                    className="w-16 md:w-20 text-xs md:text-sm font-bold flex-shrink-0"
+                                    style={{
+                                        color:
+                                            drum === 'kick'
+                                                ? colors.kick
+                                                : drum === 'snare'
+                                                    ? colors.snare
+                                                    : colors.hihat,
+                                    }}
+                                >
+                                    {drum === 'kick'
+                                        ? t.kick
+                                        : drum === 'snare'
+                                            ? t.snare
+                                            : t.hihat}
+                                </div>
+
+                                {/* グリッド */}
+                                <div className="flex">
+                                    {[...Array(STEPS)].map((_, step) => {
+                                        const isActive = pattern[drum][step];
+                                        const isCurrent = currentStep === step;
+                                        const drumColor =
+                                            drum === 'kick'
+                                                ? colors.kick
+                                                : drum === 'snare'
+                                                    ? colors.snare
+                                                    : colors.hihat;
+
+                                        return (
+                                            <button
+                                                key={step}
+                                                onClick={() => toggleStep(drum, step)}
+                                                className="w-6 h-6 md:w-8 md:h-8 rounded m-0.5 transition-all"
+                                                style={{
+                                                    backgroundColor: isActive
+                                                        ? drumColor
+                                                        : isCurrent
+                                                            ? `${drumColor}44`
+                                                            : `${drumColor}22`,
+                                                    border: isCurrent
+                                                        ? `2px solid ${colors.accent}`
+                                                        : '2px solid transparent',
+                                                    transform:
+                                                        isCurrent && isActive
+                                                            ? 'scale(1.1)'
+                                                            : 'none',
+                                                }}
+                                                aria-label={`${drum} step ${step + 1}`}
+                                            />
+                                        );
+                                    })}
+                                </div>
                             </div>
                         ))}
+
+                        <p className="text-xs text-center mt-4 opacity-40">{t.hint}</p>
                     </div>
-
-                    {/* 各ドラム行 */}
-                    {drumTypes.map((drum) => (
-                        <div key={drum} className="flex items-center mb-2 min-w-[384px] md:min-w-0">
-                            {/* ドラム名 */}
-                            <div
-                                className="w-16 md:w-20 text-xs md:text-sm font-bold flex-shrink-0"
-                                style={{
-                                    color:
-                                        drum === 'kick'
-                                            ? colors.kick
-                                            : drum === 'snare'
-                                                ? colors.snare
-                                                : colors.hihat,
-                                }}
-                            >
-                                {drum === 'kick'
-                                    ? t.kick
-                                    : drum === 'snare'
-                                        ? t.snare
-                                        : t.hihat}
-                            </div>
-
-                            {/* グリッド */}
-                            <div className="flex">
-                                {[...Array(STEPS)].map((_, step) => {
-                                    const isActive = pattern[drum][step];
-                                    const isCurrent = currentStep === step;
-                                    const drumColor =
-                                        drum === 'kick'
-                                            ? colors.kick
-                                            : drum === 'snare'
-                                                ? colors.snare
-                                                : colors.hihat;
-
-                                    return (
-                                        <button
-                                            key={step}
-                                            onClick={() => toggleStep(drum, step)}
-                                            className="w-6 h-6 md:w-8 md:h-8 rounded m-0.5 transition-all"
-                                            style={{
-                                                backgroundColor: isActive
-                                                    ? drumColor
-                                                    : isCurrent
-                                                        ? `${drumColor}44`
-                                                        : `${drumColor}22`,
-                                                border: isCurrent
-                                                    ? `2px solid ${colors.accent}`
-                                                    : '2px solid transparent',
-                                                transform:
-                                                    isCurrent && isActive
-                                                        ? 'scale(1.1)'
-                                                        : 'none',
-                                            }}
-                                            aria-label={`${drum} step ${step + 1}`}
-                                        />
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    ))}
-
-                    <p className="text-xs text-center mt-4 opacity-40">{t.hint}</p>
                 </div>
-            </div>
 
-            {/* 広告エリア */}
-            <div className="max-w-4xl mx-auto px-4 py-8">
-                <div
-                    className="border-2 border-dashed rounded-lg px-4 py-8 text-center text-sm opacity-50"
-                    style={{ borderColor: colors.primary }}
+                {/* 広告エリア */}
+                <div className="max-w-4xl mx-auto px-4 py-8">
+                    <div
+                        className="border-2 border-dashed rounded-lg px-4 py-8 text-center text-sm opacity-50"
+                        style={{ borderColor: colors.primary }}
+                    >
+                        📢 Ad Display Area / 広告表示欄 (728x90)
+                    </div>
+                </div>
+
+                {/* フッター */}
+                <footer
+                    className="border-t py-6"
+                    style={{ borderColor: `${colors.primary}33` }}
                 >
-                    📢 Ad Display Area / 広告表示欄 (728x90)
-                </div>
-            </div>
-
-            {/* フッター */}
-            <footer
-                className="border-t py-6"
-                style={{ borderColor: `${colors.primary}33` }}
-            >
-                <div className="max-w-4xl mx-auto px-4 text-center text-sm opacity-60">
-                    <div className="flex justify-center gap-4 mb-2">
-                        <Link href="#" className="hover:opacity-100 transition-opacity">
-                            {t.privacy}
-                        </Link>
-                        <Link href="#" className="hover:opacity-100 transition-opacity">
-                            {t.disclaimer}
-                        </Link>
+                    <div className="max-w-4xl mx-auto px-4 text-center text-sm opacity-60">
+                        <div className="flex justify-center gap-4 mb-2">
+                            <Link href="#" className="hover:opacity-100 transition-opacity">
+                                {t.privacy}
+                            </Link>
+                            <Link href="#" className="hover:opacity-100 transition-opacity">
+                                {t.disclaimer}
+                            </Link>
+                        </div>
+                        <p>{t.copyright}</p>
                     </div>
-                    <p>{t.copyright}</p>
-                </div>
-            </footer>
+                </footer>
+            </div>
         </main>
     );
 }

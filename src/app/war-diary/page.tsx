@@ -8,15 +8,23 @@ export default function WarDiaryPage() {
     const [lang, setLang] = useState<'jp' | 'en'>('jp');
 
     return (
-        <main className="min-h-screen bg-black text-white">
-            <Header lang={lang} setLang={setLang} />
-            {/* Ad Placeholder */}
-            <div className="max-w-xl mx-auto px-4 py-2">
-                <div className="bg-gray-800/50 border-2 border-dashed border-gray-600 rounded-lg px-4 py-3 text-center text-gray-400 text-xs">
-                    📢 Ad Display Area / 広告表示欄
+        <main className="min-h-screen bg-black text-white relative">
+            {/* Background Image */}
+            <div
+                className="absolute inset-0 z-0 bg-cover bg-center opacity-30 pointer-events-none mix-blend-overlay"
+                style={{ backgroundImage: 'url("/war-diary/bg-concrete.png")' }}
+            />
+            {/* Content Wrapper */}
+            <div className="relative z-10">
+                <Header lang={lang} setLang={setLang} />
+                {/* Ad Placeholder */}
+                <div className="max-w-xl mx-auto px-4 py-2">
+                    <div className="bg-gray-800/50 border-2 border-dashed border-gray-600 rounded-lg px-4 py-3 text-center text-gray-400 text-xs">
+                        📢 Ad Display Area / 広告表示欄
+                    </div>
                 </div>
+                <Timeline lang={lang} />
             </div>
-            <Timeline lang={lang} />
         </main>
     );
 }

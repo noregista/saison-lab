@@ -268,187 +268,195 @@ export default function SynthLabPage() {
     // ============================================================
     return (
         <main
-            className="min-h-screen"
+            className="min-h-screen relative"
             style={{ backgroundColor: colors.bgDark, color: colors.text }}
         >
-            {/* ヘッダー */}
-            <header className="flex items-center justify-between p-4 max-w-4xl mx-auto">
-                <Link
-                    href="/"
-                    className="text-sm opacity-60 hover:opacity-100 transition-opacity"
-                >
-                    {t.back}
-                </Link>
-                <button
-                    onClick={() => setLang(lang === 'jp' ? 'en' : 'jp')}
-                    className="px-3 py-1 text-sm border rounded-full hover:bg-white/10 transition-colors"
-                    style={{ borderColor: colors.primary }}
-                >
-                    {lang === 'jp' ? 'EN' : 'JP'}
-                </button>
-            </header>
-
-            {/* タイトル */}
-            <div className="text-center py-6">
-                <h1
-                    className="text-4xl md:text-5xl font-bold mb-2"
-                    style={{ color: colors.primary }}
-                >
-                    🔊 {t.title}
-                </h1>
-                <p className="text-lg opacity-60">{t.subtitle}</p>
-            </div>
-
-            {/* メインコンテンツ */}
-            <div className="max-w-4xl mx-auto px-4 space-y-6">
-                {/* オシロスコープ */}
-                <div
-                    className="rounded-xl p-4 overflow-hidden"
-                    style={{ backgroundColor: colors.bgCard }}
-                >
-                    <h2
-                        className="text-sm font-bold mb-2 text-center"
-                        style={{ color: colors.secondary }}
+            {/* Background Image */}
+            <div
+                className="absolute inset-0 z-0 bg-cover bg-center opacity-30 pointer-events-none mix-blend-overlay"
+                style={{ backgroundImage: 'url("/synth-lab/bg-grid.jpg")' }}
+            />
+            {/* Content Wrapper */}
+            <div className="relative z-10">
+                {/* ヘッダー */}
+                <header className="flex items-center justify-between p-4 max-w-4xl mx-auto">
+                    <Link
+                        href="/"
+                        className="text-sm opacity-60 hover:opacity-100 transition-opacity"
                     >
-                        📈 {t.oscilloscope}
-                    </h2>
-                    <canvas
-                        ref={canvasRef}
-                        width={600}
-                        height={150}
-                        className="w-full rounded-lg"
-                        style={{ border: `1px solid ${colors.primary}33` }}
-                    />
+                        {t.back}
+                    </Link>
+                    <button
+                        onClick={() => setLang(lang === 'jp' ? 'en' : 'jp')}
+                        className="px-3 py-1 text-sm border rounded-full hover:bg-white/10 transition-colors"
+                        style={{ borderColor: colors.primary }}
+                    >
+                        {lang === 'jp' ? 'EN' : 'JP'}
+                    </button>
+                </header>
+
+                {/* タイトル */}
+                <div className="text-center py-6">
+                    <h1
+                        className="text-4xl md:text-5xl font-bold mb-2"
+                        style={{ color: colors.primary }}
+                    >
+                        🔊 {t.title}
+                    </h1>
+                    <p className="text-lg opacity-60">{t.subtitle}</p>
                 </div>
 
-                {/* X-Yパッド + 波形選択 */}
-                <div className="grid md:grid-cols-2 gap-4">
-                    {/* X-Yパッド */}
+                {/* メインコンテンツ */}
+                <div className="max-w-4xl mx-auto px-4 space-y-6">
+                    {/* オシロスコープ */}
                     <div
-                        className="rounded-xl p-4"
+                        className="rounded-xl p-4 overflow-hidden"
                         style={{ backgroundColor: colors.bgCard }}
                     >
                         <h2
                             className="text-sm font-bold mb-2 text-center"
-                            style={{ color: colors.accent }}
-                        >
-                            🎛️ {t.xyPad}
-                        </h2>
-                        <div
-                            className="relative w-full aspect-square rounded-lg cursor-crosshair"
-                            style={{
-                                background: `linear-gradient(135deg, ${colors.bgDark} 0%, ${colors.primary}22 100%)`,
-                                border: `2px solid ${isPlaying ? colors.accent : colors.primary}`,
-                            }}
-                            onMouseDown={handleMouseDown}
-                            onMouseMove={handleMouseMove}
-                            onMouseUp={handlePadEnd}
-                            onMouseLeave={handlePadEnd}
-                            onTouchStart={handleTouchStart}
-                            onTouchMove={handleTouchMove}
-                            onTouchEnd={handlePadEnd}
-                        >
-                            {/* 位置インジケーター */}
-                            <div
-                                className="absolute w-6 h-6 rounded-full transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-                                style={{
-                                    left: `${((frequency - 100) / 1900) * 100}%`,
-                                    top: `${(1 - volume) * 100}%`,
-                                    backgroundColor: isPlaying ? colors.accent : colors.primary,
-                                    boxShadow: isPlaying
-                                        ? `0 0 20px ${colors.accent}`
-                                        : 'none',
-                                }}
-                            />
-                            {/* 軸ラベル */}
-                            <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs opacity-50">
-                                {t.frequency}: {frequency}Hz
-                            </span>
-                            <span
-                                className="absolute left-2 top-1/2 -translate-y-1/2 text-xs opacity-50"
-                                style={{ writingMode: 'vertical-rl' }}
-                            >
-                                {t.volume}: {Math.round(volume * 100)}%
-                            </span>
-                        </div>
-                        <p className="text-xs text-center mt-2 opacity-40">
-                            {isPlaying ? t.playing : t.xyHint}
-                        </p>
-                    </div>
-
-                    {/* 波形選択 */}
-                    <div
-                        className="rounded-xl p-4"
-                        style={{ backgroundColor: colors.bgCard }}
-                    >
-                        <h2
-                            className="text-sm font-bold mb-4 text-center"
                             style={{ color: colors.secondary }}
                         >
-                            〰️ {t.waveform}
+                            📈 {t.oscilloscope}
                         </h2>
-                        <div className="grid grid-cols-2 gap-3">
-                            {[
-                                { type: 'sine' as WaveType, label: t.sine, icon: '∿' },
-                                { type: 'sawtooth' as WaveType, label: t.sawtooth, icon: '⩘' },
-                                { type: 'square' as WaveType, label: t.square, icon: '⊓' },
-                                { type: 'triangle' as WaveType, label: t.triangle, icon: '△' },
-                            ].map(({ type, label, icon }) => (
-                                <button
-                                    key={type}
-                                    onClick={() => setWaveType(type)}
-                                    className="py-3 px-4 rounded-lg text-sm font-bold transition-all"
-                                    style={{
-                                        backgroundColor:
-                                            waveType === type
-                                                ? colors.primary
-                                                : `${colors.primary}22`,
-                                        color: waveType === type ? colors.bgDark : colors.text,
-                                    }}
-                                >
-                                    <span className="text-xl block mb-1">{icon}</span>
-                                    {label}
-                                </button>
-                            ))}
-                        </div>
+                        <canvas
+                            ref={canvasRef}
+                            width={600}
+                            height={150}
+                            className="w-full rounded-lg"
+                            style={{ border: `1px solid ${colors.primary}33` }}
+                        />
+                    </div>
 
-                        {/* ステータス */}
-                        <div className="mt-6 pt-4 border-t border-gray-700">
-                            <p className="text-xs text-center opacity-60">
-                                {isLoaded ? t.ready : 'Loading...'}
+                    {/* X-Yパッド + 波形選択 */}
+                    <div className="grid md:grid-cols-2 gap-4">
+                        {/* X-Yパッド */}
+                        <div
+                            className="rounded-xl p-4"
+                            style={{ backgroundColor: colors.bgCard }}
+                        >
+                            <h2
+                                className="text-sm font-bold mb-2 text-center"
+                                style={{ color: colors.accent }}
+                            >
+                                🎛️ {t.xyPad}
+                            </h2>
+                            <div
+                                className="relative w-full aspect-square rounded-lg cursor-crosshair"
+                                style={{
+                                    background: `linear-gradient(135deg, ${colors.bgDark} 0%, ${colors.primary}22 100%)`,
+                                    border: `2px solid ${isPlaying ? colors.accent : colors.primary}`,
+                                }}
+                                onMouseDown={handleMouseDown}
+                                onMouseMove={handleMouseMove}
+                                onMouseUp={handlePadEnd}
+                                onMouseLeave={handlePadEnd}
+                                onTouchStart={handleTouchStart}
+                                onTouchMove={handleTouchMove}
+                                onTouchEnd={handlePadEnd}
+                            >
+                                {/* 位置インジケーター */}
+                                <div
+                                    className="absolute w-6 h-6 rounded-full transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                                    style={{
+                                        left: `${((frequency - 100) / 1900) * 100}%`,
+                                        top: `${(1 - volume) * 100}%`,
+                                        backgroundColor: isPlaying ? colors.accent : colors.primary,
+                                        boxShadow: isPlaying
+                                            ? `0 0 20px ${colors.accent}`
+                                            : 'none',
+                                    }}
+                                />
+                                {/* 軸ラベル */}
+                                <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs opacity-50">
+                                    {t.frequency}: {frequency}Hz
+                                </span>
+                                <span
+                                    className="absolute left-2 top-1/2 -translate-y-1/2 text-xs opacity-50"
+                                    style={{ writingMode: 'vertical-rl' }}
+                                >
+                                    {t.volume}: {Math.round(volume * 100)}%
+                                </span>
+                            </div>
+                            <p className="text-xs text-center mt-2 opacity-40">
+                                {isPlaying ? t.playing : t.xyHint}
                             </p>
                         </div>
+
+                        {/* 波形選択 */}
+                        <div
+                            className="rounded-xl p-4"
+                            style={{ backgroundColor: colors.bgCard }}
+                        >
+                            <h2
+                                className="text-sm font-bold mb-4 text-center"
+                                style={{ color: colors.secondary }}
+                            >
+                                〰️ {t.waveform}
+                            </h2>
+                            <div className="grid grid-cols-2 gap-3">
+                                {[
+                                    { type: 'sine' as WaveType, label: t.sine, icon: '∿' },
+                                    { type: 'sawtooth' as WaveType, label: t.sawtooth, icon: '⩘' },
+                                    { type: 'square' as WaveType, label: t.square, icon: '⊓' },
+                                    { type: 'triangle' as WaveType, label: t.triangle, icon: '△' },
+                                ].map(({ type, label, icon }) => (
+                                    <button
+                                        key={type}
+                                        onClick={() => setWaveType(type)}
+                                        className="py-3 px-4 rounded-lg text-sm font-bold transition-all"
+                                        style={{
+                                            backgroundColor:
+                                                waveType === type
+                                                    ? colors.primary
+                                                    : `${colors.primary}22`,
+                                            color: waveType === type ? colors.bgDark : colors.text,
+                                        }}
+                                    >
+                                        <span className="text-xl block mb-1">{icon}</span>
+                                        {label}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* ステータス */}
+                            <div className="mt-6 pt-4 border-t border-gray-700">
+                                <p className="text-xs text-center opacity-60">
+                                    {isLoaded ? t.ready : 'Loading...'}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* 広告エリア */}
-            <div className="max-w-4xl mx-auto px-4 py-8">
-                <div
-                    className="border-2 border-dashed rounded-lg px-4 py-8 text-center text-sm opacity-50"
-                    style={{ borderColor: colors.primary }}
+                {/* 広告エリア */}
+                <div className="max-w-4xl mx-auto px-4 py-8">
+                    <div
+                        className="border-2 border-dashed rounded-lg px-4 py-8 text-center text-sm opacity-50"
+                        style={{ borderColor: colors.primary }}
+                    >
+                        📢 Ad Display Area / 広告表示欄 (728x90)
+                    </div>
+                </div>
+
+                {/* フッター */}
+                <footer
+                    className="border-t py-6"
+                    style={{ borderColor: `${colors.primary}33` }}
                 >
-                    📢 Ad Display Area / 広告表示欄 (728x90)
-                </div>
-            </div>
-
-            {/* フッター */}
-            <footer
-                className="border-t py-6"
-                style={{ borderColor: `${colors.primary}33` }}
-            >
-                <div className="max-w-4xl mx-auto px-4 text-center text-sm opacity-60">
-                    <div className="flex justify-center gap-4 mb-2">
-                        <Link href="#" className="hover:opacity-100 transition-opacity">
-                            {t.privacy}
-                        </Link>
-                        <Link href="#" className="hover:opacity-100 transition-opacity">
-                            {t.disclaimer}
-                        </Link>
+                    <div className="max-w-4xl mx-auto px-4 text-center text-sm opacity-60">
+                        <div className="flex justify-center gap-4 mb-2">
+                            <Link href="#" className="hover:opacity-100 transition-opacity">
+                                {t.privacy}
+                            </Link>
+                            <Link href="#" className="hover:opacity-100 transition-opacity">
+                                {t.disclaimer}
+                            </Link>
+                        </div>
+                        <p>{t.copyright}</p>
                     </div>
-                    <p>{t.copyright}</p>
-                </div>
-            </footer>
+                </footer>
+            </div>
         </main>
     );
 }

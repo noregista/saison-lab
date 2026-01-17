@@ -305,281 +305,289 @@ export default function PianoLabPage() {
     // ============================================================
     return (
         <main
-            className="min-h-screen transition-colors duration-300"
+            className="min-h-screen transition-colors duration-300 relative"
             style={{ backgroundColor: theme.bg, color: theme.text }}
         >
-            {/* ヘッダー */}
-            <header className="flex items-center justify-between p-4 max-w-4xl mx-auto">
-                <Link
-                    href="/"
-                    className="text-sm opacity-60 hover:opacity-100 transition-opacity"
-                >
-                    {t.back}
-                </Link>
-                <div className="flex items-center gap-3">
-                    <button
-                        onClick={() => setIsDark(!isDark)}
-                        className="p-2 rounded-full hover:bg-white/10 transition-colors"
-                        aria-label="Toggle theme"
+            {/* Background Image */}
+            <div
+                className="absolute inset-0 z-0 bg-cover bg-center opacity-30 pointer-events-none mix-blend-overlay"
+                style={{ backgroundImage: 'url("/piano-lab/bg-wood.png")' }}
+            />
+            {/* Content Wrapper */}
+            <div className="relative z-10">
+                {/* ヘッダー */}
+                <header className="flex items-center justify-between p-4 max-w-4xl mx-auto">
+                    <Link
+                        href="/"
+                        className="text-sm opacity-60 hover:opacity-100 transition-opacity"
                     >
-                        {isDark ? '☀️' : '🌙'}
-                    </button>
-                    <button
-                        onClick={() => setLang(lang === 'jp' ? 'en' : 'jp')}
-                        className="px-3 py-1 text-sm border rounded-full hover:bg-white/10 transition-colors"
-                        style={{ borderColor: colors.accent }}
+                        {t.back}
+                    </Link>
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={() => setIsDark(!isDark)}
+                            className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                            aria-label="Toggle theme"
+                        >
+                            {isDark ? '☀️' : '🌙'}
+                        </button>
+                        <button
+                            onClick={() => setLang(lang === 'jp' ? 'en' : 'jp')}
+                            className="px-3 py-1 text-sm border rounded-full hover:bg-white/10 transition-colors"
+                            style={{ borderColor: colors.accent }}
+                        >
+                            {lang === 'jp' ? 'EN' : 'JP'}
+                        </button>
+                    </div>
+                </header>
+
+                {/* タイトル */}
+                <div className="text-center py-8">
+                    <h1
+                        className="text-4xl md:text-5xl font-bold mb-2"
+                        style={{ color: colors.accent }}
                     >
-                        {lang === 'jp' ? 'EN' : 'JP'}
-                    </button>
+                        🎹 {t.title}
+                    </h1>
+                    <p className="text-lg opacity-60">{t.subtitle}</p>
+                    <p className="text-sm mt-2 opacity-40">
+                        {isLoaded ? t.ready : t.loading}
+                    </p>
                 </div>
-            </header>
 
-            {/* タイトル */}
-            <div className="text-center py-8">
-                <h1
-                    className="text-4xl md:text-5xl font-bold mb-2"
-                    style={{ color: colors.accent }}
-                >
-                    🎹 {t.title}
-                </h1>
-                <p className="text-lg opacity-60">{t.subtitle}</p>
-                <p className="text-sm mt-2 opacity-40">
-                    {isLoaded ? t.ready : t.loading}
-                </p>
-            </div>
-
-            {/* ピアノ鍵盤 */}
-            <div className="max-w-4xl mx-auto px-2 md:px-4">
-                <div
-                    className="relative rounded-xl p-2 md:p-4 overflow-x-auto"
-                    style={{ backgroundColor: theme.card }}
-                >
-                    {/* 鍵盤コンテナ - モバイルでスクロール可能 */}
-                    <div className="flex justify-center min-w-[540px] md:min-w-0">
-                        <div className="relative flex">
-                            {/* 白鍵 */}
-                            {pianoKeys
-                                .filter((k) => !k.isBlack)
-                                .map((keyData, index) => {
-                                    const isActive = activeKeys.has(keyData.note);
-                                    return (
-                                        <button
-                                            key={keyData.note}
-                                            className="relative w-12 md:w-14 h-40 md:h-48 border border-gray-300 rounded-b-lg transition-all duration-75 flex flex-col justify-end items-center pb-2"
-                                            style={{
-                                                backgroundColor: isActive
-                                                    ? colors.gold
-                                                    : theme.whiteKey,
-                                                transform: isActive
-                                                    ? 'translateY(2px)'
-                                                    : 'none',
-                                                boxShadow: isActive
-                                                    ? 'inset 0 -2px 5px rgba(0,0,0,0.2)'
-                                                    : '0 2px 5px rgba(0,0,0,0.2)',
-                                            }}
-                                            onMouseDown={() =>
-                                                handleKeyPress(keyData.note)
-                                            }
-                                            onMouseUp={() =>
-                                                handleKeyRelease(keyData.note)
-                                            }
-                                            onMouseLeave={() =>
-                                                handleKeyRelease(keyData.note)
-                                            }
-                                            onTouchStart={(e) => {
-                                                e.preventDefault();
-                                                handleKeyPress(keyData.note);
-                                            }}
-                                            onTouchEnd={() =>
-                                                handleKeyRelease(keyData.note)
-                                            }
-                                            aria-label={`${keyData.note.replace('+', '')} ${keyData.nextOctave ? octave + 1 : octave} 白鍵`}
-                                            role="button"
-                                        >
-                                            <span
-                                                className="text-xs font-mono opacity-50"
-                                                style={{ color: '#1a1a1a' }}
+                {/* ピアノ鍵盤 */}
+                <div className="max-w-4xl mx-auto px-2 md:px-4">
+                    <div
+                        className="relative rounded-xl p-2 md:p-4 overflow-x-auto"
+                        style={{ backgroundColor: theme.card }}
+                    >
+                        {/* 鍵盤コンテナ - モバイルでスクロール可能 */}
+                        <div className="flex justify-center min-w-[540px] md:min-w-0">
+                            <div className="relative flex">
+                                {/* 白鍵 */}
+                                {pianoKeys
+                                    .filter((k) => !k.isBlack)
+                                    .map((keyData, index) => {
+                                        const isActive = activeKeys.has(keyData.note);
+                                        return (
+                                            <button
+                                                key={keyData.note}
+                                                className="relative w-12 md:w-14 h-40 md:h-48 border border-gray-300 rounded-b-lg transition-all duration-75 flex flex-col justify-end items-center pb-2"
+                                                style={{
+                                                    backgroundColor: isActive
+                                                        ? colors.gold
+                                                        : theme.whiteKey,
+                                                    transform: isActive
+                                                        ? 'translateY(2px)'
+                                                        : 'none',
+                                                    boxShadow: isActive
+                                                        ? 'inset 0 -2px 5px rgba(0,0,0,0.2)'
+                                                        : '0 2px 5px rgba(0,0,0,0.2)',
+                                                }}
+                                                onMouseDown={() =>
+                                                    handleKeyPress(keyData.note)
+                                                }
+                                                onMouseUp={() =>
+                                                    handleKeyRelease(keyData.note)
+                                                }
+                                                onMouseLeave={() =>
+                                                    handleKeyRelease(keyData.note)
+                                                }
+                                                onTouchStart={(e) => {
+                                                    e.preventDefault();
+                                                    handleKeyPress(keyData.note);
+                                                }}
+                                                onTouchEnd={() =>
+                                                    handleKeyRelease(keyData.note)
+                                                }
+                                                aria-label={`${keyData.note.replace('+', '')} ${keyData.nextOctave ? octave + 1 : octave} 白鍵`}
+                                                role="button"
                                             >
-                                                {keyData.key}
-                                            </span>
-                                        </button>
-                                    );
-                                })}
+                                                <span
+                                                    className="text-xs font-mono opacity-50"
+                                                    style={{ color: '#1a1a1a' }}
+                                                >
+                                                    {keyData.key}
+                                                </span>
+                                            </button>
+                                        );
+                                    })}
 
-                            {/* 黒鍵（絶対位置で配置） */}
-                            {pianoKeys
-                                .filter((k) => k.isBlack)
-                                .map((keyData) => {
-                                    const isActive = activeKeys.has(keyData.note);
-                                    // 黒鍵の位置計算（白鍵の間に配置）
-                                    // モバイル: w-12 = 48px, デスクトップ: w-14 = 56px
-                                    const whiteKeyWidth = 48; // モバイル基準
-                                    const positions: Record<string, number> = {
-                                        'C#': 0,
-                                        'D#': 1,
-                                        'F#': 3,
-                                        'G#': 4,
-                                        'A#': 5,
-                                        'C#+': 7,
-                                        'D#+': 8,
-                                    };
-                                    const pos = positions[keyData.note] ?? 0;
-                                    const left = pos * whiteKeyWidth + whiteKeyWidth * 0.65;
+                                {/* 黒鍵（絶対位置で配置） */}
+                                {pianoKeys
+                                    .filter((k) => k.isBlack)
+                                    .map((keyData) => {
+                                        const isActive = activeKeys.has(keyData.note);
+                                        // 黒鍵の位置計算（白鍵の間に配置）
+                                        // モバイル: w-12 = 48px, デスクトップ: w-14 = 56px
+                                        const whiteKeyWidth = 48; // モバイル基準
+                                        const positions: Record<string, number> = {
+                                            'C#': 0,
+                                            'D#': 1,
+                                            'F#': 3,
+                                            'G#': 4,
+                                            'A#': 5,
+                                            'C#+': 7,
+                                            'D#+': 8,
+                                        };
+                                        const pos = positions[keyData.note] ?? 0;
+                                        const left = pos * whiteKeyWidth + whiteKeyWidth * 0.65;
 
-                                    return (
-                                        <button
-                                            key={keyData.note}
-                                            className="absolute w-8 md:w-9 h-24 md:h-28 rounded-b-lg transition-all duration-75 flex flex-col justify-end items-center pb-1 z-10"
-                                            style={{
-                                                left: `${left}px`,
-                                                top: '16px',
-                                                backgroundColor: isActive
-                                                    ? colors.gold
-                                                    : theme.blackKey,
-                                                transform: isActive
-                                                    ? 'translateY(2px)'
-                                                    : 'none',
-                                                boxShadow: isActive
-                                                    ? 'inset 0 -1px 3px rgba(0,0,0,0.3)'
-                                                    : '0 3px 8px rgba(0,0,0,0.4)',
-                                            }}
-                                            onMouseDown={() =>
-                                                handleKeyPress(keyData.note)
-                                            }
-                                            onMouseUp={() =>
-                                                handleKeyRelease(keyData.note)
-                                            }
-                                            onMouseLeave={() =>
-                                                handleKeyRelease(keyData.note)
-                                            }
-                                            onTouchStart={(e) => {
-                                                e.preventDefault();
-                                                handleKeyPress(keyData.note);
-                                            }}
-                                            onTouchEnd={() =>
-                                                handleKeyRelease(keyData.note)
-                                            }
-                                            aria-label={`${keyData.note.replace('+', '')} ${keyData.nextOctave ? octave + 1 : octave} 黒鍵`}
-                                            role="button"
-                                        >
-                                            <span
-                                                className="text-xs font-mono"
-                                                style={{ color: '#ffffff' }}
+                                        return (
+                                            <button
+                                                key={keyData.note}
+                                                className="absolute w-8 md:w-9 h-24 md:h-28 rounded-b-lg transition-all duration-75 flex flex-col justify-end items-center pb-1 z-10"
+                                                style={{
+                                                    left: `${left}px`,
+                                                    top: '16px',
+                                                    backgroundColor: isActive
+                                                        ? colors.gold
+                                                        : theme.blackKey,
+                                                    transform: isActive
+                                                        ? 'translateY(2px)'
+                                                        : 'none',
+                                                    boxShadow: isActive
+                                                        ? 'inset 0 -1px 3px rgba(0,0,0,0.3)'
+                                                        : '0 3px 8px rgba(0,0,0,0.4)',
+                                                }}
+                                                onMouseDown={() =>
+                                                    handleKeyPress(keyData.note)
+                                                }
+                                                onMouseUp={() =>
+                                                    handleKeyRelease(keyData.note)
+                                                }
+                                                onMouseLeave={() =>
+                                                    handleKeyRelease(keyData.note)
+                                                }
+                                                onTouchStart={(e) => {
+                                                    e.preventDefault();
+                                                    handleKeyPress(keyData.note);
+                                                }}
+                                                onTouchEnd={() =>
+                                                    handleKeyRelease(keyData.note)
+                                                }
+                                                aria-label={`${keyData.note.replace('+', '')} ${keyData.nextOctave ? octave + 1 : octave} 黒鍵`}
+                                                role="button"
                                             >
-                                                {keyData.key}
-                                            </span>
-                                        </button>
-                                    );
-                                })}
+                                                <span
+                                                    className="text-xs font-mono"
+                                                    style={{ color: '#ffffff' }}
+                                                >
+                                                    {keyData.key}
+                                                </span>
+                                            </button>
+                                        );
+                                    })}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* コントロール */}
+                    <div className="flex flex-wrap justify-center gap-6 mt-6">
+                        {/* オクターブ */}
+                        <div className="flex items-center gap-3">
+                            <span className="text-sm opacity-60">{t.octave}</span>
+                            <button
+                                onClick={() => setOctave((prev) => Math.max(1, prev - 1))}
+                                className="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-white/10 transition-colors"
+                                style={{ borderColor: colors.accent }}
+                            >
+                                ◀
+                            </button>
+                            <span
+                                className="text-xl font-bold w-8 text-center"
+                                style={{ color: colors.accent }}
+                            >
+                                {octave}
+                            </span>
+                            <button
+                                onClick={() => setOctave((prev) => Math.min(7, prev + 1))}
+                                className="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-white/10 transition-colors"
+                                style={{ borderColor: colors.accent }}
+                            >
+                                ▶
+                            </button>
+                        </div>
+
+                        {/* ボリューム */}
+                        <div className="flex items-center gap-3">
+                            <span className="text-sm opacity-60">{t.volume}</span>
+                            <input
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.1"
+                                value={volume}
+                                onChange={(e) => setVolume(parseFloat(e.target.value))}
+                                className="w-32 accent-emerald-500"
+                                aria-label="Volume"
+                            />
+                        </div>
+
+                        {/* サステイン表示 */}
+                        <div
+                            className="flex items-center gap-2 px-3 py-1 rounded-full text-sm"
+                            style={{
+                                backgroundColor: sustainActive
+                                    ? colors.accent
+                                    : 'transparent',
+                                border: `1px solid ${colors.accent}`,
+                            }}
+                        >
+                            🎛️ Sustain: {sustainActive ? 'ON' : 'OFF'}
                         </div>
                     </div>
                 </div>
 
-                {/* コントロール */}
-                <div className="flex flex-wrap justify-center gap-6 mt-6">
-                    {/* オクターブ */}
-                    <div className="flex items-center gap-3">
-                        <span className="text-sm opacity-60">{t.octave}</span>
-                        <button
-                            onClick={() => setOctave((prev) => Math.max(1, prev - 1))}
-                            className="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-white/10 transition-colors"
-                            style={{ borderColor: colors.accent }}
-                        >
-                            ◀
-                        </button>
-                        <span
-                            className="text-xl font-bold w-8 text-center"
+                {/* 広告エリア */}
+                <div className="max-w-4xl mx-auto px-4 py-8">
+                    <div
+                        className="border-2 border-dashed rounded-lg px-4 py-8 text-center text-sm opacity-50"
+                        style={{ borderColor: colors.accent }}
+                    >
+                        📢 Ad Display Area / 広告表示欄 (728x90)
+                    </div>
+                </div>
+
+                {/* 操作ガイド */}
+                <div className="max-w-4xl mx-auto px-4 pb-8">
+                    <div
+                        className="rounded-xl p-6"
+                        style={{ backgroundColor: theme.card }}
+                    >
+                        <h2
+                            className="text-lg font-bold mb-4 text-center"
                             style={{ color: colors.accent }}
                         >
-                            {octave}
-                        </span>
-                        <button
-                            onClick={() => setOctave((prev) => Math.min(7, prev + 1))}
-                            className="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-white/10 transition-colors"
-                            style={{ borderColor: colors.accent }}
-                        >
-                            ▶
-                        </button>
-                    </div>
-
-                    {/* ボリューム */}
-                    <div className="flex items-center gap-3">
-                        <span className="text-sm opacity-60">{t.volume}</span>
-                        <input
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.1"
-                            value={volume}
-                            onChange={(e) => setVolume(parseFloat(e.target.value))}
-                            className="w-32 accent-emerald-500"
-                            aria-label="Volume"
-                        />
-                    </div>
-
-                    {/* サステイン表示 */}
-                    <div
-                        className="flex items-center gap-2 px-3 py-1 rounded-full text-sm"
-                        style={{
-                            backgroundColor: sustainActive
-                                ? colors.accent
-                                : 'transparent',
-                            border: `1px solid ${colors.accent}`,
-                        }}
-                    >
-                        🎛️ Sustain: {sustainActive ? 'ON' : 'OFF'}
+                            📖 {t.guide}
+                        </h2>
+                        <div className="grid md:grid-cols-2 gap-2 text-sm opacity-80">
+                            <p>• {t.guideWhite}</p>
+                            <p>• {t.guideBlack}</p>
+                            <p>• {t.guideOctave}</p>
+                            <p>• {t.guideSustain}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* 広告エリア */}
-            <div className="max-w-4xl mx-auto px-4 py-8">
-                <div
-                    className="border-2 border-dashed rounded-lg px-4 py-8 text-center text-sm opacity-50"
-                    style={{ borderColor: colors.accent }}
+                {/* フッター */}
+                <footer
+                    className="border-t py-6"
+                    style={{ borderColor: `${colors.accent}33` }}
                 >
-                    📢 Ad Display Area / 広告表示欄 (728x90)
-                </div>
-            </div>
-
-            {/* 操作ガイド */}
-            <div className="max-w-4xl mx-auto px-4 pb-8">
-                <div
-                    className="rounded-xl p-6"
-                    style={{ backgroundColor: theme.card }}
-                >
-                    <h2
-                        className="text-lg font-bold mb-4 text-center"
-                        style={{ color: colors.accent }}
-                    >
-                        📖 {t.guide}
-                    </h2>
-                    <div className="grid md:grid-cols-2 gap-2 text-sm opacity-80">
-                        <p>• {t.guideWhite}</p>
-                        <p>• {t.guideBlack}</p>
-                        <p>• {t.guideOctave}</p>
-                        <p>• {t.guideSustain}</p>
+                    <div className="max-w-4xl mx-auto px-4 text-center text-sm opacity-60">
+                        <div className="flex justify-center gap-4 mb-2">
+                            <Link href="#" className="hover:opacity-100 transition-opacity">
+                                {t.privacy}
+                            </Link>
+                            <Link href="#" className="hover:opacity-100 transition-opacity">
+                                {t.disclaimer}
+                            </Link>
+                        </div>
+                        <p>{t.copyright}</p>
                     </div>
-                </div>
+                </footer>
             </div>
-
-            {/* フッター */}
-            <footer
-                className="border-t py-6"
-                style={{ borderColor: `${colors.accent}33` }}
-            >
-                <div className="max-w-4xl mx-auto px-4 text-center text-sm opacity-60">
-                    <div className="flex justify-center gap-4 mb-2">
-                        <Link href="#" className="hover:opacity-100 transition-opacity">
-                            {t.privacy}
-                        </Link>
-                        <Link href="#" className="hover:opacity-100 transition-opacity">
-                            {t.disclaimer}
-                        </Link>
-                    </div>
-                    <p>{t.copyright}</p>
-                </div>
-            </footer>
         </main>
     );
 }
