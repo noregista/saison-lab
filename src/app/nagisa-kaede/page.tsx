@@ -264,21 +264,21 @@ export default function NagisaKaedePage() {
                          </div>
                          */}
                         <div className="border-b border-gray-700 pb-2">
-                            <div className="block text-sm">
+                            <div className="block text-sm w-full">
                                 <span className="opacity-50 block mb-1">{t.hobby}</span>
-                                <span className="break-all">{lang === 'jp' ? profileData.hobby.jp : profileData.hobby.en}</span>
+                                <div className="break-all whitespace-normal w-full pr-2">{lang === 'jp' ? profileData.hobby.jp : profileData.hobby.en}</div>
                             </div>
                         </div>
                         <div className="border-b border-gray-700 pb-2">
-                            <div className="block text-sm">
+                            <div className="block text-sm w-full">
                                 <span className="opacity-50 block mb-1">{t.skill}</span>
-                                <span className="break-all">{lang === 'jp' ? profileData.specialSkill.jp : profileData.specialSkill.en}</span>
+                                <div className="break-all whitespace-normal w-full pr-2">{lang === 'jp' ? profileData.specialSkill.jp : profileData.specialSkill.en}</div>
                             </div>
                         </div>
                         <div>
-                            <div className="block text-sm">
+                            <div className="block text-sm w-full">
                                 <span className="opacity-50 block mb-1">{t.food}</span>
-                                <span className="break-all">{lang === 'jp' ? profileData.favoriteFood.jp : profileData.favoriteFood.en}</span>
+                                <div className="break-all whitespace-normal w-full pr-2">{lang === 'jp' ? profileData.favoriteFood.jp : profileData.favoriteFood.en}</div>
                             </div>
                         </div>
                     </div>
