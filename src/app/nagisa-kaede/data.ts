@@ -117,6 +117,16 @@ export const profileData = {
         jp: '「透明な歌声を持つ不思議少女」。\n一見クールで優雅な雰囲気だが、中身は予想外の行動で周囲を驚かせる「大不思議」キャラ。\nルービックキューブを高速で揃えながら即興ソングを歌うなど、独特なパフォーマンスで注目を集める。\n「蚊に懲役を与える」など独特なワードセンスを持ち、誰からも愛されるムードメーカー。\n真剣な眼差しで歌う姿と、普段の無邪気なキャラクターのギャップが魅力のシンガー。',
         en: 'Known as the "Mysterious Girl with a Transparent Voice".\nAt first glance, she appears cool and elegant, but she is actually an unpredictable character who surprises everyone with her eccentricity.\nShe attracts attention with unique performances, such as solving a Rubik\'s cube at high speed while singing improvised songs.\nWith a unique sense of word choice and innocent charm, she is a beloved mood maker.\nThe gap between her serious singing voice and her innocent daily character is her greatest charm.'
     },
+    fanNames: {
+        nagi: {
+            name: { jp: '凪 (Nagi)', en: 'Nagi (Calm)' },
+            desc: { jp: '静かに見守るファン', en: 'Fans who quietly watch over' }
+        },
+        nami: {
+            name: { jp: '波 (Nami)', en: 'Nami (Wave)' },
+            desc: { jp: 'ライブやShortsを盛り上げるアクティブなファン', en: 'Active fans who liven up shows' }
+        }
+    }
 };
 
 // カテゴリの表示名

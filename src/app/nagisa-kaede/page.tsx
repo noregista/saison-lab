@@ -276,6 +276,31 @@ export default function NagisaKaedePage() {
                         </div>
                     </div>
                 </div>
+
+                {/* ファンネーム紹介 */}
+                <div className="mt-8 pt-8 border-t border-gray-800">
+                    <h3 className="text-center font-bold mb-6" style={{ color: colors.primary }}>
+                        {lang === 'jp' ? 'FAN NAME' : 'FAN NAME'}
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                        <div className="p-4 rounded-lg text-center bg-[#1a1a1f] border border-[#5B8FA8]/30">
+                            <div className="text-xl font-bold mb-2" style={{ color: colors.primary }}>
+                                {lang === 'jp' ? profileData.fanNames.nagi.name.jp : profileData.fanNames.nagi.name.en}
+                            </div>
+                            <p className="text-sm opacity-80">
+                                {lang === 'jp' ? profileData.fanNames.nagi.desc.jp : profileData.fanNames.nagi.desc.en}
+                            </p>
+                        </div>
+                        <div className="p-4 rounded-lg text-center bg-[#1a1a1f] border border-[#C75C5C]/30">
+                            <div className="text-xl font-bold mb-2" style={{ color: colors.secondary }}>
+                                {lang === 'jp' ? profileData.fanNames.nami.name.jp : profileData.fanNames.nami.name.en}
+                            </div>
+                            <p className="text-sm opacity-80">
+                                {lang === 'jp' ? profileData.fanNames.nami.desc.jp : profileData.fanNames.nami.desc.en}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             {/* ============================================================ */}
