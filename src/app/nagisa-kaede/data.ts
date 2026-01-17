@@ -82,13 +82,13 @@ export const galleryData: GalleryItem[] = [
     },
 ];
 
-// SNSリンク（XとYouTubeのみ）
+// SNSリンク（TikTokとYouTubeのみ）
 export const socialLinks: SocialLink[] = [
     {
-        platform: 'x',
+        platform: 'tiktok',
         url: '#',
-        icon: '𝕏',
-        label: { jp: 'X (Twitter)', en: 'X (Twitter)' },
+        icon: '📱',
+        label: { jp: 'TikTok', en: 'TikTok' },
     },
     {
         platform: 'youtube',
