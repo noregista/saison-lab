@@ -56,6 +56,8 @@ const translations = {
         'update-17': 'TEMPLE LABを追加しました。',
         'update-18': 'SUSHI LABを追加しました。',
         'update-19': 'アプリ一覧を更新しました。',
+        'update-20': 'RANKING LABを追加しました。',
+        'app-ranking-lab-desc': '世界GDP、人口、面積などあらゆるランキングを比較。基準日・情報源を明示。',
         'footer-privacy': 'プライバシーポリシー',
         'footer-contact': 'お問い合わせ',
         'footer-disclaimer': '免責事項',
@@ -134,6 +136,8 @@ const translations = {
         'update-17': 'Added TEMPLE LAB.',
         'update-18': 'Added SUSHI LAB.',
         'update-19': 'Updated app lineup.',
+        'update-20': 'Added RANKING LAB.',
+        'app-ranking-lab-desc': 'Compare world rankings: GDP, population, area, and more. Data sources and dates clearly displayed.',
         'footer-privacy': 'Privacy Policy',
         'footer-contact': 'Contact',
         'footer-disclaimer': 'Disclaimer',
@@ -313,9 +317,17 @@ const apps = [
         icon: '📏',
         descKey: 'app-unit-lab-desc' as const,
     },
+    {
+        id: 'ranking-lab',
+        name: { jp: 'ランキング・ラボ', en: 'RANKING LAB' },
+        href: '/ranking-lab',
+        icon: '📊',
+        descKey: 'app-ranking-lab-desc' as const,
+    },
 ];
 
 const updates = [
+    { date: '2026.01.18', key: 'update-20' as const },
     { date: '2026.01.17', key: 'update-19' as const },
     { date: '2026.01.17', key: 'update-18' as const },
     { date: '2026.01.17', key: 'update-17' as const },
