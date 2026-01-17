@@ -107,7 +107,7 @@ export default function NagisaKaedePage() {
 
     return (
         <main
-            className="min-h-screen text-white"
+            className="min-h-screen text-white overflow-x-hidden w-full"
             style={{ backgroundColor: colors.bgDark }}
         >
             {/* ============================================================ */}
@@ -206,7 +206,7 @@ export default function NagisaKaedePage() {
             {/* ============================================================ */}
             {/* PROFILE セクション */}
             {/* ============================================================ */}
-            <section id="profile" className="max-w-4xl mx-auto px-4 py-16">
+            <section id="profile" className="max-w-4xl mx-auto px-4 py-16 w-full overflow-hidden">
                 <h2
                     className="text-3xl font-bold mb-8 text-center"
                     style={{ color: colors.secondary }}
@@ -234,53 +234,49 @@ export default function NagisaKaedePage() {
 
                     {/* 右側：詳細データ */}
                     <div
-                        className="p-6 rounded-xl space-y-4"
+                        className="p-6 rounded-xl min-w-0 overflow-hidden"
                         style={{ backgroundColor: '#1a1a1f' }}
                     >
-                        <div className="border-b border-gray-700 pb-2">
-                            <div className="flex justify-between text-sm">
-                                <span className="opacity-50">{t.birth}</span>
-                                <span>{lang === 'jp' ? profileData.birthDate.jp : profileData.birthDate.en}</span>
-                            </div>
-                        </div>
-                        <div className="border-b border-gray-700 pb-2">
-                            <div className="flex justify-between text-sm">
-                                <span className="opacity-50">{t.from}</span>
-                                <span>{lang === 'jp' ? profileData.birthPlace.jp : profileData.birthPlace.en}</span>
-                            </div>
-                        </div>
-                        <div className="border-b border-gray-700 pb-2">
-                            <div className="flex justify-between text-sm">
-                                <span className="opacity-50">{t.blood}</span>
-                                <span>{lang === 'jp' ? profileData.bloodType.jp : profileData.bloodType.en}</span>
-                            </div>
-                        </div>
-                        {/* 
-                         <div className="border-b border-gray-700 pb-2">
-                             <div className="flex justify-between text-sm">
-                                 <span className="opacity-50">{t.height}</span>
-                                 <span>{lang === 'jp' ? profileData.height.jp : profileData.height.en}</span>
-                             </div>
-                         </div>
-                         */}
-                        <div className="border-b border-gray-700 pb-2">
-                            <div className="block text-sm w-full">
-                                <span className="opacity-50 block mb-1">{t.hobby}</span>
-                                <div className="break-all whitespace-normal w-full pr-2">{lang === 'jp' ? profileData.hobby.jp : profileData.hobby.en}</div>
-                            </div>
-                        </div>
-                        <div className="border-b border-gray-700 pb-2">
-                            <div className="block text-sm w-full">
-                                <span className="opacity-50 block mb-1">{t.skill}</span>
-                                <div className="break-all whitespace-normal w-full pr-2">{lang === 'jp' ? profileData.specialSkill.jp : profileData.specialSkill.en}</div>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="block text-sm w-full">
-                                <span className="opacity-50 block mb-1">{t.food}</span>
-                                <div className="break-all whitespace-normal w-full pr-2">{lang === 'jp' ? profileData.favoriteFood.jp : profileData.favoriteFood.en}</div>
-                            </div>
-                        </div>
+                        <table className="w-full table-fixed text-sm">
+                            <tbody className="divide-y divide-gray-700">
+                                <tr>
+                                    <th className="py-2 text-left font-normal opacity-50 w-24 align-top">{t.birth}</th>
+                                    <td className="py-2 break-words">
+                                        {lang === 'jp' ? profileData.birthDate.jp : profileData.birthDate.en}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="py-2 text-left font-normal opacity-50 w-24 align-top">{t.from}</th>
+                                    <td className="py-2 break-words">
+                                        {lang === 'jp' ? profileData.birthPlace.jp : profileData.birthPlace.en}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="py-2 text-left font-normal opacity-50 w-24 align-top">{t.blood}</th>
+                                    <td className="py-2 break-words">
+                                        {lang === 'jp' ? profileData.bloodType.jp : profileData.bloodType.en}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="py-2 text-left font-normal opacity-50 w-24 align-top">{t.hobby}</th>
+                                    <td className="py-2 break-words">
+                                        {lang === 'jp' ? profileData.hobby.jp : profileData.hobby.en}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="py-2 text-left font-normal opacity-50 w-24 align-top">{t.skill}</th>
+                                    <td className="py-2 break-words">
+                                        {lang === 'jp' ? profileData.specialSkill.jp : profileData.specialSkill.en}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="py-2 text-left font-normal opacity-50 w-24 align-top">{t.food}</th>
+                                    <td className="py-2 break-words">
+                                        {lang === 'jp' ? profileData.favoriteFood.jp : profileData.favoriteFood.en}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -313,7 +309,7 @@ export default function NagisaKaedePage() {
             {/* ============================================================ */}
             {/* NEWS セクション */}
             {/* ============================================================ */}
-            <section id="news" className="max-w-4xl mx-auto px-4 py-16">
+            <section id="news" className="max-w-4xl mx-auto px-4 py-16 w-full overflow-hidden">
                 <h2
                     className="text-3xl font-bold mb-8 text-center"
                     style={{ color: colors.primary }}
@@ -335,7 +331,7 @@ export default function NagisaKaedePage() {
             {/* ============================================================ */}
             {/* DISCOGRAPHY セクション */}
             {/* ============================================================ */}
-            <section id="discography" className="max-w-4xl mx-auto px-4 py-16">
+            <section id="discography" className="max-w-4xl mx-auto px-4 py-16 w-full overflow-hidden">
                 <h2
                     className="text-3xl font-bold mb-8 text-center"
                     style={{ color: colors.secondary }}
@@ -357,7 +353,7 @@ export default function NagisaKaedePage() {
             {/* ============================================================ */}
             {/* MOVIE セクション */}
             {/* ============================================================ */}
-            <section id="movie" className="max-w-4xl mx-auto px-4 py-16">
+            <section id="movie" className="max-w-4xl mx-auto px-4 py-16 w-full overflow-hidden">
                 <h2
                     className="text-3xl font-bold mb-8 text-center"
                     style={{ color: colors.accent }}
@@ -381,7 +377,7 @@ export default function NagisaKaedePage() {
 
                     {/* チャンネル登録ボタン（先行設置） */}
                     <button
-                        className="flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all hover:scale-105"
+                        className="flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all hover:scale-105 max-w-full"
                         style={{
                             backgroundColor: '#FF0000',
                             color: 'white',
@@ -395,7 +391,7 @@ export default function NagisaKaedePage() {
             {/* ============================================================ */}
             {/* GALLERY セクション */}
             {/* ============================================================ */}
-            <section id="gallery" className="max-w-4xl mx-auto px-4 py-16">
+            <section id="gallery" className="max-w-4xl mx-auto px-4 py-16 w-full overflow-hidden">
                 <h2
                     className="text-3xl font-bold mb-8 text-center"
                     style={{ color: colors.primary }}
@@ -422,7 +418,7 @@ export default function NagisaKaedePage() {
             {/* ============================================================ */}
             {/* OFFICIAL LINKS セクション */}
             {/* ============================================================ */}
-            <section id="links" className="max-w-4xl mx-auto px-4 py-16">
+            <section id="links" className="max-w-4xl mx-auto px-4 py-16 w-full overflow-hidden">
                 <h2
                     className="text-3xl font-bold mb-8 text-center"
                     style={{ color: colors.secondary }}
@@ -539,13 +535,13 @@ function NewsCard({ item, lang }: { item: NewsItem; lang: 'jp' | 'en' }) {
 function TrackCard({ track, lang }: { track: Track; lang: 'jp' | 'en' }) {
     return (
         <article
-            className="rounded-xl overflow-hidden transition-all hover:scale-105"
+            className="rounded-xl overflow-hidden transition-all hover:scale-105 min-w-0 w-full"
             style={{ backgroundColor: '#1a1a1f' }}
         >
             <img
                 src={track.coverArt}
                 alt={lang === 'jp' ? track.title.jp : track.title.en}
-                className="w-full aspect-square object-cover"
+                className="w-full max-w-full aspect-square object-cover"
             />
             <div className="p-3">
                 <h3 className="font-bold text-sm truncate">{lang === 'jp' ? track.title.jp : track.title.en}</h3>
@@ -568,12 +564,12 @@ function GalleryCard({
     return (
         <button
             onClick={onClick}
-            className="rounded-xl overflow-hidden transition-all hover:scale-105 group"
+            className="rounded-xl overflow-hidden transition-all hover:scale-105 group min-w-0 w-full block"
         >
             <img
                 src={item.thumbnailUrl}
                 alt={lang === 'jp' ? item.title.jp : item.title.en}
-                className="w-full aspect-square object-cover group-hover:brightness-75 transition-all"
+                className="w-full max-w-full aspect-square object-cover group-hover:brightness-75 transition-all"
             />
         </button>
     );
