@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- ドラムマシンアイコン - DRUM LAB用ファビコン -->
+  <rect x="2" y="4" width="28" height="24" rx="3" fill="#2F3542"/>
+  <!-- グリッド（4x4）-->
+  <rect x="4" y="6" width="6" height="6" rx="1" fill="#FF4757"/>
+  <rect x="11" y="6" width="6" height="6" rx="1" fill="#2F3542" stroke="#FF4757" stroke-width="1"/>
+  <rect x="18" y="6" width="6" height="6" rx="1" fill="#2F3542" stroke="#FF4757" stroke-width="1"/>
+  <rect x="25" y="6" width="3" height="6" rx="1" fill="#FF4757"/>
+  <rect x="4" y="13" width="6" height="6" rx="1" fill="#2F3542" stroke="#FFA502" stroke-width="1"/>
+  <rect x="11" y="13" width="6" height="6" rx="1" fill="#FFA502"/>
+  <rect x="18" y="13" width="6" height="6" rx="1" fill="#2F3542" stroke="#FFA502" stroke-width="1"/>
+  <rect x="25" y="13" width="3" height="6" rx="1" fill="#FFA502"/>
+  <rect x="4" y="20" width="6" height="6" rx="1" fill="#50C878"/>
+  <rect x="11" y="20" width="6" height="6" rx="1" fill="#50C878"/>
+  <rect x="18" y="20" width="6" height="6" rx="1" fill="#50C878"/>
+  <rect x="25" y="20" width="3" height="6" rx="1" fill="#50C878"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- 木琴アイコン - XYLOPHONE LAB用ファビコン -->
+  <rect x="2" y="4" width="28" height="24" rx="3" fill="#2F3542"/>
+  <!-- カラフルな鍵盤 -->
+  <rect x="4" y="8" width="4" height="16" rx="1" fill="#FF6B6B"/>
+  <rect x="9" y="9" width="4" height="14" rx="1" fill="#FFE66D"/>
+  <rect x="14" y="10" width="4" height="12" rx="1" fill="#4ECDC4"/>
+  <rect x="19" y="11" width="4" height="10" rx="1" fill="#FF6B6B"/>
+  <rect x="24" y="12" width="4" height="8" rx="1" fill="#FFE66D"/>
+  <!-- マレット -->
+  <circle cx="26" cy="6" r="2" fill="#4ECDC4"/>
+  <line x1="26" y1="6" x2="22" y2="10" stroke="#4ECDC4" stroke-width="1.5"/>
+</svg>

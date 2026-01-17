@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- シンセサイザー波形アイコン - SYNTH LAB用ファビコン -->
+  <rect x="2" y="4" width="28" height="24" rx="3" fill="#0D1117"/>
+  <!-- 波形（サイン波） -->
+  <path d="M4 16 Q8 8, 12 16 T20 16 T28 16" stroke="#00D9FF" stroke-width="2" fill="none"/>
+  <!-- アクセントライン -->
+  <rect x="2" y="26" width="28" height="2" rx="1" fill="#FF00D9"/>
+  <!-- ノブ -->
+  <circle cx="8" cy="22" r="2" fill="#00FF88"/>
+  <circle cx="16" cy="22" r="2" fill="#00FF88"/>
+  <circle cx="24" cy="22" r="2" fill="#00FF88"/>
+</svg>
