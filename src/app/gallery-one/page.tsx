@@ -243,6 +243,10 @@ const texts = {
         downloadBtn: 'PNG保存',
         back: '← Saison Lab へ戻る',
         noImage: '画像をアップロードしてください',
+        adjustImage: '画像調整',
+        zoom: 'ズーム',
+        position: '位置調整（ドラッグで移動）',
+        reset: 'リセット',
     },
     en: {
         title: 'GALLERY ONE',
@@ -256,6 +260,10 @@ const texts = {
         downloadBtn: 'Save PNG',
         back: '← Back to Saison Lab',
         noImage: 'Please upload an image',
+        adjustImage: 'Adjust Image',
+        zoom: 'Zoom',
+        position: 'Position (Drag to move)',
+        reset: 'Reset',
     },
 };
 
@@ -269,6 +277,12 @@ export default function GalleryOnePage() {
     const [selectedFrame, setSelectedFrame] = useState<Frame>(FRAMES[0]);
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
+    // 画像位置・ズーム調整用のstate
+    const [zoom, setZoom] = useState(1);
+    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [isDragging, setIsDragging] = useState(false);
+    const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+
     const previewRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const t = texts[lang];
@@ -279,6 +293,9 @@ export default function GalleryOnePage() {
         const reader = new FileReader();
         reader.onload = (e) => {
             setUploadedImage(e.target?.result as string);
+            // 新しい画像がアップロードされたらリセット
+            setZoom(1);
+            setPosition({ x: 0, y: 0 });
         };
         reader.readAsDataURL(file);
     }, []);
@@ -312,6 +329,55 @@ export default function GalleryOnePage() {
             console.error('Download failed:', err);
         }
     }, [uploadedImage, selectedFrame]);
+
+    // 画像ドラッグ開始処理
+    const handleMouseDown = useCallback((e: React.MouseEvent) => {
+        if (!uploadedImage) return;
+        e.preventDefault();
+        setIsDragging(true);
+        setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y });
+    }, [uploadedImage, position]);
+
+    // 画像ドラッグ中処理
+    const handleMouseMove = useCallback((e: React.MouseEvent) => {
+        if (!isDragging) return;
+        setPosition({
+            x: e.clientX - dragStart.x,
+            y: e.clientY - dragStart.y,
+        });
+    }, [isDragging, dragStart]);
+
+    // 画像ドラッグ終了処理
+    const handleMouseUp = useCallback(() => {
+        setIsDragging(false);
+    }, []);
+
+    // タッチ操作対応
+    const handleTouchStart = useCallback((e: React.TouchEvent) => {
+        if (!uploadedImage) return;
+        const touch = e.touches[0];
+        setIsDragging(true);
+        setDragStart({ x: touch.clientX - position.x, y: touch.clientY - position.y });
+    }, [uploadedImage, position]);
+
+    const handleTouchMove = useCallback((e: React.TouchEvent) => {
+        if (!isDragging) return;
+        const touch = e.touches[0];
+        setPosition({
+            x: touch.clientX - dragStart.x,
+            y: touch.clientY - dragStart.y,
+        });
+    }, [isDragging, dragStart]);
+
+    const handleTouchEnd = useCallback(() => {
+        setIsDragging(false);
+    }, []);
+
+    // リセット処理
+    const handleReset = useCallback(() => {
+        setZoom(1);
+        setPosition({ x: 0, y: 0 });
+    }, []);
 
     // カテゴリでフィルタリング
     const filteredFrames = selectedCategory === 'all'
@@ -384,6 +450,11 @@ export default function GalleryOnePage() {
                                 padding: selectedFrame.padding,
                                 borderRadius: selectedFrame.borderRadius,
                             }}
+                            onMouseMove={handleMouseMove}
+                            onMouseUp={handleMouseUp}
+                            onMouseLeave={handleMouseUp}
+                            onTouchMove={handleTouchMove}
+                            onTouchEnd={handleTouchEnd}
                         >
                             {/* オーバーレイ効果 */}
                             {selectedFrame.overlayGradient && (
@@ -397,7 +468,15 @@ export default function GalleryOnePage() {
                                 <img
                                     src={uploadedImage}
                                     alt="Preview"
-                                    className="max-w-full max-h-[400px] object-contain relative z-10"
+                                    className="max-w-full max-h-[400px] object-contain relative z-10 select-none"
+                                    style={{
+                                        transform: `translate(${position.x}px, ${position.y}px) scale(${zoom})`,
+                                        cursor: isDragging ? 'grabbing' : 'grab',
+                                        transition: isDragging ? 'none' : 'transform 0.1s ease-out',
+                                    }}
+                                    onMouseDown={handleMouseDown}
+                                    onTouchStart={handleTouchStart}
+                                    draggable={false}
                                 />
                             ) : (
                                 <div className={`text-center py-20 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
@@ -407,14 +486,52 @@ export default function GalleryOnePage() {
                             )}
                         </div>
 
+                        {/* 画像調整コントロール */}
+                        {uploadedImage && (
+                            <div className={`p-4 rounded-xl ${isDark ? 'bg-gray-800' : 'bg-white'} space-y-4`}>
+                                <div className="flex items-center justify-between">
+                                    <h3 className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                                        {t.adjustImage}
+                                    </h3>
+                                    <button
+                                        onClick={handleReset}
+                                        className={`text-xs px-3 py-1 rounded ${isDark ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' : 'bg-gray-200 hover:bg-gray-300 text-gray-700'}`}
+                                    >
+                                        {t.reset}
+                                    </button>
+                                </div>
+
+                                {/* ズームスライダー */}
+                                <div>
+                                    <label className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                                        {t.zoom}: {Math.round(zoom * 100)}%
+                                    </label>
+                                    <input
+                                        type="range"
+                                        min="0.5"
+                                        max="3"
+                                        step="0.1"
+                                        value={zoom}
+                                        onChange={(e) => setZoom(parseFloat(e.target.value))}
+                                        className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                                    />
+                                </div>
+
+                                {/* 位置調整ヒント */}
+                                <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                                    💡 {t.position}
+                                </p>
+                            </div>
+                        )}
+
                         {/* アップロードエリア */}
                         <div
                             onClick={() => fileInputRef.current?.click()}
                             onDrop={handleDrop}
                             onDragOver={(e) => e.preventDefault()}
                             className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all hover:scale-[1.02] ${isDark
-                                    ? 'border-gray-600 hover:border-emerald-500 bg-gray-800/50'
-                                    : 'border-gray-300 hover:border-emerald-500 bg-gray-50'
+                                ? 'border-gray-600 hover:border-emerald-500 bg-gray-800/50'
+                                : 'border-gray-300 hover:border-emerald-500 bg-gray-50'
                                 }`}
                         >
                             <input
@@ -451,10 +568,10 @@ export default function GalleryOnePage() {
                                     key={cat.id}
                                     onClick={() => setSelectedCategory(cat.id)}
                                     className={`px-3 py-1.5 rounded-full text-sm transition-all ${selectedCategory === cat.id
-                                            ? 'bg-emerald-500 text-white'
-                                            : isDark
-                                                ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                                                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                        ? 'bg-emerald-500 text-white'
+                                        : isDark
+                                            ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                                         }`}
                                 >
                                     {lang === 'jp' ? cat.name.jp : cat.name.en}
@@ -469,8 +586,8 @@ export default function GalleryOnePage() {
                                     key={frame.id}
                                     onClick={() => setSelectedFrame(frame)}
                                     className={`p-2 rounded-lg transition-all hover:scale-105 ${selectedFrame.id === frame.id
-                                            ? 'ring-2 ring-emerald-500 ring-offset-2 ' + (isDark ? 'ring-offset-gray-900' : 'ring-offset-gray-100')
-                                            : ''
+                                        ? 'ring-2 ring-emerald-500 ring-offset-2 ' + (isDark ? 'ring-offset-gray-900' : 'ring-offset-gray-100')
+                                        : ''
                                         }`}
                                 >
                                     {/* フレームサムネイル */}
