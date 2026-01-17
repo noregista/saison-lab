@@ -214,7 +214,7 @@ export default function NagisaKaedePage() {
                     {t.profile}
                 </h2>
 
-                <div className="grid md:grid-cols-2 gap-8 items-start">
+                <div className="flex flex-col gap-8">
                     {/* 左側：プロフィールバイオ */}
                     <div
                         className="p-6 rounded-xl"
@@ -234,49 +234,35 @@ export default function NagisaKaedePage() {
 
                     {/* 右側：詳細データ */}
                     <div
-                        className="p-6 rounded-xl min-w-0 overflow-hidden"
+                        className="p-4 rounded-xl overflow-hidden"
                         style={{ backgroundColor: '#1a1a1f' }}
                     >
-                        <table className="w-full table-fixed text-sm">
-                            <tbody className="divide-y divide-gray-700">
-                                <tr>
-                                    <th className="py-2 text-left font-normal opacity-50 w-24 align-top">{t.birth}</th>
-                                    <td className="py-2 break-words">
-                                        {lang === 'jp' ? profileData.birthDate.jp : profileData.birthDate.en}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className="py-2 text-left font-normal opacity-50 w-24 align-top">{t.from}</th>
-                                    <td className="py-2 break-words">
-                                        {lang === 'jp' ? profileData.birthPlace.jp : profileData.birthPlace.en}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className="py-2 text-left font-normal opacity-50 w-24 align-top">{t.blood}</th>
-                                    <td className="py-2 break-words">
-                                        {lang === 'jp' ? profileData.bloodType.jp : profileData.bloodType.en}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className="py-2 text-left font-normal opacity-50 w-24 align-top">{t.hobby}</th>
-                                    <td className="py-2 break-words">
-                                        {lang === 'jp' ? profileData.hobby.jp : profileData.hobby.en}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className="py-2 text-left font-normal opacity-50 w-24 align-top">{t.skill}</th>
-                                    <td className="py-2 break-words">
-                                        {lang === 'jp' ? profileData.specialSkill.jp : profileData.specialSkill.en}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className="py-2 text-left font-normal opacity-50 w-24 align-top">{t.food}</th>
-                                    <td className="py-2 break-words">
-                                        {lang === 'jp' ? profileData.favoriteFood.jp : profileData.favoriteFood.en}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div className="space-y-3 text-sm">
+                            <div className="flex flex-col">
+                                <span className="opacity-50 text-xs mb-1">{t.birth}</span>
+                                <span>{lang === 'jp' ? profileData.birthDate.jp : profileData.birthDate.en}</span>
+                            </div>
+                            <div className="border-t border-gray-700 pt-3 flex flex-col">
+                                <span className="opacity-50 text-xs mb-1">{t.from}</span>
+                                <span>{lang === 'jp' ? profileData.birthPlace.jp : profileData.birthPlace.en}</span>
+                            </div>
+                            <div className="border-t border-gray-700 pt-3 flex flex-col">
+                                <span className="opacity-50 text-xs mb-1">{t.blood}</span>
+                                <span>{lang === 'jp' ? profileData.bloodType.jp : profileData.bloodType.en}</span>
+                            </div>
+                            <div className="border-t border-gray-700 pt-3 flex flex-col">
+                                <span className="opacity-50 text-xs mb-1">{t.hobby}</span>
+                                <span>{lang === 'jp' ? profileData.hobby.jp : profileData.hobby.en}</span>
+                            </div>
+                            <div className="border-t border-gray-700 pt-3 flex flex-col">
+                                <span className="opacity-50 text-xs mb-1">{t.skill}</span>
+                                <span>{lang === 'jp' ? profileData.specialSkill.jp : profileData.specialSkill.en}</span>
+                            </div>
+                            <div className="border-t border-gray-700 pt-3 flex flex-col">
+                                <span className="opacity-50 text-xs mb-1">{t.food}</span>
+                                <span>{lang === 'jp' ? profileData.favoriteFood.jp : profileData.favoriteFood.en}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
