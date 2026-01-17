@@ -266,19 +266,19 @@ export default function NagisaKaedePage() {
                         <div className="border-b border-gray-700 pb-2">
                             <div className="block text-sm">
                                 <span className="opacity-50 block mb-1">{t.hobby}</span>
-                                <span>{lang === 'jp' ? profileData.hobby.jp : profileData.hobby.en}</span>
+                                <span className="break-words">{lang === 'jp' ? profileData.hobby.jp : profileData.hobby.en}</span>
                             </div>
                         </div>
                         <div className="border-b border-gray-700 pb-2">
                             <div className="block text-sm">
                                 <span className="opacity-50 block mb-1">{t.skill}</span>
-                                <span>{lang === 'jp' ? profileData.specialSkill.jp : profileData.specialSkill.en}</span>
+                                <span className="break-words">{lang === 'jp' ? profileData.specialSkill.jp : profileData.specialSkill.en}</span>
                             </div>
                         </div>
                         <div>
                             <div className="block text-sm">
                                 <span className="opacity-50 block mb-1">{t.food}</span>
-                                <span>{lang === 'jp' ? profileData.favoriteFood.jp : profileData.favoriteFood.en}</span>
+                                <span className="break-words">{lang === 'jp' ? profileData.favoriteFood.jp : profileData.favoriteFood.en}</span>
                             </div>
                         </div>
                     </div>
