@@ -220,9 +220,16 @@ export default function NagisaKaedePage() {
                         className="p-6 rounded-xl"
                         style={{ backgroundColor: '#1a1a1f' }}
                     >
-                        <p className="whitespace-pre-line leading-relaxed text-sm md:text-base opacity-90 mb-6">
-                            {lang === 'jp' ? profileData.bio.jp : profileData.bio.en}
-                        </p>
+                        <div className="space-y-4">
+                            {(lang === 'jp' ? profileData.bio.jp : profileData.bio.en).map((text, index) => (
+                                <p
+                                    key={index}
+                                    className="leading-relaxed text-sm md:text-base opacity-90"
+                                >
+                                    {text}
+                                </p>
+                            ))}
+                        </div>
                     </div>
 
                     {/* 右側：詳細データ */}
