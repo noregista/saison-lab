@@ -92,13 +92,13 @@ export const socialLinks: SocialLink[] = [
     },
     {
         platform: 'tiktok',
-        url: '#',
+        url: 'https://www.tiktok.com/@nagisakaede_music',
         icon: '📱',
         label: { jp: 'TikTok', en: 'TikTok' },
     },
     {
         platform: 'instagram',
-        url: '#',
+        url: 'https://www.instagram.com/nagisakaede_music/',
         icon: '📷',
         label: { jp: 'Instagram', en: 'Instagram' },
     },
