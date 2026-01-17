@@ -82,7 +82,7 @@ export const galleryData: GalleryItem[] = [
     },
 ];
 
-// SNSリンク（TikTokとYouTubeのみ）
+// SNSリンク（TikTok、Instagram、YouTube - すべて準備中）
 export const socialLinks: SocialLink[] = [
     {
         platform: 'tiktok',
@@ -91,12 +91,33 @@ export const socialLinks: SocialLink[] = [
         label: { jp: 'TikTok', en: 'TikTok' },
     },
     {
+        platform: 'instagram',
+        url: '#',
+        icon: '📷',
+        label: { jp: 'Instagram', en: 'Instagram' },
+    },
+    {
         platform: 'youtube',
         url: '#',
         icon: '▶️',
         label: { jp: 'YouTube', en: 'YouTube' },
     },
 ];
+
+// プロフィール情報
+export const profileData = {
+    birthDate: { jp: '2005年6月8日', en: 'June 8, 2005' },
+    birthPlace: { jp: '大阪府', en: 'Osaka, Japan' },
+    bloodType: { jp: 'O型', en: 'Type O' },
+    height: { jp: '158.4cm', en: '158.4cm' },
+    hobby: { jp: '音楽鑑賞、散歩、ルービックキューブ、爬虫類カフェ巡り', en: 'Music, Walking, Rubik\'s Cube, Reptile Cafes' },
+    specialSkill: { jp: '歌、作詞、ピアノ、変顔、手を使わずに頭皮を動かす', en: 'Singing, Songwriting, Piano, Funny Faces, Moving Scalp' },
+    favoriteFood: { jp: 'お寿司、メロン、カレー、たまごパン', en: 'Sushi, Melon, Curry, Egg Bread' },
+    bio: {
+        jp: '「透明な歌声を持つ不思議少女」。\n一見クールで優雅な雰囲気だが、中身は予想外の行動で周囲を驚かせる「大不思議」キャラ。\nルービックキューブを高速で揃えながら即興ソングを歌うなど、独特なパフォーマンスで注目を集める。\n「蚊に懲役を与える」など独特なワードセンスを持ち、誰からも愛されるムードメーカー。\n真剣な眼差しで歌う姿と、普段の無邪気なキャラクターのギャップが魅力のシンガー。',
+        en: 'Known as the "Mysterious Girl with a Transparent Voice".\nAt first glance, she appears cool and elegant, but she is actually an unpredictable character who surprises everyone with her eccentricity.\nShe attracts attention with unique performances, such as solving a Rubik\'s cube at high speed while singing improvised songs.\nWith a unique sense of word choice and innocent charm, she is a beloved mood maker.\nThe gap between her serious singing voice and her innocent daily character is her greatest charm.'
+    },
+};
 
 // カテゴリの表示名
 export const categoryLabels: Record<NewsItem['category'], { jp: string; en: string }> = {

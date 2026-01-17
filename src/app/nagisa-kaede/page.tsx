@@ -7,6 +7,7 @@ import {
     discographyData,
     galleryData,
     socialLinks,
+    profileData,
     categoryLabels,
     NewsItem,
     Track,
@@ -48,6 +49,14 @@ const texts = {
         links: 'OFFICIAL LINKS',
         privacy: 'プライバシーポリシー',
         copyright: '© 2026 Nagisa Kaede / Saison Lab',
+        profile: 'PROFILE',
+        birth: '誕生日',
+        from: '出身地',
+        blood: '血液型',
+        height: '身長',
+        hobby: '趣味',
+        skill: '特技',
+        food: '好きな食べ物',
         back: '← Saison Lab へ戻る',
         comingSoon: 'COMING SOON',
     },
@@ -69,6 +78,14 @@ const texts = {
         links: 'OFFICIAL LINKS',
         privacy: 'Privacy Policy',
         copyright: '© 2026 Nagisa Kaede / Saison Lab',
+        profile: 'PROFILE',
+        birth: 'Birthday',
+        from: 'Birthplace',
+        blood: 'Blood Type',
+        height: 'Height',
+        hobby: 'Hobby',
+        skill: 'Special Skill',
+        food: 'Favorite Food',
         back: '← Back to Saison Lab',
         comingSoon: 'COMING SOON',
     },
@@ -185,6 +202,81 @@ export default function NagisaKaedePage() {
                     📢 Ad Display Area / 広告表示欄 (728x90)
                 </div>
             </div>
+
+            {/* ============================================================ */}
+            {/* PROFILE セクション */}
+            {/* ============================================================ */}
+            <section id="profile" className="max-w-4xl mx-auto px-4 py-16">
+                <h2
+                    className="text-3xl font-bold mb-8 text-center"
+                    style={{ color: colors.secondary }}
+                >
+                    {t.profile}
+                </h2>
+
+                <div className="grid md:grid-cols-2 gap-8 items-start">
+                    {/* 左側：プロフィールバイオ */}
+                    <div
+                        className="p-6 rounded-xl"
+                        style={{ backgroundColor: '#1a1a1f' }}
+                    >
+                        <p className="whitespace-pre-line leading-relaxed text-sm md:text-base opacity-90 mb-6">
+                            {lang === 'jp' ? profileData.bio.jp : profileData.bio.en}
+                        </p>
+                    </div>
+
+                    {/* 右側：詳細データ */}
+                    <div
+                        className="p-6 rounded-xl space-y-4"
+                        style={{ backgroundColor: '#1a1a1f' }}
+                    >
+                        <div className="border-b border-gray-700 pb-2">
+                            <div className="flex justify-between text-sm">
+                                <span className="opacity-50">{t.birth}</span>
+                                <span>{lang === 'jp' ? profileData.birthDate.jp : profileData.birthDate.en}</span>
+                            </div>
+                        </div>
+                        <div className="border-b border-gray-700 pb-2">
+                            <div className="flex justify-between text-sm">
+                                <span className="opacity-50">{t.from}</span>
+                                <span>{lang === 'jp' ? profileData.birthPlace.jp : profileData.birthPlace.en}</span>
+                            </div>
+                        </div>
+                        <div className="border-b border-gray-700 pb-2">
+                            <div className="flex justify-between text-sm">
+                                <span className="opacity-50">{t.blood}</span>
+                                <span>{lang === 'jp' ? profileData.bloodType.jp : profileData.bloodType.en}</span>
+                            </div>
+                        </div>
+                        {/* 
+                         <div className="border-b border-gray-700 pb-2">
+                             <div className="flex justify-between text-sm">
+                                 <span className="opacity-50">{t.height}</span>
+                                 <span>{lang === 'jp' ? profileData.height.jp : profileData.height.en}</span>
+                             </div>
+                         </div>
+                         */}
+                        <div className="border-b border-gray-700 pb-2">
+                            <div className="block text-sm">
+                                <span className="opacity-50 block mb-1">{t.hobby}</span>
+                                <span>{lang === 'jp' ? profileData.hobby.jp : profileData.hobby.en}</span>
+                            </div>
+                        </div>
+                        <div className="border-b border-gray-700 pb-2">
+                            <div className="block text-sm">
+                                <span className="opacity-50 block mb-1">{t.skill}</span>
+                                <span>{lang === 'jp' ? profileData.specialSkill.jp : profileData.specialSkill.en}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="block text-sm">
+                                <span className="opacity-50 block mb-1">{t.food}</span>
+                                <span>{lang === 'jp' ? profileData.favoriteFood.jp : profileData.favoriteFood.en}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             {/* ============================================================ */}
             {/* NEWS セクション */}
