@@ -39,6 +39,7 @@ const translations = {
         'app-digital-art-lab-desc': '触れると生命が生まれるデジタルアート空間。チームラボに影響を受けた没入型インタラクティブ体験。',
         'app-fruit-lab-desc': '世界のフルーツを植物学的特徴と輸出統計で徹底比較。15種類以上のフルーツを探索できるデジタル図鑑。',
         'app-name-lab-desc': 'Fantasy・SF・和風の世界観で唯一無二の名前を召喚。語根と意味論に基づいた創造的命名ツール。',
+        'app-minute-lab-desc': '歴史・科学・文化・経済・哲学。知識1分。膀大な知識を凝縮したタイパ型知的マイクロメディア。',
         'no-results': '該当するアプリが見つかりません',
         'update-title': '更新履歴',
         'update-1': 'TCGカードジェネレーターを追加しました。',
@@ -65,6 +66,7 @@ const translations = {
         'update-22': 'DIGITAL ART LABを追加しました。',
         'update-23': 'FRUIT LABを追加しました。',
         'update-24': 'NAME LABを追加しました。',
+        'update-25': 'MINUTE LABを追加しました。',
         'app-ranking-lab-desc': '世界GDP、人口、面積などあらゆるランキングを比較。基準日・情報源を明示。',
         'footer-privacy': 'プライバシーポリシー',
         'footer-contact': 'お問い合わせ',
@@ -127,6 +129,7 @@ const translations = {
         'app-digital-art-lab-desc': 'Digital art space where life is born at your touch. An immersive, interactive experience inspired by teamLab.',
         'app-fruit-lab-desc': 'Compare fruits with botanical facts and export statistics. A digital encyclopedia exploring 15+ fruits from around the world.',
         'app-name-lab-desc': 'Summon unique names in Fantasy, SF, or Japanese styles. A creative naming tool based on roots and semantics.',
+        'app-minute-lab-desc': 'History, Science, Culture, Economy, Philosophy. Knowledge in 1 minute. A time-efficient intellectual micro-media.',
         'no-results': 'No matching apps found',
         'update-title': 'Updates',
         'update-1': 'Added TCG Card Generator.',
@@ -367,6 +370,13 @@ const apps = [
         href: '/name-lab',
         icon: '✨',
         descKey: 'app-name-lab-desc' as const,
+    },
+    {
+        id: 'minute-lab',
+        name: { jp: 'ミニッツ・ラボ', en: 'MINUTE LAB' },
+        href: '/minute-lab',
+        icon: '📚',
+        descKey: 'app-minute-lab-desc' as const,
     },
 ];
 

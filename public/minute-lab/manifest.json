@@ -1,0 +1,31 @@
+{
+    "name": "MINUTE LAB",
+    "short_name": "MinuteLab",
+    "description": "1分解説図鑑 - 歴史・科学・文化・経済・哲学。知識を1分で。",
+    "start_url": "/minute-lab",
+    "display": "standalone",
+    "background_color": "#FFFBEB",
+    "theme_color": "#F59E0B",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/minute-lab/images/french-revolution.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/minute-lab/images/french-revolution.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "education",
+        "reference",
+        "books"
+    ],
+    "lang": "ja",
+    "dir": "ltr"
+}
