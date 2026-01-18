@@ -82,6 +82,16 @@ const styleDefaults: Record<CardStyle, Record<Language, { cardName: string; atta
     },
 };
 
+// Preset card art images
+const presetArtworks = [
+    { id: 'fire-dragon', src: '/tcg/presets/fire-dragon.png', nameJa: '炎竜', nameEn: 'Fire Dragon', icon: '🔥' },
+    { id: 'water-kraken', src: '/tcg/presets/water-kraken.png', nameJa: '水の怪物', nameEn: 'Kraken', icon: '💧' },
+    { id: 'grass-treant', src: '/tcg/presets/grass-treant.png', nameJa: '森の守護者', nameEn: 'Treant', icon: '🌿' },
+    { id: 'dark-knight', src: '/tcg/presets/dark-knight.png', nameJa: '闇騎士', nameEn: 'Dark Knight', icon: '🌑' },
+    { id: 'electric-phoenix', src: '/tcg/presets/electric-phoenix.png', nameJa: '雷鳥', nameEn: 'Thunder Phoenix', icon: '⚡' },
+    { id: 'holy-angel', src: '/tcg/presets/holy-angel.png', nameJa: '聖天使', nameEn: 'Holy Angel', icon: '✨' },
+];
+
 const translations = {
     ja: {
         title: 'カードジェネレーター',
@@ -109,6 +119,7 @@ const translations = {
         'action.share': 'SNSで共有',
         'ad.space': '広告スペース',
         'howto.title': '使い方',
+        'input.presets': 'プリセットから選ぶ',
     },
     en: {
         title: 'Card Generator',
@@ -136,6 +147,7 @@ const translations = {
         'action.share': 'Share to SNS',
         'ad.space': 'Ad Space',
         'howto.title': 'How to Use',
+        'input.presets': 'Select Preset Art',
     },
 };
 
@@ -539,6 +551,17 @@ export default function TCGPage() {
         }
     };
 
+    // Load preset artwork
+    const handlePresetSelect = (src: string) => {
+        const img = new window.Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+            setUploadedImage(img);
+            setImageOffset({ x: 0, y: 0 });
+        };
+        img.src = src;
+    };
+
     const handleDownload = () => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -668,7 +691,7 @@ export default function TCGPage() {
                     </h2>
 
                     {/* Upload zone */}
-                    <label className="block border-3 border-dashed border-[rgba(255,255,255,0.2)] rounded-2xl p-8 text-center cursor-pointer hover:border-yellow-400 hover:bg-[rgba(255,215,0,0.1)] transition-all mb-6 bg-[rgba(255,255,255,0.05)]">
+                    <label className="block border-3 border-dashed border-[rgba(255,255,255,0.2)] rounded-2xl p-8 text-center cursor-pointer hover:border-yellow-400 hover:bg-[rgba(255,215,0,0.1)] transition-all mb-4 bg-[rgba(255,255,255,0.05)]">
                         <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                         <div className="text-4xl mb-2">🖼️</div>
                         <div className="text-white whitespace-pre-line">{t['input.upload']}</div>
@@ -676,6 +699,33 @@ export default function TCGPage() {
                             <img src={uploadedImage.src} alt="Preview" className="max-h-[150px] mx-auto mt-4 rounded-xl" />
                         )}
                     </label>
+
+                    {/* Preset artwork selection */}
+                    <div className="mb-6">
+                        <label className="block text-[rgba(255,255,255,0.8)] text-sm font-semibold uppercase tracking-wide mb-3">
+                            ✨ {t['input.presets']}
+                        </label>
+                        <div className="grid grid-cols-3 gap-2">
+                            {presetArtworks.map((preset) => (
+                                <button
+                                    key={preset.id}
+                                    onClick={() => handlePresetSelect(preset.src)}
+                                    className="group relative aspect-square rounded-lg overflow-hidden border-2 border-transparent hover:border-yellow-400 transition-all hover:scale-105"
+                                >
+                                    <img
+                                        src={preset.src}
+                                        alt={lang === 'ja' ? preset.nameJa : preset.nameEn}
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                        <span className="text-white text-xs font-bold text-center px-1">
+                                            {preset.icon} {lang === 'ja' ? preset.nameJa : preset.nameEn}
+                                        </span>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
 
                     {/* Form fields */}
                     <div className="space-y-4">
