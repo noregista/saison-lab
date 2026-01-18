@@ -177,11 +177,20 @@ export default function TheButtonPage() {
 
     // Background based on phase
     const getBackgroundClass = () => {
-        if (phase === 1) return 'bg-white';
-        if (phase === 2) return 'bg-gray-100';
-        if (phase === 3) return 'bg-cover bg-center'; // Image handled in style
-        if (phase === 4) return 'bg-black';
+        if (phase === 1) return 'bg-cover bg-center';
+        if (phase === 2) return 'bg-cover bg-center';
+        if (phase === 3) return 'bg-cover bg-center';
+        if (phase === 4) return 'bg-cover bg-center';
         return 'bg-white';
+    };
+
+    // Background image based on phase
+    const getBackgroundImage = () => {
+        if (phase === 1) return 'url("/the-button/phase1-sky.png")';
+        if (phase === 2) return 'url("/the-button/phase2-sunset.png")';
+        if (phase === 3) return 'url("/the-button/space-bg.png")';
+        if (phase === 4) return 'url("/the-button/phase4-blackhole.png")';
+        return 'none';
     };
 
     return (
@@ -189,7 +198,7 @@ export default function TheButtonPage() {
             ref={containerRef}
             className={`min-h-screen relative overflow-hidden transition-all duration-1000 ${getBackgroundClass()}`}
             style={{
-                backgroundImage: phase === 3 ? 'url("/the-button/space-bg.png")' : 'none',
+                backgroundImage: getBackgroundImage(),
             }}
         >
             {/* Custom CSS Animations */}
