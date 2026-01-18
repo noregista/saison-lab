@@ -1,0 +1,31 @@
+{
+    "name": "FRUIT LAB",
+    "short_name": "FruitLab",
+    "description": "World Fruit Encyclopedia - Explore fruits with botanical facts and export statistics",
+    "start_url": "/fruit-lab",
+    "display": "standalone",
+    "background_color": "#F0FDF4",
+    "theme_color": "#22C55E",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/fruit-lab/images/apple.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/fruit-lab/images/apple.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "education",
+        "food",
+        "reference"
+    ],
+    "lang": "ja",
+    "dir": "ltr"
+}
