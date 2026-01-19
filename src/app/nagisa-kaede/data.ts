@@ -50,6 +50,20 @@ export interface SocialLink {
 // ニュースデータ（サンプル）
 export const newsData: NewsItem[] = [
     {
+        id: 'news-002',
+        date: '2026-01-20',
+        category: 'release',
+        title: {
+            jp: 'デビュー楽曲「トワイライト」をリリースしました',
+            en: 'Debut Song "Twilight" Released'
+        },
+        content: {
+            jp: '凪沙 楓のデビュー楽曲「トワイライト」がYouTubeにて公開されました。ぜひご視聴ください。',
+            en: 'Nagisa Kaede\'s debut song "Twilight" is now available on YouTube. Please check it out!'
+        },
+        link: 'https://youtu.be/AAzb4EClsnA?si=bM2UyD3iNxkY4kxZ',
+    },
+    {
         id: 'news-001',
         date: '2026-01-17',
         category: 'announce',
@@ -65,7 +79,18 @@ export const newsData: NewsItem[] = [
 ];
 
 // ディスコグラフィデータ（空 - デビュー前）
-export const discographyData: Track[] = [];
+export const discographyData: Track[] = [
+    {
+        id: 'track-001',
+        title: { jp: 'トワイライト', en: 'Twilight' },
+        releaseDate: '2026-01-20',
+        coverArt: '/images/nagisa-kaede-portrait.png',
+        duration: '3:30',
+        streamLinks: [
+            { platform: 'YouTube', url: 'https://youtu.be/AAzb4EClsnA?si=bM2UyD3iNxkY4kxZ', icon: '▶️' },
+        ],
+    },
+];
 
 // ギャラリーデータ（初期ポートレート）
 export const galleryData: GalleryItem[] = [
@@ -86,7 +111,7 @@ export const galleryData: GalleryItem[] = [
 export const socialLinks: SocialLink[] = [
     {
         platform: 'youtube',
-        url: '#',
+        url: 'https://www.youtube.com/channel/UCGTATHsvnGYiuXcMT97DKFg',
         icon: '▶️',
         label: { jp: 'YouTube', en: 'YouTube' },
     },
