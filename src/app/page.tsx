@@ -195,10 +195,9 @@ const apps = [
 
 const updates = [
     { date: '2026.01.20', key: 'update-1' as const },
-    { date: '2026.01.19', key: 'update-1' as const },
-    { date: '2026.01.18', key: 'update-2' as const },
-    { date: '2026.01.17', key: 'update-3' as const },
-    { date: '2026.01.11', key: 'update-4' as const },
+    { date: '2026.01.19', key: 'update-2' as const },
+    { date: '2026.01.18', key: 'update-3' as const },
+    { date: '2026.01.17', key: 'update-4' as const },
 ];
 
 export default function HomePage() {
