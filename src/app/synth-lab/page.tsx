@@ -37,6 +37,11 @@ const texts = {
         oscilloscope: 'オシロスコープ',
         attack: 'Attack',
         release: 'Release',
+        presets: 'プリセット',
+        lead: 'リード',
+        pad: 'パッド',
+        bass: 'ベース',
+        fx: 'FX',
         playing: '再生中...',
         ready: 'パッドをドラッグして演奏',
         privacy: 'プライバシーポリシー',
@@ -59,12 +64,26 @@ const texts = {
         oscilloscope: 'Oscilloscope',
         attack: 'Attack',
         release: 'Release',
+        presets: 'Presets',
+        lead: 'Lead',
+        pad: 'Pad',
+        bass: 'Bass',
+        fx: 'FX',
         playing: 'Playing...',
         ready: 'Drag the pad to play',
         privacy: 'Privacy Policy',
         disclaimer: 'Disclaimer',
         copyright: '© 2026 Saison Lab',
     },
+};
+
+// 音色プリセット定義
+type PresetKey = 'lead' | 'pad' | 'bass' | 'fx';
+const synthPresets: Record<PresetKey, { wave: WaveType; attack: number; release: number; freq: number }> = {
+    lead: { wave: 'square', attack: 0.01, release: 0.3, freq: 523 },    // C5
+    pad: { wave: 'sine', attack: 0.5, release: 1.5, freq: 262 },        // C4 長いエンベロープ
+    bass: { wave: 'sawtooth', attack: 0.02, release: 0.5, freq: 110 },  // A2 低音
+    fx: { wave: 'triangle', attack: 0.1, release: 0.8, freq: 880 },     // A5 高音
 };
 
 type WaveType = 'sine' | 'sawtooth' | 'square' | 'triangle';
@@ -133,6 +152,19 @@ export default function SynthLabPage() {
             synthRef.current.oscillator.type = waveType;
         }
     }, [waveType]);
+
+    // プリセット読み込み
+    const loadPreset = (presetKey: PresetKey) => {
+        if (!synthRef.current || !isLoaded) return;
+        const preset = synthPresets[presetKey];
+        setWaveType(preset.wave);
+        setFrequency(preset.freq);
+        synthRef.current.oscillator.type = preset.wave;
+        synthRef.current.envelope.set({
+            attack: preset.attack,
+            release: preset.release,
+        });
+    };
 
     // ============================================================
     // オシロスコープ描画
@@ -410,15 +442,36 @@ export default function SynthLabPage() {
                                                 waveType === type
                                                     ? colors.primary
                                                     : `${colors.primary}22`,
-                                            color: waveType === type ? colors.bgDark : colors.text,
+                                            color:
+                                                waveType === type
+                                                    ? colors.bgDark
+                                                    : colors.text,
                                         }}
                                     >
-                                        <span className="text-xl block mb-1">{icon}</span>
+                                        <span className="mr-2 text-lg">{icon}</span>
                                         {label}
                                     </button>
                                 ))}
                             </div>
 
+                            {/* 音色プリセット */}
+                            <div className="mt-6 pt-6 border-t border-gray-700">
+                                <h3 className="text-xs font-bold mb-3 opacity-60 uppercase tracking-widest text-center">
+                                    {t.presets}
+                                </h3>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {(['lead', 'pad', 'bass', 'fx'] as PresetKey[]).map((key) => (
+                                        <button
+                                            key={key}
+                                            onClick={() => loadPreset(key)}
+                                            className="py-2 px-3 rounded-lg text-xs font-bold border transition-all hover:bg-white/5"
+                                            style={{ borderColor: `${colors.accent}44`, color: colors.accent }}
+                                        >
+                                            {t[key]}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
                             {/* ステータス */}
                             <div className="mt-6 pt-4 border-t border-gray-700">
                                 <p className="text-xs text-center opacity-60">

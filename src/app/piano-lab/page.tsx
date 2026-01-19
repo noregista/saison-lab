@@ -41,6 +41,7 @@ const texts = {
         back: '← Saison Lab',
         octave: 'オクターブ',
         volume: '音量',
+        sustain: 'サステイン (Space)',
         guide: '操作ガイド',
         guideWhite: 'A S D F G H J K L ; \' : 白鍵',
         guideBlack: 'W E T Y U O P : 黒鍵',
@@ -58,6 +59,7 @@ const texts = {
         back: '← Saison Lab',
         octave: 'Octave',
         volume: 'Volume',
+        sustain: 'Sustain (Space)',
         guide: 'Keyboard Guide',
         guideWhite: 'A S D F G H J K L ; \' : White keys',
         guideBlack: 'W E T Y U O P : Black keys',
@@ -525,17 +527,19 @@ export default function PianoLabPage() {
                         </div>
 
                         {/* サステイン表示 */}
-                        <div
-                            className="flex items-center gap-2 px-3 py-1 rounded-full text-sm"
+                        <button
+                            onClick={() => setSustainActive(!sustainActive)}
+                            className="flex items-center gap-2 px-3 py-1 rounded-full text-sm transition-all"
                             style={{
                                 backgroundColor: sustainActive
                                     ? colors.accent
                                     : 'transparent',
                                 border: `1px solid ${colors.accent}`,
+                                color: sustainActive ? '#000' : 'inherit',
                             }}
                         >
-                            🎛️ Sustain: {sustainActive ? 'ON' : 'OFF'}
-                        </div>
+                            🎛️ {t.sustain}: {sustainActive ? 'ON' : 'OFF'}
+                        </button>
                     </div>
                 </div>
 
