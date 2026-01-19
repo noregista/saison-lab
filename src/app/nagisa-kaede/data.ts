@@ -54,12 +54,12 @@ export const newsData: NewsItem[] = [
         date: '2026-01-20',
         category: 'release',
         title: {
-            jp: 'デビュー楽曲「トワイライト」をリリースしました',
-            en: 'Debut Song "Twilight" Released'
+            jp: 'デビュー楽曲「渚の約束 〜Kiss Me」をリリースしました',
+            en: 'Debut Song "Nagisa no Yakusoku ~Kiss Me" Released'
         },
         content: {
-            jp: '凪沙 楓のデビュー楽曲「トワイライト」がYouTubeにて公開されました。ぜひご視聴ください。',
-            en: 'Nagisa Kaede\'s debut song "Twilight" is now available on YouTube. Please check it out!'
+            jp: '凪沙 楓のデビュー楽曲「渚の約束 〜Kiss Me」がYouTubeにて公開されました。ぜひご視聴ください。',
+            en: 'Nagisa Kaede\'s debut song "Nagisa no Yakusoku ~Kiss Me" is now available on YouTube. Please check it out!'
         },
         link: 'https://youtu.be/AAzb4EClsnA?si=bM2UyD3iNxkY4kxZ',
     },
@@ -82,7 +82,7 @@ export const newsData: NewsItem[] = [
 export const discographyData: Track[] = [
     {
         id: 'track-001',
-        title: { jp: 'トワイライト', en: 'Twilight' },
+        title: { jp: '渚の約束 〜Kiss Me', en: 'Nagisa no Yakusoku ~Kiss Me' },
         releaseDate: '2026-01-20',
         coverArt: '/images/nagisa-kaede-portrait.png',
         duration: '3:30',

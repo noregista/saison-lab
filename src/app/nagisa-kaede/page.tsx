@@ -347,30 +347,36 @@ export default function NagisaKaedePage() {
                     {t.movie}
                 </h2>
 
-                {/* YouTubeプレースホルダー */}
-                <div
-                    className="aspect-video rounded-xl flex flex-col items-center justify-center"
-                    style={{
-                        backgroundColor: '#1a1a1f',
-                        border: `1px solid ${colors.primary}33`,
-                    }}
-                >
-                    <div className="text-6xl mb-4">▶️</div>
-                    <p className="text-xl font-bold mb-2" style={{ color: colors.accent }}>
-                        {t.comingSoon}
-                    </p>
-                    <p className="text-sm opacity-60 mb-6">{t.movieEmpty}</p>
+                {/* デビュー曲 YouTube埋め込み */}
+                <div className="space-y-6">
+                    <div className="aspect-video rounded-xl overflow-hidden">
+                        <iframe
+                            width="100%"
+                            height="100%"
+                            src="https://www.youtube.com/embed/AAzb4EClsnA"
+                            title="渚の約束 〜Kiss Me"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                            className="w-full h-full"
+                        />
+                    </div>
 
-                    {/* チャンネル登録ボタン（先行設置） */}
-                    <button
-                        className="flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all hover:scale-105 max-w-full"
-                        style={{
-                            backgroundColor: '#FF0000',
-                            color: 'white',
-                        }}
-                    >
-                        🔔 {t.movieSubscribe}
-                    </button>
+                    {/* チャンネル登録ボタン */}
+                    <div className="text-center">
+                        <a
+                            href="https://www.youtube.com/channel/UCGTATHsvnGYiuXcMT97DKFg?sub_confirmation=1"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all hover:scale-105"
+                            style={{
+                                backgroundColor: '#FF0000',
+                                color: 'white',
+                            }}
+                        >
+                            🔔 {t.movieSubscribe}
+                        </a>
+                    </div>
                 </div>
             </section>
 
