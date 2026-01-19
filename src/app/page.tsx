@@ -71,6 +71,7 @@ const translations = {
         'footer-privacy': 'プライバシーポリシー',
         'footer-contact': 'お問い合わせ',
         'footer-disclaimer': '免責事項',
+        'footer-about': '運営者情報',
         'privacy-title': 'プライバシーポリシー',
         'privacy-intro': '当サイト「セゾン ラボ」（以下、「当サイト」）では、お客様のプライバシーを尊重し、個人情報の保護に努めております。',
         'privacy-h1': '収集する情報',
@@ -96,6 +97,18 @@ const translations = {
         'disclaimer-p2': '当サイトに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。また、当サイトからリンクやバナーなどによって他のサイトに移動された場合、移動先サイトで提供される情報、サービス等についても一切の責任を負いません。',
         'disclaimer-h3': 'アプリケーションについて',
         'disclaimer-p3': '当サイトで提供するアプリケーションは「現状のまま」提供されます。アプリケーションの使用により生じたいかなる損害についても責任を負いかねます。',
+        'about-title': '運営者情報',
+        'about-intro': '当サイト「セゾン ラボ」は、知的好奇心を刺激するウェブアプリケーションを開発・公開しています。',
+        'about-h1': 'サイト名',
+        'about-p1': 'セゾン ラボ / Saison Lab',
+        'about-h2': '運営者',
+        'about-p2': '個人運営',
+        'about-h3': 'URL',
+        'about-p3': 'https://saison-lab.com',
+        'about-h4': 'お問い合わせ',
+        'about-p4': 'サイト内のお問い合わせフォームよりご連絡ください。',
+        'about-h5': 'コンテンツについて',
+        'about-p5': '当サイトでは、教育・エンターテインメント・ツールなど様々なジャンルのウェブアプリケーションを無料で提供しています。すべてのコンテンツはオリジナルであり、ユーザーに価値を提供することを目指しています。',
     },
     en: {
         'logo-subtitle': '/ Saison Lab',
@@ -185,6 +198,19 @@ const translations = {
         'disclaimer-p2': 'We are not responsible for any damages arising from the content published on this site. We are also not responsible for information or services provided on sites linked from this site.',
         'disclaimer-h3': 'About Applications',
         'disclaimer-p3': 'Applications provided on this site are offered "as is". We are not responsible for any damages arising from the use of these applications.',
+        'footer-about': 'About',
+        'about-title': 'About',
+        'about-intro': 'Saison Lab develops and publishes web applications that stimulate intellectual curiosity.',
+        'about-h1': 'Site Name',
+        'about-p1': 'Saison Lab',
+        'about-h2': 'Operator',
+        'about-p2': 'Individual',
+        'about-h3': 'URL',
+        'about-p3': 'https://saison-lab.com',
+        'about-h4': 'Contact',
+        'about-p4': 'Please use the contact form on this site.',
+        'about-h5': 'About Content',
+        'about-p5': 'This site provides free web applications across various genres including education, entertainment, and tools. All content is original and aims to provide value to users.',
     }
 };
 
@@ -408,7 +434,7 @@ const updates = [
 export default function HomePage() {
     const [lang, setLang] = useState<Language>('jp');
     const [searchQuery, setSearchQuery] = useState('');
-    const [activeModal, setActiveModal] = useState<'privacy' | 'contact' | 'disclaimer' | null>(null);
+    const [activeModal, setActiveModal] = useState<'privacy' | 'contact' | 'disclaimer' | 'about' | null>(null);
 
     const t = translations[lang];
 
@@ -421,7 +447,7 @@ export default function HomePage() {
         );
     }, [searchQuery, t, lang]);
 
-    const openModal = (type: 'privacy' | 'contact' | 'disclaimer') => setActiveModal(type);
+    const openModal = (type: 'privacy' | 'contact' | 'disclaimer' | 'about') => setActiveModal(type);
     const closeModal = () => setActiveModal(null);
 
     const handleContactSubmit = (e: React.FormEvent) => {
@@ -563,6 +589,9 @@ export default function HomePage() {
                         <button onClick={() => openModal('disclaimer')} className="text-[#8b949e] text-sm hover:text-emerald transition-colors cursor-pointer bg-transparent border-none">
                             {t['footer-disclaimer']}
                         </button>
+                        <button onClick={() => openModal('about')} className="text-[#8b949e] text-sm hover:text-emerald transition-colors cursor-pointer bg-transparent border-none">
+                            {t['footer-about']}
+                        </button>
                     </div>
                     <p className="text-[#6e7681] text-xs">© 2026 Saison Lab. All rights reserved.</p>
                 </div>
@@ -631,6 +660,29 @@ export default function HomePage() {
                             <p className="mb-4">{t['disclaimer-p2']}</p>
                             <h3 className="text-white text-lg mt-6 mb-3">{t['disclaimer-h3']}</h3>
                             <p className="mb-4">{t['disclaimer-p3']}</p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* About Modal */}
+            {activeModal === 'about' && (
+                <div className="fixed inset-0 bg-black/80 backdrop-blur flex items-center justify-center z-[1000] p-4" onClick={closeModal}>
+                    <div className="bg-[#161b22] border border-[rgba(80,200,120,0.2)] rounded-2xl max-w-[600px] w-full max-h-[80vh] overflow-y-auto p-8 relative animate-fadeIn" onClick={(e) => e.stopPropagation()}>
+                        <button onClick={closeModal} className="absolute top-4 right-4 w-9 h-9 bg-[#21262d] border-none rounded-full text-[#8b949e] text-xl cursor-pointer flex items-center justify-center hover:bg-emerald hover:text-[#0d1117] transition-all">✕</button>
+                        <h2 className="text-2xl font-semibold text-emerald mb-6">{t['about-title']}</h2>
+                        <div className="text-[#8b949e] leading-relaxed">
+                            <p className="mb-4">{t['about-intro']}</p>
+                            <h3 className="text-white text-lg mt-6 mb-3">{t['about-h1']}</h3>
+                            <p className="mb-4">{t['about-p1']}</p>
+                            <h3 className="text-white text-lg mt-6 mb-3">{t['about-h2']}</h3>
+                            <p className="mb-4">{t['about-p2']}</p>
+                            <h3 className="text-white text-lg mt-6 mb-3">{t['about-h3']}</h3>
+                            <p className="mb-4"><a href="https://saison-lab.com" className="text-emerald hover:underline">{t['about-p3']}</a></p>
+                            <h3 className="text-white text-lg mt-6 mb-3">{t['about-h4']}</h3>
+                            <p className="mb-4">{t['about-p4']}</p>
+                            <h3 className="text-white text-lg mt-6 mb-3">{t['about-h5']}</h3>
+                            <p className="mb-4">{t['about-p5']}</p>
                         </div>
                     </div>
                 </div>
