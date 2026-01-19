@@ -35,6 +35,12 @@ const texts = {
         snare: 'スネア',
         hihat: 'ハイハット',
         clear: 'クリア',
+        presets: 'プリセット',
+        rock: 'ロック',
+        funk: 'ファンク',
+        hiphop: 'ヒップホップ',
+        techno: 'テクノ',
+        jazz: 'ジャズ',
         hint: 'グリッドをクリックしてビートを作成',
         privacy: 'プライバシーポリシー',
         disclaimer: '免責事項',
@@ -51,6 +57,12 @@ const texts = {
         snare: 'Snare',
         hihat: 'HiHat',
         clear: 'Clear',
+        presets: 'Presets',
+        rock: 'Rock',
+        funk: 'Funk',
+        hiphop: 'Hip-Hop',
+        techno: 'Techno',
+        jazz: 'Jazz',
         hint: 'Click the grid to create beats',
         privacy: 'Privacy Policy',
         disclaimer: 'Disclaimer',
@@ -64,6 +76,36 @@ const drumTypes: DrumType[] = ['kick', 'snare', 'hihat'];
 
 // 16ステップ
 const STEPS = 16;
+
+// プリセットパターン定義
+type PresetKey = 'rock' | 'funk' | 'hiphop' | 'techno' | 'jazz';
+const presetPatterns: Record<PresetKey, Record<DrumType, boolean[]>> = {
+    rock: {
+        kick: [true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false],
+        snare: [false, false, false, false, true, false, false, false, false, false, false, false, true, false, false, false],
+        hihat: [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false],
+    },
+    funk: {
+        kick: [true, false, false, true, false, false, true, false, false, true, false, false, true, false, false, false],
+        snare: [false, false, false, false, true, false, false, true, false, false, false, false, true, false, false, true],
+        hihat: [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+    },
+    hiphop: {
+        kick: [true, false, false, false, false, false, true, false, true, false, false, false, false, false, true, false],
+        snare: [false, false, false, false, true, false, false, false, false, false, false, false, true, false, false, false],
+        hihat: [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false],
+    },
+    techno: {
+        kick: [true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false],
+        snare: [false, false, false, false, true, false, false, false, false, false, false, false, true, false, false, false],
+        hihat: [false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false],
+    },
+    jazz: {
+        kick: [true, false, false, false, false, false, true, false, false, false, true, false, false, false, false, false],
+        snare: [false, false, false, true, false, false, false, false, false, true, false, false, false, true, false, false],
+        hihat: [true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, false],
+    },
+};
 
 export default function DrumLabPage() {
     const [lang, setLang] = useState<'jp' | 'en'>('jp');
@@ -230,6 +272,15 @@ export default function DrumLabPage() {
         });
     };
 
+    // プリセットパターン読み込み
+    const loadPreset = (presetKey: PresetKey) => {
+        setPattern({
+            kick: [...presetPatterns[presetKey].kick],
+            snare: [...presetPatterns[presetKey].snare],
+            hihat: [...presetPatterns[presetKey].hihat],
+        });
+    };
+
     // ============================================================
     // レンダリング
     // ============================================================
@@ -326,6 +377,21 @@ export default function DrumLabPage() {
                         >
                             🗑️ {t.clear}
                         </button>
+                    </div>
+
+                    {/* プリセットパターン */}
+                    <div className="flex flex-wrap justify-center gap-2 mb-6">
+                        <span className="text-sm opacity-60 w-full text-center mb-1">{t.presets}</span>
+                        {(['rock', 'funk', 'hiphop', 'techno', 'jazz'] as PresetKey[]).map((preset) => (
+                            <button
+                                key={preset}
+                                onClick={() => loadPreset(preset)}
+                                className="px-3 py-1.5 rounded-full text-xs border hover:bg-white/10 transition-all"
+                                style={{ borderColor: colors.accent }}
+                            >
+                                {t[preset]}
+                            </button>
+                        ))}
                     </div>
                 </div>
 

@@ -171,13 +171,35 @@ export default function ArticleClient({ article }: Props) {
                 )}
 
                 {/* 意図: アクションボタン */}
-                <div className="flex flex-wrap justify-center gap-4 mb-8">
+                <div className="flex flex-wrap justify-center gap-3 mb-8">
+                    {/* X (Twitter) シェア */}
+                    <a
+                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title[lang] + ' - ' + t.title)}&url=${encodeURIComponent('https://saison-lab.com/minute-lab/' + slug)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-5 py-2.5 bg-black hover:bg-gray-800 rounded-full text-white font-medium transition-colors flex items-center gap-2"
+                    >
+                        𝕏 Share
+                    </a>
+
+                    {/* LINE シェア */}
+                    <a
+                        href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent('https://saison-lab.com/minute-lab/' + slug)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-5 py-2.5 bg-[#00B900] hover:bg-[#00a000] rounded-full text-white font-medium transition-colors flex items-center gap-2"
+                    >
+                        LINE
+                    </a>
+
+                    {/* クリップボードコピー */}
                     <button
                         onClick={() => {
                             const text = `${article.title[lang]} - ${t.title}\nhttps://saison-lab.com/minute-lab/${slug}`;
                             navigator.clipboard.writeText(text);
+                            alert(lang === 'jp' ? 'コピーしました！' : 'Copied!');
                         }}
-                        className="px-6 py-3 bg-slate-100 hover:bg-slate-200 rounded-full text-slate-700 font-medium transition-colors"
+                        className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 rounded-full text-slate-700 font-medium transition-colors flex items-center gap-2"
                     >
                         📋 {t.shareText}
                     </button>
@@ -185,10 +207,10 @@ export default function ArticleClient({ article }: Props) {
                     {nextArticle && (
                         <Link
                             href={`/minute-lab/${nextArticle.slug}`}
-                            className="px-6 py-3 rounded-full text-white font-medium transition-colors"
+                            className="px-5 py-2.5 rounded-full text-white font-medium transition-colors flex items-center gap-2"
                             style={{ backgroundColor: catInfo.color }}
                         >
-                            {t.nextArticle}
+                            {t.nextArticle} →
                         </Link>
                     )}
                 </div>

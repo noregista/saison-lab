@@ -45,6 +45,9 @@ const texts = {
         wood: '木琴',
         metal: '鉄琴',
         volume: '音量',
+        demo: 'デモ演奏',
+        twinkle: 'きらきら星',
+        tulip: 'チューリップ',
         hint: 'キーをタップして演奏',
         privacy: 'プライバシーポリシー',
         disclaimer: '免責事項',
@@ -58,11 +61,39 @@ const texts = {
         wood: 'Xylophone',
         metal: 'Glockenspiel',
         volume: 'Volume',
+        demo: 'Demo',
+        twinkle: 'Twinkle Star',
+        tulip: 'Tulip',
         hint: 'Tap keys to play',
         privacy: 'Privacy Policy',
         disclaimer: 'Disclaimer',
         copyright: '© 2026 Saison Lab',
     },
+};
+
+// デモメロディ定義
+type MelodyKey = 'twinkle' | 'tulip';
+const demoMelodies: Record<MelodyKey, { note: string; duration: number }[]> = {
+    twinkle: [
+        { note: 'C4', duration: 400 }, { note: 'C4', duration: 400 },
+        { note: 'G4', duration: 400 }, { note: 'G4', duration: 400 },
+        { note: 'A4', duration: 400 }, { note: 'A4', duration: 400 },
+        { note: 'G4', duration: 800 },
+        { note: 'F4', duration: 400 }, { note: 'F4', duration: 400 },
+        { note: 'E4', duration: 400 }, { note: 'E4', duration: 400 },
+        { note: 'D4', duration: 400 }, { note: 'D4', duration: 400 },
+        { note: 'C4', duration: 800 },
+    ],
+    tulip: [
+        { note: 'C4', duration: 400 }, { note: 'D4', duration: 400 },
+        { note: 'E4', duration: 800 },
+        { note: 'C4', duration: 400 }, { note: 'D4', duration: 400 },
+        { note: 'E4', duration: 800 },
+        { note: 'G4', duration: 400 }, { note: 'E4', duration: 400 },
+        { note: 'D4', duration: 400 }, { note: 'C4', duration: 400 },
+        { note: 'D4', duration: 400 }, { note: 'E4', duration: 400 },
+        { note: 'D4', duration: 800 },
+    ],
 };
 
 // 音階定義
@@ -198,6 +229,41 @@ export default function XylophoneLabPage() {
     );
 
     // ============================================================
+    // デモメロディ再生
+    // ============================================================
+    const [isPlayingDemo, setIsPlayingDemo] = useState(false);
+
+    const playMelody = useCallback((melodyKey: MelodyKey) => {
+        if (!synthRef.current || !isLoaded || isPlayingDemo) return;
+
+        setIsPlayingDemo(true);
+        const melody = demoMelodies[melodyKey];
+        let delay = 0;
+
+        melody.forEach(({ note, duration }) => {
+            setTimeout(() => {
+                if (synthRef.current) {
+                    synthRef.current.triggerAttackRelease(note, '8n');
+                    const noteIndex = notes.indexOf(note);
+                    if (noteIndex !== -1) {
+                        setActiveKeys((prev) => new Set(prev).add(noteIndex));
+                        setTimeout(() => {
+                            setActiveKeys((prev) => {
+                                const next = new Set(prev);
+                                next.delete(noteIndex);
+                                return next;
+                            });
+                        }, 150);
+                    }
+                }
+            }, delay);
+            delay += duration;
+        });
+
+        setTimeout(() => setIsPlayingDemo(false), delay);
+    }, [isLoaded, isPlayingDemo]);
+
+    // ============================================================
     // レンダリング
     // ============================================================
     return (
@@ -315,6 +381,29 @@ export default function XylophoneLabPage() {
                                 className="w-32"
                                 style={{ accentColor: colors.accent }}
                             />
+                        </div>
+
+                        {/* デモメロディ */}
+                        <div className="flex items-center gap-3">
+                            <span className="text-sm opacity-60">{t.demo}</span>
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={() => playMelody('twinkle')}
+                                    disabled={isPlayingDemo}
+                                    className="px-3 py-1.5 rounded-full text-xs border hover:bg-white/10 transition-all disabled:opacity-50"
+                                    style={{ borderColor: colors.accent }}
+                                >
+                                    ⭐ {t.twinkle}
+                                </button>
+                                <button
+                                    onClick={() => playMelody('tulip')}
+                                    disabled={isPlayingDemo}
+                                    className="px-3 py-1.5 rounded-full text-xs border hover:bg-white/10 transition-all disabled:opacity-50"
+                                    style={{ borderColor: colors.accent }}
+                                >
+                                    🌷 {t.tulip}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
