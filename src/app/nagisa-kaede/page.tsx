@@ -35,7 +35,7 @@ const texts = {
         artistName: '凪沙 楓',
         artistNameRomaji: 'NAGISA KAEDE',
         tagline: '透明な声が、心の深くまで届く',
-        statusPreparing: 'デビュー準備中...',
+        statusPreparing: '1st Single 『渚の約束 〜Kiss Me』 配信中',
         news: 'NEWS',
         newsEmpty: 'ニュースはまだありません',
         discography: 'DISCOGRAPHY',
@@ -64,7 +64,7 @@ const texts = {
         artistName: 'Nagisa Kaede',
         artistNameRomaji: 'NAGISA KAEDE',
         tagline: 'A transparent voice that reaches deep into your heart',
-        statusPreparing: 'Preparing for debut...',
+        statusPreparing: '1st Single "Nagisa no Yakusoku ~Kiss Me" Now Streaming',
         news: 'NEWS',
         newsEmpty: 'No news yet',
         discography: 'DISCOGRAPHY',
@@ -153,17 +153,6 @@ export default function NagisaKaedePage() {
                     <p className="text-lg md:text-xl mb-8 opacity-60 max-w-md mx-auto">
                         {t.tagline}
                     </p>
-
-                    {/* ステータスバッジ */}
-                    <div
-                        className="inline-block px-6 py-2 rounded-full text-sm animate-pulse"
-                        style={{
-                            border: `1px solid ${colors.accent}`,
-                            color: colors.accent,
-                        }}
-                    >
-                        {t.statusPreparing}
-                    </div>
                 </div>
 
                 {/* ナビゲーション（右上） */}
