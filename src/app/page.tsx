@@ -3,7 +3,6 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 
-
 type Language = 'jp' | 'en';
 
 const translations = {
@@ -21,7 +20,7 @@ const translations = {
         'app-drum-lab-desc': '16ステップのドラムシーケンサー。ビートメイクを楽しもう。',
         'app-fruit-lab-desc': '世界のフルーツを植物学的特徴と輸出統計で徹底比較。15種類以上のフルーツを探索できるデジタル図鑑。',
         'app-minute-lab-desc': '歴史・科学・文化・経済・哲学。知識1分。膨大な知識を凝縮したタイパ型知的マイクロメディア。',
-        'app-kaede-desc': 'VTuber「凪沙楓」の公式ファンサイト。プロフィール、活動実績、各種リンクを網羅。',
+        'app-kaede-desc': '「凪沙楓」の公式サイト。プロフィール、活動実績、各種リンクを網羅。',
         'no-results': '該当するアプリが見つかりません',
         'update-title': '更新履歴',
         'update-1': 'MINUTE LABを追加しました。',
@@ -84,7 +83,7 @@ const translations = {
         'app-drum-lab-desc': '16-step drum sequencer. Create your own beats.',
         'app-fruit-lab-desc': 'Compare fruits with botanical facts and export statistics. A digital encyclopedia exploring 15+ fruits from around the world.',
         'app-minute-lab-desc': 'History, Science, Culture, Economy, Philosophy. Knowledge in 1 minute. A time-efficient intellectual micro-media.',
-        'app-kaede-desc': 'Official fan site for VTuber "Nagisa Kaede". Covers profile, activities, and all links.',
+        'app-kaede-desc': 'Official site for "Nagisa Kaede". Covers profile, activities, and all links.',
         'no-results': 'No matching apps found',
         'update-title': 'Updates',
         'update-1': 'Added MINUTE LAB.',
