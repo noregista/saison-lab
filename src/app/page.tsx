@@ -20,6 +20,7 @@ const translations = {
         'app-drum-lab-desc': '16ステップのドラムシーケンサー。ビートメイクを楽しもう。',
         'app-fruit-lab-desc': '世界のフルーツを植物学的特徴と輸出統計で徹底比較。15種類以上のフルーツを探索できるデジタル図鑑。',
         'app-minute-lab-desc': '歴史・科学・文化・経済・哲学。知識1分。膨大な知識を凝縮したタイパ型知的マイクロメディア。',
+        'app-never-sleep-in-desc': '二度寝を徹底的に防ぐ、計算・ミッション強制アラームアプリ（Android）。',
         'app-kaede-desc': '「凪沙楓」の公式サイト。プロフィール、活動実績、各種リンクを網羅。',
         'no-results': '該当するアプリが見つかりません',
         'update-title': '更新履歴',
@@ -83,6 +84,7 @@ const translations = {
         'app-drum-lab-desc': '16-step drum sequencer. Create your own beats.',
         'app-fruit-lab-desc': 'Compare fruits with botanical facts and export statistics. A digital encyclopedia exploring 15+ fruits from around the world.',
         'app-minute-lab-desc': 'History, Science, Culture, Economy, Philosophy. Knowledge in 1 minute. A time-efficient intellectual micro-media.',
+        'app-never-sleep-in-desc': 'The unstoppable calculation and mission-based alarm app for Android.',
         'app-kaede-desc': 'Official site for "Nagisa Kaede". Covers profile, activities, and all links.',
         'no-results': 'No matching apps found',
         'update-title': 'Updates',
@@ -185,11 +187,11 @@ const apps = [
         descKey: 'app-minute-lab-desc' as const,
     },
     {
-        id: 'nagisa-kaede',
-        name: { jp: '凪沙楓 公式サイト', en: 'Nagisa Kaede Official' },
-        href: '/nagisa-kaede',
-        icon: '🍁',
-        descKey: 'app-kaede-desc' as const,
+        id: 'never-sleep-in',
+        name: { jp: 'NeverSleepIn', en: 'NeverSleepIn' },
+        href: '/apps/never-sleep-in',
+        icon: '⏰',
+        descKey: 'app-never-sleep-in-desc' as const,
     },
 ];
 
