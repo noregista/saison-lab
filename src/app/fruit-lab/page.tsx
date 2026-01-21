@@ -27,6 +27,8 @@ export default function FruitLabPage() {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedFruit, setSelectedFruit] = useState<Fruit | null>(null);
     const [showRanking, setShowRanking] = useState(false);
+    const [compareIds, setCompareIds] = useState<string[]>([]);
+    const [showComparison, setShowComparison] = useState(false);
 
     const t = translations[lang];
 
@@ -57,6 +59,23 @@ export default function FruitLabPage() {
     const closeDetail = useCallback(() => {
         setSelectedFruit(null);
     }, []);
+
+    // 意図: 比較リストへの追加/削除
+    const toggleCompare = useCallback((e: React.MouseEvent, id: string) => {
+        e.stopPropagation();
+        setCompareIds(prev => {
+            if (prev.includes(id)) {
+                return prev.filter(item => item !== id);
+            }
+            if (prev.length >= 3) return prev; // 最大3つまで
+            return [...prev, id];
+        });
+    }, []);
+
+    // 意図: 比較対象のフルーツデータを取得
+    const compareFruits = useMemo(() => {
+        return fruits.filter(f => compareIds.includes(f.id));
+    }, [compareIds]);
 
     // 意図: 輸出量を万トン単位でフォーマット
     const formatTonnes = (tonnes: number): string => {
@@ -229,17 +248,32 @@ export default function FruitLabPage() {
                                         sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 20vw"
                                         loading="lazy"
                                     />
-                                    <div className="absolute top-2 right-2 text-2xl drop-shadow-md">
-                                        {fruit.emoji}
+                                    <div className="absolute top-2 right-2 flex flex-col gap-2">
+                                        <div className="text-2xl drop-shadow-md">
+                                            {fruit.emoji}
+                                        </div>
+                                        {/* 意図: 比較選択ボタン */}
+                                        <div
+                                            onClick={(e) => toggleCompare(e, fruit.id)}
+                                            className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all ${compareIds.includes(fruit.id)
+                                                ? 'bg-green-600 border-green-600 text-white'
+                                                : 'bg-white/80 border-green-200 text-green-400 hover:border-green-600 hover:text-green-600'
+                                                }`}
+                                        >
+                                            {compareIds.includes(fruit.id) ? '✓' : '+'}
+                                        </div>
                                     </div>
                                 </div>
                                 {/* 意図: カード情報 */}
                                 <div className="p-3">
                                     <h3 className="font-bold text-green-800 truncate">{fruit.name[lang]}</h3>
                                     <p className="text-xs text-green-500 italic truncate">{fruit.scientificName}</p>
-                                    <div className="mt-2 flex items-center gap-1">
+                                    <div className="mt-2 flex items-center justify-between">
                                         <span className="text-xs px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: fruit.color }}>
                                             {formatTonnes(fruit.exportData.totalGlobalTonnes)}M t
+                                        </span>
+                                        <span className="text-[10px] text-green-400">
+                                            {compareIds.includes(fruit.id) ? (lang === 'jp' ? '対象中' : 'Selected') : ''}
                                         </span>
                                     </div>
                                 </div>
@@ -379,6 +413,159 @@ export default function FruitLabPage() {
                         📢 {t.adText} (728×90)
                     </div>
                 </div>
+
+                {/* 意図: 比較スティッキーバー */}
+                {compareIds.length > 0 && (
+                    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[80] animate-fadeIn">
+                        <div className="bg-white/90 backdrop-blur-md border border-green-200 rounded-2xl shadow-2xl p-3 flex items-center gap-4 min-w-[300px]">
+                            <div className="flex -space-x-2 overflow-hidden">
+                                {compareFruits.map(fruit => (
+                                    <div
+                                        key={fruit.id}
+                                        className="w-10 h-10 rounded-full border-2 border-white bg-green-50 flex items-center justify-center text-xl shadow-sm relative group"
+                                    >
+                                        {fruit.emoji}
+                                        <button
+                                            onClick={(e) => toggleCompare(e, fruit.id)}
+                                            className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] rounded-full hidden group-hover:flex items-center justify-center"
+                                        >✕</button>
+                                    </div>
+                                ))}
+                                {Array.from({ length: 3 - compareIds.length }).map((_, i) => (
+                                    <div
+                                        key={`empty-${i}`}
+                                        className="w-10 h-10 rounded-full border-2 border-dashed border-green-200 bg-white/50 flex items-center justify-center text-green-300 text-xs"
+                                    >
+                                        +
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="h-8 w-px bg-green-200" />
+                            <button
+                                onClick={() => setShowComparison(true)}
+                                className={`px-6 py-2 rounded-xl font-bold transition-all ${compareIds.length >= 2
+                                    ? 'bg-green-600 text-white hover:bg-green-700 shadow-md transform hover:scale-105'
+                                    : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                                    }`}
+                                disabled={compareIds.length < 2}
+                            >
+                                {t.compare} ({compareIds.length})
+                            </button>
+                            <button
+                                onClick={() => setCompareIds([])}
+                                className="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 transition-colors"
+                            >
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {/* 意図: 比較モーダル */}
+                {showComparison && (
+                    <div
+                        className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[110] p-4"
+                        onClick={() => setShowComparison(false)}
+                    >
+                        <div
+                            className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden relative animate-fadeIn flex flex-col"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Header */}
+                            <div className="p-6 border-b border-green-100 flex items-center justify-between bg-green-50/50">
+                                <h2 className="text-2xl font-bold text-green-800 flex items-center gap-2">
+                                    🧪 {t.compare}
+                                </h2>
+                                <button
+                                    onClick={() => setShowComparison(false)}
+                                    className="w-10 h-10 rounded-full hover:bg-gray-200 flex items-center justify-center transition-colors"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+
+                            {/* Table Container */}
+                            <div className="flex-1 overflow-x-auto p-6">
+                                <table className="w-full min-w-[600px] border-collapse">
+                                    <thead>
+                                        <tr>
+                                            <th className="sticky left-0 z-20 bg-white p-4 text-left border-b-2 border-green-100 w-40"></th>
+                                            {compareFruits.map(fruit => (
+                                                <th key={fruit.id} className="p-4 border-b-2 border-green-100 transition-all">
+                                                    <div className="flex flex-col items-center">
+                                                        <span className="text-4xl mb-2">{fruit.emoji}</span>
+                                                        <span className="font-bold text-green-800">{fruit.name[lang]}</span>
+                                                    </div>
+                                                </th>
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-green-50">
+                                        {/* カロリー */}
+                                        <tr className="hover:bg-green-50 transition-colors">
+                                            <td className="sticky left-0 z-20 bg-white p-4 font-bold text-green-700 border-r border-green-50">⚡ {t.calories}</td>
+                                            {compareFruits.map(fruit => (
+                                                <td key={fruit.id} className="p-4 text-center text-green-900 font-medium">
+                                                    {fruit.nutrition.calories} <span className="text-xs text-green-500">kcal</span>
+                                                </td>
+                                            ))}
+                                        </tr>
+                                        {/* 糖質 */}
+                                        <tr className="hover:bg-green-50 transition-colors">
+                                            <td className="sticky left-0 z-20 bg-white p-4 font-bold text-green-700 border-r border-green-50">🍬 {t.sugar}</td>
+                                            {compareFruits.map(fruit => (
+                                                <td key={fruit.id} className="p-4 text-center text-green-900 font-medium">
+                                                    {fruit.nutrition.sugar} <span className="text-xs text-green-500">g</span>
+                                                </td>
+                                            ))}
+                                        </tr>
+                                        {/* 食物繊維 */}
+                                        <tr className="hover:bg-green-50 transition-colors">
+                                            <td className="sticky left-0 z-20 bg-white p-4 font-bold text-green-700 border-r border-green-50">🥗 {t.fiber}</td>
+                                            {compareFruits.map(fruit => (
+                                                <td key={fruit.id} className="p-4 text-center text-green-900 font-medium">
+                                                    {fruit.nutrition.fiber} <span className="text-xs text-green-500">g</span>
+                                                </td>
+                                            ))}
+                                        </tr>
+                                        {/* ビタミンC */}
+                                        <tr className="hover:bg-green-50 transition-colors">
+                                            <td className="sticky left-0 z-20 bg-white p-4 font-bold text-green-700 border-r border-green-50">🍊 {t.vitaminC}</td>
+                                            {compareFruits.map(fruit => (
+                                                <td key={fruit.id} className="p-4 text-center text-green-900 font-medium">
+                                                    {fruit.nutrition.vitaminC} <span className="text-xs text-green-500">mg</span>
+                                                </td>
+                                            ))}
+                                        </tr>
+                                        {/* 世界総輸出量 */}
+                                        <tr className="hover:bg-green-50 transition-colors">
+                                            <td className="sticky left-0 z-20 bg-white p-4 font-bold text-green-700 border-r border-green-50">🌍 {t.exportRanking}</td>
+                                            {compareFruits.map(fruit => (
+                                                <td key={fruit.id} className="p-4 text-center text-green-900 font-medium">
+                                                    {formatTonnes(fruit.exportData.totalGlobalTonnes)} <span className="text-xs text-green-500">{t.tonnes}</span>
+                                                </td>
+                                            ))}
+                                        </tr>
+                                        {/* 原産地 */}
+                                        <tr className="hover:bg-green-50 transition-colors">
+                                            <td className="sticky left-0 z-20 bg-white p-4 font-bold text-green-700 border-r border-green-50">📍 {t.origin}</td>
+                                            {compareFruits.map(fruit => (
+                                                <td key={fruit.id} className="p-4 text-center text-green-700 text-sm">
+                                                    {fruit.origin.map(o => o[lang]).join('\n')}
+                                                </td>
+                                            ))}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* Footer */}
+                            <div className="p-6 text-center text-xs text-green-500 bg-green-50/30">
+                                {lang === 'jp' ? '※栄養素は可食部100gあたりの数値です。' : '* Nutrition facts are per 100g of edible portion.'}
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {/* Footer */}
                 <footer className="bg-white/90 border-t border-green-200 py-6">

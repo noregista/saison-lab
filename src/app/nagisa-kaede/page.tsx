@@ -16,15 +16,16 @@ import {
 
 // ============================================================
 // カラーパレット定義
-// 凪（水面）ブルー × 楓（紅葉）レッド
+// アイドルらしい明るくポップな配色
 // ============================================================
 const colors = {
-    primary: '#5B8FA8',      // 凪ブルー
-    secondary: '#C75C5C',    // 楓レッド
-    accent: '#D4AF37',       // ゴールド
-    bgDark: '#0D1117',       // ミッドナイト
-    bgLight: '#FDFBF7',      // クリーム
-    textLight: '#F0F0F0',    // オフホワイト
+    primary: '#FF6B9D',      // ピンク
+    secondary: '#7EC8E3',    // パステルブルー
+    accent: '#FFD700',       // ゴールド
+    bgMain: '#FFF5F8',       // ソフトピンク
+    bgCard: '#FFFFFF',       // ホワイト
+    textDark: '#4A4A4A',     // ダークグレー
+    textLight: '#FFFFFF',    // ホワイト
 };
 
 // ============================================================
@@ -98,17 +99,26 @@ export default function NagisaKaedePage() {
     const [lang, setLang] = useState<'jp' | 'en'>('jp');
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [now, setNow] = useState<Date | null>(null);
     const t = texts[lang];
 
-    // ページロード時のフェードイン効果
+    // ページロード時のフェードイン効果と現在時刻取得
     useEffect(() => {
         setIsLoaded(true);
+        setNow(new Date());
+        // 1分ごとに現在時刻を更新（画面を開いたまま公開時刻を迎えた場合に対応）
+        const timer = setInterval(() => setNow(new Date()), 60000);
+        return () => clearInterval(timer);
     }, []);
+
+    // 時限公開フィルタリング
+    const visibleNews = newsData.filter(item => !item.publishAt || (now && new Date(item.publishAt) <= now));
+    const visibleDiscography = discographyData.filter(item => !item.publishAt || (now && new Date(item.publishAt) <= now));
 
     return (
         <main
-            className="min-h-screen text-white overflow-x-hidden w-full"
-            style={{ backgroundColor: colors.bgDark }}
+            className="min-h-screen overflow-x-hidden w-full"
+            style={{ backgroundColor: colors.bgMain, color: colors.textDark }}
         >
             {/* ============================================================ */}
             {/* HERO セクション */}
@@ -127,7 +137,7 @@ export default function NagisaKaedePage() {
                 <div
                     className="absolute inset-0"
                     style={{
-                        background: `linear-gradient(180deg, transparent 0%, ${colors.bgDark}CC 70%, ${colors.bgDark} 100%)`,
+                        background: `linear-gradient(180deg, transparent 0%, ${colors.bgMain}CC 70%, ${colors.bgMain} 100%)`,
                     }}
                 />
 
@@ -145,12 +155,12 @@ export default function NagisaKaedePage() {
                     >
                         {t.artistNameRomaji}
                     </h1>
-                    <p className="text-2xl md:text-3xl mb-4 opacity-80" style={{ fontFamily: "'Noto Sans JP', sans-serif" }}>
+                    <p className="text-2xl md:text-3xl mb-4" style={{ fontFamily: "'Noto Sans JP', sans-serif", color: colors.textDark + 'CC' }}>
                         {t.artistName}
                     </p>
 
                     {/* キャッチコピー */}
-                    <p className="text-lg md:text-xl mb-8 opacity-60 max-w-md mx-auto">
+                    <p className="text-lg md:text-xl mb-8 max-w-md mx-auto" style={{ color: colors.textDark + '99' }}>
                         {t.tagline}
                     </p>
                 </div>
@@ -159,14 +169,15 @@ export default function NagisaKaedePage() {
                 <nav className="absolute top-4 right-4 z-20 flex items-center gap-4">
                     <button
                         onClick={() => setLang(lang === 'jp' ? 'en' : 'jp')}
-                        className="px-3 py-1 rounded border text-sm hover:bg-white/10 transition-colors"
-                        style={{ borderColor: colors.primary }}
+                        className="px-3 py-1 rounded-full text-sm hover:bg-pink-100 transition-colors font-medium"
+                        style={{ backgroundColor: colors.bgCard, color: colors.primary, border: `2px solid ${colors.primary}` }}
                     >
                         {lang === 'jp' ? 'EN' : 'JP'}
                     </button>
                     <Link
                         href="/"
-                        className="text-sm opacity-60 hover:opacity-100 transition-opacity"
+                        className="text-sm transition-opacity hover:underline"
+                        style={{ color: colors.textDark + 'AA' }}
                     >
                         {t.back}
                     </Link>
@@ -174,7 +185,7 @@ export default function NagisaKaedePage() {
 
                 {/* スクロールインジケーター */}
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="opacity-50">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={colors.primary} strokeWidth="2">
                         <path d="M12 5v14M5 12l7 7 7-7" />
                     </svg>
                 </div>
@@ -206,14 +217,15 @@ export default function NagisaKaedePage() {
                 <div className="flex flex-col gap-8">
                     {/* 左側：プロフィールバイオ */}
                     <div
-                        className="p-6 rounded-xl"
-                        style={{ backgroundColor: '#1a1a1f' }}
+                        className="p-6 rounded-xl shadow-lg"
+                        style={{ backgroundColor: colors.bgCard, border: `1px solid ${colors.primary}22` }}
                     >
                         <div className="space-y-4">
                             {(lang === 'jp' ? profileData.bio.jp : profileData.bio.en).map((text, index) => (
                                 <p
                                     key={index}
-                                    className="leading-relaxed text-sm md:text-base opacity-90"
+                                    className="leading-relaxed text-sm md:text-base"
+                                    style={{ color: colors.textDark }}
                                 >
                                     {text}
                                 </p>
@@ -223,57 +235,57 @@ export default function NagisaKaedePage() {
 
                     {/* 右側：詳細データ */}
                     <div
-                        className="p-4 rounded-xl overflow-hidden"
-                        style={{ backgroundColor: '#1a1a1f' }}
+                        className="p-4 rounded-xl overflow-hidden shadow-lg"
+                        style={{ backgroundColor: colors.bgCard, border: `1px solid ${colors.secondary}22` }}
                     >
                         <div className="space-y-3 text-sm">
                             <div className="flex flex-col">
-                                <span className="opacity-50 text-xs mb-1">{t.birth}</span>
-                                <span>{lang === 'jp' ? profileData.birthDate.jp : profileData.birthDate.en}</span>
+                                <span style={{ color: colors.primary }} className="text-xs mb-1 font-medium">{t.birth}</span>
+                                <span style={{ color: colors.textDark }}>{lang === 'jp' ? profileData.birthDate.jp : profileData.birthDate.en}</span>
                             </div>
-                            <div className="border-t border-gray-700 pt-3 flex flex-col">
-                                <span className="opacity-50 text-xs mb-1">{t.from}</span>
-                                <span>{lang === 'jp' ? profileData.birthPlace.jp : profileData.birthPlace.en}</span>
+                            <div className="border-t pt-3 flex flex-col" style={{ borderColor: colors.primary + '22' }}>
+                                <span style={{ color: colors.primary }} className="text-xs mb-1 font-medium">{t.from}</span>
+                                <span style={{ color: colors.textDark }}>{lang === 'jp' ? profileData.birthPlace.jp : profileData.birthPlace.en}</span>
                             </div>
-                            <div className="border-t border-gray-700 pt-3 flex flex-col">
-                                <span className="opacity-50 text-xs mb-1">{t.blood}</span>
-                                <span>{lang === 'jp' ? profileData.bloodType.jp : profileData.bloodType.en}</span>
+                            <div className="border-t pt-3 flex flex-col" style={{ borderColor: colors.primary + '22' }}>
+                                <span style={{ color: colors.primary }} className="text-xs mb-1 font-medium">{t.blood}</span>
+                                <span style={{ color: colors.textDark }}>{lang === 'jp' ? profileData.bloodType.jp : profileData.bloodType.en}</span>
                             </div>
-                            <div className="border-t border-gray-700 pt-3 flex flex-col">
-                                <span className="opacity-50 text-xs mb-1">{t.hobby}</span>
-                                <span>{lang === 'jp' ? profileData.hobby.jp : profileData.hobby.en}</span>
+                            <div className="border-t pt-3 flex flex-col" style={{ borderColor: colors.primary + '22' }}>
+                                <span style={{ color: colors.primary }} className="text-xs mb-1 font-medium">{t.hobby}</span>
+                                <span style={{ color: colors.textDark }}>{lang === 'jp' ? profileData.hobby.jp : profileData.hobby.en}</span>
                             </div>
-                            <div className="border-t border-gray-700 pt-3 flex flex-col">
-                                <span className="opacity-50 text-xs mb-1">{t.skill}</span>
-                                <span>{lang === 'jp' ? profileData.specialSkill.jp : profileData.specialSkill.en}</span>
+                            <div className="border-t pt-3 flex flex-col" style={{ borderColor: colors.primary + '22' }}>
+                                <span style={{ color: colors.primary }} className="text-xs mb-1 font-medium">{t.skill}</span>
+                                <span style={{ color: colors.textDark }}>{lang === 'jp' ? profileData.specialSkill.jp : profileData.specialSkill.en}</span>
                             </div>
-                            <div className="border-t border-gray-700 pt-3 flex flex-col">
-                                <span className="opacity-50 text-xs mb-1">{t.food}</span>
-                                <span>{lang === 'jp' ? profileData.favoriteFood.jp : profileData.favoriteFood.en}</span>
+                            <div className="border-t pt-3 flex flex-col" style={{ borderColor: colors.primary + '22' }}>
+                                <span style={{ color: colors.primary }} className="text-xs mb-1 font-medium">{t.food}</span>
+                                <span style={{ color: colors.textDark }}>{lang === 'jp' ? profileData.favoriteFood.jp : profileData.favoriteFood.en}</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* ファンネーム紹介 */}
-                <div className="mt-8 pt-8 border-t border-gray-800">
+                <div className="mt-8 pt-8" style={{ borderTop: `1px solid ${colors.primary}22` }}>
                     <h3 className="text-center font-bold mb-6" style={{ color: colors.primary }}>
                         {lang === 'jp' ? 'FAN NAME' : 'FAN NAME'}
                     </h3>
                     <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-                        <div className="p-4 rounded-lg text-center bg-[#1a1a1f] border border-[#5B8FA8]/30">
+                        <div className="p-4 rounded-lg text-center shadow-md" style={{ backgroundColor: colors.bgCard, border: `2px solid ${colors.primary}44` }}>
                             <div className="text-xl font-bold mb-2" style={{ color: colors.primary }}>
                                 {lang === 'jp' ? profileData.fanNames.nagi.name.jp : profileData.fanNames.nagi.name.en}
                             </div>
-                            <p className="text-sm opacity-80">
+                            <p className="text-sm" style={{ color: colors.textDark + 'CC' }}>
                                 {lang === 'jp' ? profileData.fanNames.nagi.desc.jp : profileData.fanNames.nagi.desc.en}
                             </p>
                         </div>
-                        <div className="p-4 rounded-lg text-center bg-[#1a1a1f] border border-[#C75C5C]/30">
+                        <div className="p-4 rounded-lg text-center shadow-md" style={{ backgroundColor: colors.bgCard, border: `2px solid ${colors.secondary}44` }}>
                             <div className="text-xl font-bold mb-2" style={{ color: colors.secondary }}>
                                 {lang === 'jp' ? profileData.fanNames.nami.name.jp : profileData.fanNames.nami.name.en}
                             </div>
-                            <p className="text-sm opacity-80">
+                            <p className="text-sm" style={{ color: colors.textDark + 'CC' }}>
                                 {lang === 'jp' ? profileData.fanNames.nami.desc.jp : profileData.fanNames.nami.desc.en}
                             </p>
                         </div>
@@ -292,11 +304,11 @@ export default function NagisaKaedePage() {
                     {t.news}
                 </h2>
 
-                {newsData.length === 0 ? (
+                {visibleNews.length === 0 ? (
                     <EmptyState message={t.newsEmpty} />
                 ) : (
                     <div className="space-y-4">
-                        {newsData.map((item) => (
+                        {visibleNews.map((item) => (
                             <NewsCard key={item.id} item={item} lang={lang} />
                         ))}
                     </div>
@@ -314,11 +326,11 @@ export default function NagisaKaedePage() {
                     {t.discography}
                 </h2>
 
-                {discographyData.length === 0 ? (
+                {visibleDiscography.length === 0 ? (
                     <EmptyState message={t.discographyEmpty} />
                 ) : (
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                        {discographyData.map((track) => (
+                        {visibleDiscography.map((track) => (
                             <TrackCard key={track.id} track={track} lang={lang} />
                         ))}
                     </div>
@@ -414,8 +426,8 @@ export default function NagisaKaedePage() {
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 px-6 py-3 rounded-full border transition-all hover:scale-105 hover:bg-white/5"
-                            style={{ borderColor: colors.primary }}
+                            className="flex items-center gap-2 px-6 py-3 rounded-full transition-all hover:scale-105 shadow-md font-medium"
+                            style={{ backgroundColor: colors.bgCard, border: `2px solid ${colors.primary}`, color: colors.primary }}
                         >
                             <span className="text-xl">{link.icon}</span>
                             <span>{lang === 'jp' ? link.label.jp : link.label.en}</span>
@@ -440,17 +452,18 @@ export default function NagisaKaedePage() {
             {/* FOOTER */}
             {/* ============================================================ */}
             <footer
-                className="border-t py-8 mt-8"
-                style={{ borderColor: colors.primary + '33' }}
+                className="py-8 mt-8"
+                style={{ backgroundColor: colors.bgCard, borderTop: `1px solid ${colors.primary}33` }}
             >
                 <div className="max-w-4xl mx-auto px-4 text-center">
                     <Link
                         href="/nagisa-kaede/privacy"
-                        className="text-sm opacity-60 hover:opacity-100 transition-opacity mb-4 inline-block"
+                        className="text-sm hover:underline transition-opacity mb-4 inline-block"
+                        style={{ color: colors.primary }}
                     >
                         {t.privacy}
                     </Link>
-                    <p className="text-sm opacity-40">{t.copyright}</p>
+                    <p className="text-sm" style={{ color: colors.textDark + '88' }}>{t.copyright}</p>
                 </div>
             </footer>
 
@@ -477,14 +490,14 @@ export default function NagisaKaedePage() {
 function EmptyState({ message }: { message: string }) {
     return (
         <div
-            className="text-center py-16 rounded-xl"
-            style={{ backgroundColor: '#1a1a1f' }}
+            className="text-center py-16 rounded-xl shadow-lg"
+            style={{ backgroundColor: colors.bgCard, border: `2px dashed ${colors.primary}44` }}
         >
-            <div className="text-4xl mb-4 opacity-30">✨</div>
-            <p className="text-lg font-bold mb-2" style={{ color: colors.accent }}>
+            <div className="text-4xl mb-4">✨</div>
+            <p className="text-lg font-bold mb-2" style={{ color: colors.primary }}>
                 COMING SOON
             </p>
-            <p className="text-sm opacity-60">{message}</p>
+            <p className="text-sm" style={{ color: colors.textDark + '99' }}>{message}</p>
         </div>
     );
 }
@@ -494,20 +507,20 @@ function NewsCard({ item, lang }: { item: NewsItem; lang: 'jp' | 'en' }) {
     const categoryLabel = categoryLabels[item.category];
     return (
         <article
-            className="p-4 rounded-xl transition-all hover:scale-[1.02]"
-            style={{ backgroundColor: '#1a1a1f' }}
+            className="p-4 rounded-xl transition-all hover:scale-[1.02] shadow-md"
+            style={{ backgroundColor: colors.bgCard, border: `1px solid ${colors.primary}22` }}
         >
             <div className="flex items-center gap-3 mb-2">
-                <time className="text-xs opacity-50">{item.date}</time>
+                <time className="text-xs" style={{ color: colors.textDark + '88' }}>{item.date}</time>
                 <span
-                    className="text-xs px-2 py-0.5 rounded-full"
-                    style={{ backgroundColor: colors.primary + '33', color: colors.primary }}
+                    className="text-xs px-2 py-0.5 rounded-full font-medium"
+                    style={{ backgroundColor: colors.primary + '22', color: colors.primary }}
                 >
                     {lang === 'jp' ? categoryLabel.jp : categoryLabel.en}
                 </span>
             </div>
-            <h3 className="font-bold mb-1">{lang === 'jp' ? item.title.jp : item.title.en}</h3>
-            <p className="text-sm opacity-60">{lang === 'jp' ? item.content.jp : item.content.en}</p>
+            <h3 className="font-bold mb-1" style={{ color: colors.textDark }}>{lang === 'jp' ? item.title.jp : item.title.en}</h3>
+            <p className="text-sm" style={{ color: colors.textDark + 'AA' }}>{lang === 'jp' ? item.content.jp : item.content.en}</p>
         </article>
     );
 }
@@ -516,8 +529,8 @@ function NewsCard({ item, lang }: { item: NewsItem; lang: 'jp' | 'en' }) {
 function TrackCard({ track, lang }: { track: Track; lang: 'jp' | 'en' }) {
     return (
         <article
-            className="rounded-xl overflow-hidden transition-all hover:scale-105 min-w-0 w-full"
-            style={{ backgroundColor: '#1a1a1f' }}
+            className="rounded-xl overflow-hidden transition-all hover:scale-105 min-w-0 w-full shadow-md"
+            style={{ backgroundColor: colors.bgCard, border: `1px solid ${colors.secondary}22` }}
         >
             <img
                 src={track.coverArt}
@@ -525,8 +538,8 @@ function TrackCard({ track, lang }: { track: Track; lang: 'jp' | 'en' }) {
                 className="w-full max-w-full aspect-square object-cover"
             />
             <div className="p-3">
-                <h3 className="font-bold text-sm truncate">{lang === 'jp' ? track.title.jp : track.title.en}</h3>
-                <p className="text-xs opacity-50">{track.releaseDate}</p>
+                <h3 className="font-bold text-sm truncate" style={{ color: colors.textDark }}>{lang === 'jp' ? track.title.jp : track.title.en}</h3>
+                <p className="text-xs" style={{ color: colors.textDark + '88' }}>{track.releaseDate}</p>
             </div>
         </article>
     );

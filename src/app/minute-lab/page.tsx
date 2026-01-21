@@ -14,9 +14,13 @@ export default function MinuteLabPage() {
     const [lang, setLang] = useState<Language>('jp');
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [readArticles, setReadArticles] = useState<string[]>([]);
+    const [favorites, setFavorites] = useState<string[]>([]);
+    const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
     const t = translations[lang];
-    const filteredArticles = getArticlesByCategory(selectedCategory);
+    const filteredArticles = getArticlesByCategory(selectedCategory).filter(
+        article => !showFavoritesOnly || favorites.includes(article.slug)
+    );
 
     // 意図: 読了履歴をLocalStorageから読み込み
     useEffect(() => {
@@ -24,7 +28,24 @@ export default function MinuteLabPage() {
         if (saved) {
             setReadArticles(JSON.parse(saved));
         }
+        const savedFavorites = localStorage.getItem('minute-lab-favorites');
+        if (savedFavorites) {
+            setFavorites(JSON.parse(savedFavorites));
+        }
     }, []);
+
+    // 意図: お気に入りのトグル
+    const toggleFavorite = (e: React.MouseEvent, slug: string) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setFavorites(prev => {
+            const newFavorites = prev.includes(slug)
+                ? prev.filter(s => s !== slug)
+                : [...prev, slug];
+            localStorage.setItem('minute-lab-favorites', JSON.stringify(newFavorites));
+            return newFavorites;
+        });
+    };
 
     return (
         <main className="min-h-screen bg-gradient-to-br from-slate-50 to-amber-50">
@@ -96,6 +117,17 @@ export default function MinuteLabPage() {
                             <span>{cat.name[lang]}</span>
                         </button>
                     ))}
+                    {/* 意図: お気に入りフィルター */}
+                    <button
+                        onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${showFavoritesOnly
+                            ? 'bg-pink-500 text-white shadow-md'
+                            : 'bg-white text-slate-600 hover:bg-pink-50 border border-slate-200'
+                            }`}
+                    >
+                        <span>{showFavoritesOnly ? '❤️' : '🤍'}</span>
+                        <span>{t.favorites} ({favorites.length})</span>
+                    </button>
                 </div>
 
                 {/* 意図: 記事カードグリッド */}
@@ -121,10 +153,21 @@ export default function MinuteLabPage() {
                                         />
                                         {/* 意図: 読了バッジ */}
                                         {isRead && (
-                                            <div className="absolute top-3 right-3 bg-green-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
+                                            <div className="absolute top-3 left-3 bg-green-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
                                                 ✅ {t.completed}
                                             </div>
                                         )}
+                                        {/* 意図: お気に入りボタン */}
+                                        <button
+                                            onClick={(e) => toggleFavorite(e, article.slug)}
+                                            className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-md ${favorites.includes(article.slug)
+                                                    ? 'bg-pink-500 text-white'
+                                                    : 'bg-white/90 text-slate-400 hover:text-pink-500'
+                                                }`}
+                                            title={favorites.includes(article.slug) ? t.removeFavorite : t.addFavorite}
+                                        >
+                                            {favorites.includes(article.slug) ? '❤️' : '🤍'}
+                                        </button>
                                     </div>
 
                                     {/* 意図: 記事情報 */}

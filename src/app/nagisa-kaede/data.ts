@@ -11,6 +11,7 @@ export interface NewsItem {
     title: { jp: string; en: string };
     content: { jp: string; en: string };
     link?: string;
+    publishAt?: string;     // 公開日時 (ISO 8601)
 }
 
 // 楽曲/ディスコグラフィのデータ構造
@@ -23,6 +24,7 @@ export interface Track {
     lyrics?: { jp: string; en: string };
     credits?: { role: string; name: string }[];
     streamLinks?: { platform: string; url: string; icon: string }[];
+    publishAt?: string;     // 公開日時
 }
 
 // ギャラリーのデータ構造
@@ -49,6 +51,21 @@ export interface SocialLink {
 
 // ニュースデータ（サンプル）
 export const newsData: NewsItem[] = [
+    {
+        id: 'news-003',
+        date: '2026-01-23',
+        category: 'release',
+        title: {
+            jp: '2nd Single「光のあわと信号」MV公開',
+            en: '2nd Single "Hikari no Awa to Shingo" MV Released'
+        },
+        content: {
+            jp: '2ndシングル「光のあわと信号」のMusic Videoが公開されました。幻想的な世界観をぜひお楽しみください。',
+            en: 'The Music Video for the 2nd single "Hikari no Awa to Shingo" has been released. Please enjoy its fantastic world view.'
+        },
+        link: 'https://youtu.be/lKfth4l0Cjw',
+        publishAt: '2026-01-23T19:00:00+09:00',
+    },
     {
         id: 'news-002',
         date: '2026-01-20',
@@ -80,6 +97,17 @@ export const newsData: NewsItem[] = [
 
 // ディスコグラフィデータ（空 - デビュー前）
 export const discographyData: Track[] = [
+    {
+        id: 'track-002',
+        title: { jp: '光のあわと信号', en: 'Hikari no Awa to Shingo' },
+        releaseDate: '2026-01-23',
+        coverArt: '/images/nagisa-kaede-portrait.png', // 仮画像
+        duration: '4:05',
+        streamLinks: [
+            { platform: 'YouTube', url: 'https://youtu.be/lKfth4l0Cjw', icon: '▶️' },
+        ],
+        publishAt: '2026-01-23T19:00:00+09:00',
+    },
     {
         id: 'track-001',
         title: { jp: '渚の約束 〜Kiss Me', en: 'Nagisa no Yakusoku ~Kiss Me' },

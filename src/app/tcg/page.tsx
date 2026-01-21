@@ -14,6 +14,27 @@ interface TypeInfo {
     gradient: [string, string];
 }
 
+interface HistoryItem {
+    id: string;
+    timestamp: number;
+    style: CardStyle;
+    typeId: string;
+    cardName: string;
+    cardHP: string;
+    cardATK: string;
+    cardDEF: string;
+    cardMana: string;
+    cardPower: string;
+    attack1Name: string;
+    attack1Damage: string;
+    attack1Desc: string;
+    attack2Name: string;
+    attack2Damage: string;
+    attack2Desc: string;
+    flavorText: string;
+    presetArtId?: string;
+}
+
 const cardStyles: Record<CardStyle, {
     name: string;
     types: TypeInfo[];
@@ -82,7 +103,6 @@ const styleDefaults: Record<CardStyle, Record<Language, { cardName: string; atta
     },
 };
 
-// Preset card art images
 const presetArtworks = [
     { id: 'fire-dragon', src: '/tcg/presets/fire-dragon.png', nameJa: '炎竜', nameEn: 'Fire Dragon', icon: '🔥' },
     { id: 'water-kraken', src: '/tcg/presets/water-kraken.png', nameJa: '水の怪物', nameEn: 'Kraken', icon: '💧' },
@@ -90,6 +110,121 @@ const presetArtworks = [
     { id: 'dark-knight', src: '/tcg/presets/dark-knight.png', nameJa: '闇騎士', nameEn: 'Dark Knight', icon: '🌑' },
     { id: 'electric-phoenix', src: '/tcg/presets/electric-phoenix.png', nameJa: '雷鳥', nameEn: 'Thunder Phoenix', icon: '⚡' },
     { id: 'holy-angel', src: '/tcg/presets/holy-angel.png', nameJa: '聖天使', nameEn: 'Holy Angel', icon: '✨' },
+];
+
+// 意図: 定番テンプレート（ワンクリックで全設定を読み込み）
+interface CardTemplate {
+    id: string;
+    nameJa: string;
+    nameEn: string;
+    icon: string;
+    style: CardStyle;
+    typeId: string;
+    cardName: { ja: string; en: string };
+    cardHP: string;
+    cardATK: string;
+    cardDEF: string;
+    cardMana: string;
+    cardPower: string;
+    attack1Name: { ja: string; en: string };
+    attack1Damage: string;
+    attack1Desc: { ja: string; en: string };
+    attack2Name: { ja: string; en: string };
+    attack2Damage: string;
+    attack2Desc: { ja: string; en: string };
+    flavorText: { ja: string; en: string };
+    presetArtId?: string;
+}
+
+const cardTemplates: CardTemplate[] = [
+    {
+        id: 'dragon-king',
+        nameJa: '竜王テンプレ',
+        nameEn: 'Dragon King',
+        icon: '🐉',
+        style: 'pocket',
+        typeId: 'fire',
+        cardName: { ja: '炎竜王バハムート', en: 'Bahamut, King of Fire' },
+        cardHP: '200',
+        cardATK: '3000',
+        cardDEF: '2500',
+        cardMana: '7',
+        cardPower: '6/6',
+        attack1Name: { ja: 'メガフレア', en: 'Mega Flare' },
+        attack1Damage: '100',
+        attack1Desc: { ja: '相手のベンチポケモン全員に30ダメージ。', en: 'Deal 30 damage to each of your opponent\'s Benched Pokemon.' },
+        attack2Name: { ja: '極炎爆', en: 'Inferno Burst' },
+        attack2Damage: '180',
+        attack2Desc: { ja: 'このポケモンについているエネルギーを2枚トラッシュ。', en: 'Discard 2 Energy from this Pokemon.' },
+        flavorText: { ja: '天空を制する竜の王。その炎は山をも溶かす。', en: 'The king of dragons ruling the sky. Its flames can melt mountains.' },
+        presetArtId: 'fire-dragon',
+    },
+    {
+        id: 'shadow-mage',
+        nameJa: '闇魔導士テンプレ',
+        nameEn: 'Shadow Mage',
+        icon: '🧙',
+        style: 'duel',
+        typeId: 'dark',
+        cardName: { ja: '闇魔導士アイシス', en: 'Aisis the Dark Sorcerer' },
+        cardHP: '100',
+        cardATK: '2500',
+        cardDEF: '2100',
+        cardMana: '5',
+        cardPower: '4/3',
+        attack1Name: { ja: '暗黒の波動', en: 'Dark Pulse' },
+        attack1Damage: '',
+        attack1Desc: { ja: 'このカードが召喚に成功した時、相手のモンスター1体を選択して破壊する。', en: 'When this card is summoned: Target 1 monster your opponent controls; destroy it.' },
+        attack2Name: { ja: '', en: '' },
+        attack2Damage: '',
+        attack2Desc: { ja: '', en: '' },
+        flavorText: { ja: '深淵の闇からの使者。', en: 'A messenger from the deepest darkness.' },
+        presetArtId: 'dark-knight',
+    },
+    {
+        id: 'holy-seraph',
+        nameJa: '天使テンプレ',
+        nameEn: 'Holy Seraph',
+        icon: '👼',
+        style: 'mana',
+        typeId: 'white',
+        cardName: { ja: '大天使セラフィナ', en: 'Seraphina, Archangel' },
+        cardHP: '150',
+        cardATK: '2000',
+        cardDEF: '3000',
+        cardMana: '4',
+        cardPower: '4/5',
+        attack1Name: { ja: '飛行、守備、絆', en: 'Flying, Vigilance, Lifelink' },
+        attack1Damage: '',
+        attack1Desc: { ja: 'このクリーチャーが攻撃するたび、2点のライフを得る。', en: 'Whenever this creature attacks, you gain 2 life.' },
+        attack2Name: { ja: '', en: '' },
+        attack2Damage: '',
+        attack2Desc: { ja: '', en: '' },
+        flavorText: { ja: '大空を舞う光の使者。', en: 'A messenger of light dancing in the sky.' },
+        presetArtId: 'holy-angel',
+    },
+    {
+        id: 'deep-sea',
+        nameJa: '深海の帝王テンプレ',
+        nameEn: 'Deep Sea Emperor',
+        icon: '🦬',
+        style: 'pocket',
+        typeId: 'water',
+        cardName: { ja: '深海王クラーケン', en: 'Kraken, Emperor of the Deep' },
+        cardHP: '180',
+        cardATK: '2800',
+        cardDEF: '2400',
+        cardMana: '6',
+        cardPower: '5/5',
+        attack1Name: { ja: '茂る波浪', en: 'Tidal Wave' },
+        attack1Damage: '60',
+        attack1Desc: { ja: '相手のベンチポケモンにもそれぞれ20ダメージ。', en: 'Also do 20 damage to each of opponent\'s Benched Pokemon.' },
+        attack2Name: { ja: 'アビスの特異点', en: 'Abyss Singularity' },
+        attack2Damage: '120',
+        attack2Desc: { ja: '次のターン、このポケモンはワザを使えない。', en: 'This Pokemon can\'t use attacks during your next turn.' },
+        flavorText: { ja: '深海から全てを飲み込む者。', en: 'The one who swallows all from the deep sea.' },
+        presetArtId: 'water-kraken',
+    },
 ];
 
 const translations = {
@@ -120,6 +255,12 @@ const translations = {
         'ad.space': '広告スペース',
         'howto.title': '使い方',
         'input.presets': 'プリセットから選ぶ',
+        'history.title': '作成履歴',
+        'history.save': '履歴に保存',
+        'history.empty': '履歴はまだありません。',
+        'history.restore': '復元',
+        'template.title': 'テンプレート',
+        'template.use': 'このテンプレを使用',
     },
     en: {
         title: 'Card Generator',
@@ -148,6 +289,12 @@ const translations = {
         'ad.space': 'Ad Space',
         'howto.title': 'How to Use',
         'input.presets': 'Select Preset Art',
+        'history.title': 'Recent History',
+        'history.save': 'Save to History',
+        'history.empty': 'No history yet.',
+        'history.restore': 'Restore',
+        'template.title': 'Templates',
+        'template.use': 'Use Template',
     },
 };
 
@@ -175,9 +322,23 @@ export default function TCGPage() {
     const [attack2Damage, setAttack2Damage] = useState('80');
     const [attack2Desc, setAttack2Desc] = useState('');
     const [flavorText, setFlavorText] = useState('');
+    const [history, setHistory] = useState<HistoryItem[]>([]);
+    const [currentPresetId, setCurrentPresetId] = useState<string | undefined>(undefined);
 
     const t = translations[lang];
     const styleConfig = cardStyles[style];
+
+    // Load history on mount
+    useEffect(() => {
+        const savedHistory = localStorage.getItem('saison-lab-tcg-history');
+        if (savedHistory) {
+            try {
+                setHistory(JSON.parse(savedHistory));
+            } catch (e) {
+                console.error('Failed to parse history', e);
+            }
+        }
+    }, []);
 
     // Apply defaults when style or language changes
     useEffect(() => {
@@ -191,6 +352,92 @@ export default function TCGPage() {
         setCurrentType(styleConfig.types[0].id);
         setImageOffset({ x: 0, y: 0 });
     }, [style, lang, styleConfig.types]);
+
+    // Save history to localStorage
+    const saveHistoryToLocal = (newHistory: HistoryItem[]) => {
+        localStorage.setItem('saison-lab-tcg-history', JSON.stringify(newHistory));
+    };
+
+    const saveToHistory = () => {
+        const newItem: HistoryItem = {
+            id: Math.random().toString(36).substr(2, 9),
+            timestamp: Date.now(),
+            style,
+            typeId: currentType,
+            cardName,
+            cardHP,
+            cardATK,
+            cardDEF,
+            cardMana,
+            cardPower,
+            attack1Name,
+            attack1Damage,
+            attack1Desc,
+            attack2Name,
+            attack2Damage,
+            attack2Desc,
+            flavorText,
+            presetArtId: currentPresetId
+        };
+        const newHistory = [newItem, ...history].slice(0, 10); // Keep last 10
+        setHistory(newHistory);
+        saveHistoryToLocal(newHistory);
+    };
+
+    const removeFromHistory = (id: string) => {
+        const newHistory = history.filter(item => item.id !== id);
+        setHistory(newHistory);
+        saveHistoryToLocal(newHistory);
+    };
+
+    const loadFromHistory = (item: HistoryItem) => {
+        setStyle(item.style);
+        setCurrentType(item.typeId);
+        setCardName(item.cardName);
+        setCardHP(item.cardHP);
+        setCardATK(item.cardATK);
+        setCardDEF(item.cardDEF);
+        setCardMana(item.cardMana);
+        setCardPower(item.cardPower);
+        setAttack1Name(item.attack1Name);
+        setAttack1Damage(item.attack1Damage);
+        setAttack1Desc(item.attack1Desc);
+        setAttack2Name(item.attack2Name);
+        setAttack2Damage(item.attack2Damage);
+        setAttack2Desc(item.attack2Desc);
+        setFlavorText(item.flavorText);
+
+        if (item.presetArtId) {
+            const preset = presetArtworks.find(p => p.id === item.presetArtId);
+            if (preset) handlePresetSelect(preset.src);
+            setCurrentPresetId(item.presetArtId);
+        }
+    };
+
+    // 意図: テンプレートを読み込み
+    const loadTemplate = (template: CardTemplate) => {
+        setStyle(template.style);
+        setCurrentType(template.typeId);
+        setCardName(template.cardName[lang]);
+        setCardHP(template.cardHP);
+        setCardATK(template.cardATK);
+        setCardDEF(template.cardDEF);
+        setCardMana(template.cardMana);
+        setCardPower(template.cardPower);
+        setAttack1Name(template.attack1Name[lang]);
+        setAttack1Damage(template.attack1Damage);
+        setAttack1Desc(template.attack1Desc[lang]);
+        setAttack2Name(template.attack2Name[lang]);
+        setAttack2Damage(template.attack2Damage);
+        setAttack2Desc(template.attack2Desc[lang]);
+        setFlavorText(template.flavorText[lang]);
+
+        if (template.presetArtId) {
+            const preset = presetArtworks.find(p => p.id === template.presetArtId);
+            if (preset) handlePresetSelect(preset.src);
+            setCurrentPresetId(template.presetArtId);
+        }
+    };
 
     const getTypeInfo = useCallback((typeId: string): TypeInfo => {
         return styleConfig.types.find(t => t.id === typeId) || styleConfig.types[0];
@@ -544,6 +791,7 @@ export default function TCGPage() {
                 img.onload = () => {
                     setUploadedImage(img);
                     setImageOffset({ x: 0, y: 0 });
+                    setCurrentPresetId(undefined);
                 };
                 img.src = ev.target?.result as string;
             };
@@ -558,6 +806,7 @@ export default function TCGPage() {
         img.onload = () => {
             setUploadedImage(img);
             setImageOffset({ x: 0, y: 0 });
+            setCurrentPresetId(presetArtworks.find(p => p.src === src)?.id);
         };
         img.src = src;
     };
@@ -727,6 +976,32 @@ export default function TCGPage() {
                         </div>
                     </div>
 
+                    {/* Template selection */}
+                    <div className="mb-6">
+                        <label className="block text-[rgba(255,255,255,0.8)] text-sm font-semibold uppercase tracking-wide mb-3">
+                            📋 {t['template.title']}
+                        </label>
+                        <div className="grid grid-cols-2 gap-2">
+                            {cardTemplates.map((template) => (
+                                <button
+                                    key={template.id}
+                                    onClick={() => loadTemplate(template)}
+                                    className="group flex items-center gap-2 p-3 rounded-lg bg-[rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.2)] hover:border-yellow-400 hover:bg-[rgba(255,215,0,0.1)] transition-all text-left"
+                                >
+                                    <span className="text-2xl">{template.icon}</span>
+                                    <div>
+                                        <div className="text-white text-sm font-bold">
+                                            {lang === 'ja' ? template.nameJa : template.nameEn}
+                                        </div>
+                                        <div className="text-[10px] text-[rgba(255,255,255,0.5)] uppercase">
+                                            {template.style}
+                                        </div>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
                     {/* Form fields */}
                     <div className="space-y-4">
                         <div>
@@ -871,6 +1146,55 @@ export default function TCGPage() {
                 >
                     🔗 {t['action.share']}
                 </button>
+                <button
+                    onClick={saveToHistory}
+                    className="px-8 py-4 rounded-xl text-white font-bold uppercase tracking-wider shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl bg-gradient-to-r from-emerald-500 to-teal-500"
+                    style={{ fontFamily: 'Oswald, sans-serif' }}
+                >
+                    📜 {t['history.save']}
+                </button>
+            </div>
+
+            {/* History Section */}
+            <div className="max-w-[1400px] mx-auto px-4 mb-12 animate-fadeIn">
+                <h2 className="text-xl md:text-2xl font-bold text-white text-center mb-6" style={{ fontFamily: 'Oswald, sans-serif' }}>
+                    🕐 {t['history.title']}
+                </h2>
+                {history.length > 0 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                        {history.map((item) => (
+                            <div key={item.id} className="bg-[rgba(255,255,255,0.1)] backdrop-blur border border-[rgba(255,255,255,0.2)] rounded-xl p-3 relative group hover:border-yellow-400 transition-all">
+                                <div className="flex flex-col items-center gap-2">
+                                    <div className="text-3xl">
+                                        {item.presetArtId ? presetArtworks.find(p => p.id === item.presetArtId)?.icon : '👤'}
+                                    </div>
+                                    <div className="text-white text-sm font-bold truncate w-full text-center">
+                                        {item.cardName}
+                                    </div>
+                                    <div className="text-[rgba(255,255,255,0.5)] text-[10px]">
+                                        {new Date(item.timestamp).toLocaleDateString()}
+                                    </div>
+                                    <button
+                                        onClick={() => loadFromHistory(item)}
+                                        className="mt-2 w-full py-1.5 bg-[rgba(255,255,255,0.15)] hover:bg-yellow-400 hover:text-gray-900 text-white text-[10px] font-bold rounded transition-all"
+                                    >
+                                        {t['history.restore']}
+                                    </button>
+                                </div>
+                                <button
+                                    onClick={() => removeFromHistory(item.id)}
+                                    className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white text-xs rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shadow-lg"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center text-[rgba(255,255,255,0.4)] py-8 border-2 border-dashed border-[rgba(255,255,255,0.1)] rounded-2xl">
+                        {t['history.empty']}
+                    </div>
+                )}
             </div>
 
             {/* How to Use section */}

@@ -58,6 +58,9 @@ export interface Translations {
     readingProgress: string;
     adText: string;
     noArticles: string;
+    favorites: string;
+    addFavorite: string;
+    removeFavorite: string;
 }
 
 // 意図: カテゴリ定義
@@ -97,6 +100,9 @@ export const translations: Record<Language, Translations> = {
         readingProgress: '読了進捗',
         adText: '広告スペース',
         noArticles: '記事が見つかりません',
+        favorites: 'お気に入り',
+        addFavorite: 'お気に入りに追加',
+        removeFavorite: 'お気に入りから削除',
     },
     en: {
         title: 'MINUTE LAB',
@@ -119,5 +125,8 @@ export const translations: Record<Language, Translations> = {
         readingProgress: 'Reading progress',
         adText: 'Advertisement',
         noArticles: 'No articles found',
+        favorites: 'Favorites',
+        addFavorite: 'Add to favorites',
+        removeFavorite: 'Remove from favorites',
     },
 };
