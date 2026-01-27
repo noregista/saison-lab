@@ -24,7 +24,7 @@ const translations = {
         'app-kaede-desc': '「凪沙楓」の公式サイト。プロフィール、活動実績、各種リンクを網羅。',
         'no-results': '該当するアプリが見つかりません',
         'update-title': '更新履歴',
-        'update-kaede-renewal': '凪沙楓 公式サイトをリニューアルしました。',
+        'update-kaede-renewal': '凪沙楓 公式サイトを作成しました。',
         /*
         'update-1': 'MINUTE LABを追加しました。',
         'update-2': 'FRUIT LABを追加しました。',
