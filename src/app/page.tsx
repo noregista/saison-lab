@@ -10,7 +10,7 @@ const translations = {
         'logo-subtitle': '/ セゾン ラボ',
         'ad-text': '広告スペース / Advertisement',
         'profile-title': 'ひとりぼっちの開発者',
-        'profile-bio': '気ままに、つくりたいものをつくっています。もしお気に入りのひとつが見つかったら、ぜひ遊んでいってください。',
+        'profile-bio': '気ままに、つくりたいものをつくっています。\nもしお気に入りのひとつが見つかったら、ぜひ遊んでいってください。',
         'search-placeholder': 'アプリを検索...',
         'apps-title': 'アプリ一覧',
         'app-tcg-desc': 'オリジナルのTCGカードを簡単に作成できるジェネレーター。画像をアップロードして、テキストを入力するだけ。',
@@ -74,7 +74,7 @@ const translations = {
         'logo-subtitle': '/ Saison Lab',
         'ad-text': 'Advertisement',
         'profile-title': 'A Solo Developer',
-        'profile-bio': 'Creating what I want to create, at my own pace. If you find something you like, please feel free to explore.',
+        'profile-bio': 'Creating what I want to create, at my own pace.\nIf you find something you like, please feel free to explore.',
         'search-placeholder': 'Search apps...',
         'apps-title': 'Apps',
         'app-tcg-desc': 'A generator that makes it easy to create original TCG cards. Just upload an image and enter text.',
@@ -284,7 +284,7 @@ export default function HomePage() {
                         セゾン <span className="text-[#8b949e] font-normal">/ Saison</span>
                     </h1>
                     <p className="text-emerald font-medium mb-6">{t['profile-title']}</p>
-                    <p className="text-[#8b949e] max-w-[600px] mx-auto leading-relaxed">{t['profile-bio']}</p>
+                    <p className="text-[#8b949e] max-w-[600px] mx-auto leading-relaxed whitespace-pre-wrap">{t['profile-bio']}</p>
                 </section>
 
                 {/* Search Bar */}
