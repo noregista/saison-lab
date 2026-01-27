@@ -224,6 +224,7 @@ export default function HomePage() {
     const [lang, setLang] = useState<Language>('jp');
     const [searchQuery, setSearchQuery] = useState('');
     const [activeModal, setActiveModal] = useState<'privacy' | 'contact' | 'disclaimer' | 'about' | null>(null);
+    const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
     const t = translations[lang];
 
@@ -239,10 +240,34 @@ export default function HomePage() {
     const openModal = (type: 'privacy' | 'contact' | 'disclaimer' | 'about') => setActiveModal(type);
     const closeModal = () => setActiveModal(null);
 
-    const handleContactSubmit = (e: React.FormEvent) => {
+    const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        alert(lang === 'jp' ? 'お問い合わせありがとうございます。' : 'Thank you for your message.');
-        closeModal();
+        setFormStatus('submitting');
+
+        const formData = new FormData(e.currentTarget);
+
+        try {
+            const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                setFormStatus('success');
+                e.currentTarget.reset();
+                setTimeout(() => {
+                    closeModal();
+                    setFormStatus('idle');
+                }, 3000);
+            } else {
+                setFormStatus('error');
+            }
+        } catch (error) {
+            setFormStatus('error');
+        }
     };
 
     return (
@@ -413,23 +438,68 @@ export default function HomePage() {
                         <h2 className="text-2xl font-semibold text-emerald mb-6">{t['contact-title']}</h2>
                         <div className="text-[#8b949e] leading-relaxed">
                             <p className="mb-4">{t['contact-intro']}</p>
-                            <form onSubmit={handleContactSubmit} className="flex flex-col gap-4">
-                                <div className="flex flex-col gap-2">
-                                    <label className="text-white text-sm font-medium">{t['contact-name']}</label>
-                                    <input type="text" required placeholder={t['contact-name-placeholder']} className="p-3 bg-[#21262d] border border-[rgba(80,200,120,0.2)] rounded-lg text-white focus:outline-none focus:border-emerald" />
+                            {formStatus === 'success' ? (
+                                <div className="text-center py-12 animate-fadeIn">
+                                    <div className="text-5xl mb-4">✅</div>
+                                    <h3 className="text-white text-xl font-bold mb-2">
+                                        {lang === 'jp' ? '送信完了' : 'Message Sent'}
+                                    </h3>
+                                    <p>
+                                        {lang === 'jp'
+                                            ? 'お問い合わせありがとうございます。'
+                                            : 'Thank you for your message.'}
+                                    </p>
                                 </div>
-                                <div className="flex flex-col gap-2">
-                                    <label className="text-white text-sm font-medium">{t['contact-email']}</label>
-                                    <input type="email" required placeholder={t['contact-email-placeholder']} className="p-3 bg-[#21262d] border border-[rgba(80,200,120,0.2)] rounded-lg text-white focus:outline-none focus:border-emerald" />
-                                </div>
-                                <div className="flex flex-col gap-2">
-                                    <label className="text-white text-sm font-medium">{t['contact-message']}</label>
-                                    <textarea required placeholder={t['contact-message-placeholder']} rows={4} className="p-3 bg-[#21262d] border border-[rgba(80,200,120,0.2)] rounded-lg text-white resize-y min-h-[120px] focus:outline-none focus:border-emerald" />
-                                </div>
-                                <button type="submit" className="py-4 px-8 bg-gradient-to-br from-emerald to-emerald-dark border-none rounded-lg text-[#0d1117] font-semibold cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(80,200,120,0.3)]">
-                                    {t['contact-submit']}
-                                </button>
-                            </form>
+                            ) : (
+                                <form onSubmit={handleContactSubmit} className="flex flex-col gap-4">
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-white text-sm font-medium">{t['contact-name']}</label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            required
+                                            placeholder={t['contact-name-placeholder']}
+                                            className="p-3 bg-[#21262d] border border-[rgba(80,200,120,0.2)] rounded-lg text-white focus:outline-none focus:border-emerald"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-white text-sm font-medium">{t['contact-email']}</label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            required
+                                            placeholder={t['contact-email-placeholder']}
+                                            className="p-3 bg-[#21262d] border border-[rgba(80,200,120,0.2)] rounded-lg text-white focus:outline-none focus:border-emerald"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-white text-sm font-medium">{t['contact-message']}</label>
+                                        <textarea
+                                            name="message"
+                                            required
+                                            placeholder={t['contact-message-placeholder']}
+                                            rows={4}
+                                            className="p-3 bg-[#21262d] border border-[rgba(80,200,120,0.2)] rounded-lg text-white resize-y min-h-[120px] focus:outline-none focus:border-emerald"
+                                        />
+                                    </div>
+                                    {formStatus === 'error' && (
+                                        <p className="text-red-400 text-sm">
+                                            {lang === 'jp'
+                                                ? '送信に失敗しました。時間をおいて再度お試しください。'
+                                                : 'Failed to send message. Please try again later.'}
+                                        </p>
+                                    )}
+                                    <button
+                                        type="submit"
+                                        disabled={formStatus === 'submitting'}
+                                        className="py-4 px-8 bg-gradient-to-br from-emerald to-emerald-dark border-none rounded-lg text-[#0d1117] font-semibold cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(80,200,120,0.3)] disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {formStatus === 'submitting'
+                                            ? (lang === 'jp' ? '送信中...' : 'Sending...')
+                                            : t['contact-submit']}
+                                    </button>
+                                </form>
+                            )}
                         </div>
                     </div>
                 </div>
