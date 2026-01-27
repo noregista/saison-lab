@@ -24,10 +24,13 @@ const translations = {
         'app-kaede-desc': '「凪沙楓」の公式サイト。プロフィール、活動実績、各種リンクを網羅。',
         'no-results': '該当するアプリが見つかりません',
         'update-title': '更新履歴',
+        'update-kaede-renewal': '凪沙楓 公式サイトをリニューアルしました。',
+        /*
         'update-1': 'MINUTE LABを追加しました。',
         'update-2': 'FRUIT LABを追加しました。',
         'update-3': '楽器シリーズ（PIANO/SYNTH/XYLOPHONE/DRUM LAB）を追加しました。',
         'update-4': 'TCGカードジェネレーターを追加しました。',
+        */
         'footer-privacy': 'プライバシーポリシー',
         'footer-contact': 'お問い合わせ',
         'footer-disclaimer': '免責事項',
@@ -88,10 +91,13 @@ const translations = {
         'app-kaede-desc': 'Official site for "Nagisa Kaede". Covers profile, activities, and all links.',
         'no-results': 'No matching apps found',
         'update-title': 'Updates',
+        'update-kaede-renewal': 'Renewed Nagisa Kaede Official Site.',
+        /*
         'update-1': 'Added MINUTE LAB.',
         'update-2': 'Added FRUIT LAB.',
         'update-3': 'Added instrument series (PIANO/SYNTH/XYLOPHONE/DRUM LAB).',
         'update-4': 'Added TCG Card Generator.',
+        */
         'footer-privacy': 'Privacy Policy',
         'footer-contact': 'Contact',
         'footer-disclaimer': 'Disclaimer',
@@ -205,10 +211,13 @@ const apps = [
 ];
 
 const updates = [
+    { date: '2026.01.23', key: 'update-kaede-renewal' as const },
+    /*
     { date: '2026.01.20', key: 'update-1' as const },
     { date: '2026.01.19', key: 'update-2' as const },
     { date: '2026.01.18', key: 'update-3' as const },
     { date: '2026.01.17', key: 'update-4' as const },
+    */
 ];
 
 export default function HomePage() {
