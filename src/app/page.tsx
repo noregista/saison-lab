@@ -138,6 +138,14 @@ const translations = {
 
 const apps = [
     {
+        id: 'nagisa-kaede',
+        name: { jp: '凪沙楓 公式サイト', en: 'Nagisa Kaede Official Site' },
+        href: '/nagisa-kaede',
+        icon: '🍁',
+        descKey: 'app-kaede-desc' as const,
+    },
+    /*
+    {
         id: 'tcg',
         name: { jp: 'TCGカードジェネレーター', en: 'TCG Card Generator' },
         href: '/tcg',
@@ -193,6 +201,7 @@ const apps = [
         icon: '⏰',
         descKey: 'app-never-sleep-in-desc' as const,
     },
+    */
 ];
 
 const updates = [
